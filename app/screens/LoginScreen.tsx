@@ -87,8 +87,8 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         keyboardType="email-address"
         labelTx="loginScreen.emailFieldLabel"
         placeholderTx="loginScreen.emailFieldPlaceholder"
-        helper={error && error.emailError}
-        status={error && error.emailError ? "error" : undefined}
+        helper={error?.authEmail}
+        status={error?.authEmail ? "error" : undefined}
         onSubmitEditing={() => authPasswordInput.current?.focus()}
       />
    
@@ -102,8 +102,8 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         keyboardType="email-address"
         label="Username"
         placeholderTx="loginScreen.emailFieldPlaceholder"
-        helper={error && error.usernameError}
-        status={error && error.usernameError ? "error" : undefined}
+        helper={error?.username}
+        status={error?.username ? "error" : undefined}
       />
 
       <TextField

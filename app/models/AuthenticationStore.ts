@@ -1,3 +1,4 @@
+import { validateData } from "../validations/loginSchema"
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 
 export const AuthenticationStoreModel = types
@@ -12,26 +13,8 @@ export const AuthenticationStoreModel = types
       return !!store.authToken
     },
     get validationError() {
-      let errorObj = {
-        emailError: null,
-        usernameError: null
-      };
-
-      if (store.authEmail.length === 0) {
-        errorObj.emailError = "can't be blank"
-      }
-      if (store.authEmail.length < 6) {
-        errorObj.emailError = "must be at least 6 characters"
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(store.authEmail)) {
-        errorObj.emailError = "must be a valid email address";
-      }
-
-      if (store.username.length < 4) {
-        errorObj.usernameError = "username must be greater than 4"
-      }
-
-      return errorObj;
+      let errors = validateData({ authEmail: store.authEmail, username: store.username })
+      return errors;
     },
   }))
   .actions((store) => ({
