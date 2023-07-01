@@ -1,5 +1,9 @@
 import { ApiResponse } from "apisauce"
 
+export enum ResponseKind {
+  OK = "ok",
+}
+
 export type GeneralApiProblem =
   /**
    * Times up.

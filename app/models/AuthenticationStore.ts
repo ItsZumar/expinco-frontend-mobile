@@ -4,6 +4,7 @@ export const AuthenticationStoreModel = types
   .model("AuthenticationStore")
   .props({
     authToken: types.maybe(types.string),
+    username: "",
     authEmail: "",
   })
   .views((store) => ({
@@ -11,11 +12,26 @@ export const AuthenticationStoreModel = types
       return !!store.authToken
     },
     get validationError() {
-      if (store.authEmail.length === 0) return "can't be blank"
-      if (store.authEmail.length < 6) return "must be at least 6 characters"
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(store.authEmail))
-        return "must be a valid email address"
-      return ""
+      let errorObj = {
+        emailError: null,
+        usernameError: null
+      };
+
+      if (store.authEmail.length === 0) {
+        errorObj.emailError = "can't be blank"
+      }
+      if (store.authEmail.length < 6) {
+        errorObj.emailError = "must be at least 6 characters"
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(store.authEmail)) {
+        errorObj.emailError = "must be a valid email address";
+      }
+
+      if (store.username.length < 4) {
+        errorObj.usernameError = "username must be greater than 4"
+      }
+
+      return errorObj;
     },
   }))
   .actions((store) => ({
@@ -24,6 +40,9 @@ export const AuthenticationStoreModel = types
     },
     setAuthEmail(value: string) {
       store.authEmail = value.replace(/ /g, "")
+    },
+    setUsername(value: string) {
+      store.username = value
     },
     logout() {
       store.authToken = undefined

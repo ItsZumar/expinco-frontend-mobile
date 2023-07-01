@@ -13,11 +13,11 @@ import {
 } from "react-native"
 import { DrawerLayout, DrawerState } from "react-native-gesture-handler"
 import { useSharedValue, withTiming } from "react-native-reanimated"
-import { ListItem, Screen, Text } from "../../components"
+import { Screen, Text } from "../../components"
 import { isRTL } from "../../i18n"
 import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavigator"
 import { colors, spacing } from "../../theme"
-import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
+import { useSafeAreaInsetsStyle } from "../../hooks/useSafeAreaInsetsStyle"
 import * as Demos from "./demos"
 import { DrawerIconButton } from "./DrawerIconButton"
 
@@ -63,26 +63,6 @@ const WebListItem: FC<DemoListItem> = ({ item, sectionIndex }) => {
     </View>
   )
 }
-
-const NativeListItem: FC<DemoListItem> = ({ item, sectionIndex, handleScroll }) => {
-  return (
-    <View>
-      <Text onPress={() => handleScroll(sectionIndex)} preset="bold" style={$menuContainer}>
-        {item.name}
-      </Text>
-      {item.useCases.map((u, index) => (
-        <ListItem
-          key={`section${sectionIndex}-${u}`}
-          onPress={() => handleScroll(sectionIndex, index + 1)}
-          text={u}
-          rightIcon={isRTL ? "caretLeft" : "caretRight"}
-        />
-      ))}
-    </View>
-  )
-}
-
-const ShowroomListItem = Platform.select({ web: WebListItem, default: NativeListItem })
 
 export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
   function DemoShowroomScreen(_props) {
@@ -182,19 +162,6 @@ export const DemoShowroomScreen: FC<DemoTabScreenProps<"DemoShowroom">> =
             <View style={$logoContainer}>
               <Image source={logo} style={$logoImage} />
             </View>
-
-            <FlatList<{ name: string; useCases: string[] }>
-              ref={menuRef}
-              contentContainerStyle={$flatListContentContainer}
-              data={Object.values(Demos).map((d) => ({
-                name: d.name,
-                useCases: d.data.map((u) => u.props.name),
-              }))}
-              keyExtractor={(item) => item.name}
-              renderItem={({ item, index: sectionIndex }) => (
-                <ShowroomListItem {...{ item, sectionIndex, handleScroll }} />
-              )}
-            />
           </View>
         )}
       >
