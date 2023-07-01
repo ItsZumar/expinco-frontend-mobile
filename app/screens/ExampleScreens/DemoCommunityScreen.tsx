@@ -1,15 +1,15 @@
 import React, { FC } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Screen, Text } from "../components"
-import { DemoTabScreenProps } from "../navigators/DemoNavigator"
-import { spacing } from "../theme"
-import { openLinkInBrowser } from "../utils/openLinkInBrowser"
-import { isRTL } from "../i18n"
+import { Screen, Text } from "../../components"
+import { DemoTabScreenProps } from "../../navigators/DemoNavigator"
+import { spacing } from "../../theme"
+import { openLinkInBrowser } from "../../utils/openLinkInBrowser"
+import { isRTL } from "../../i18n"
 
-const chainReactLogo = require("../../assets/images/cr-logo.png")
-const reactNativeLiveLogo = require("../../assets/images/rnl-logo.png")
-const reactNativeRadioLogo = require("../../assets/images/rnr-logo.png")
-const reactNativeNewsletterLogo = require("../../assets/images/rnn-logo.png")
+const chainReactLogo = require("../../../assets/images/cr-logo.png")
+const reactNativeLiveLogo = require("../../../assets/images/rnl-logo.png")
+const reactNativeRadioLogo = require("../../../assets/images/rnr-logo.png")
+const reactNativeNewsletterLogo = require("../../../assets/images/rnn-logo.png")
 
 export const DemoCommunityScreen: FC<DemoTabScreenProps<"DemoCommunity">> =
   function DemoCommunityScreen(_props) {

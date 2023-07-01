@@ -13,15 +13,15 @@ import {
 } from "react-native"
 import { DrawerLayout, DrawerState } from "react-native-gesture-handler"
 import { useSharedValue, withTiming } from "react-native-reanimated"
-import { Screen, Text } from "../../components"
-import { isRTL } from "../../i18n"
-import { DemoTabParamList, DemoTabScreenProps } from "../../navigators/DemoNavigator"
-import { colors, spacing } from "../../theme"
-import { useSafeAreaInsetsStyle } from "../../hooks/useSafeAreaInsetsStyle"
+import { Screen, Text } from "../../../components"
+import { isRTL } from "../../../i18n"
+import { DemoTabParamList, DemoTabScreenProps } from "../../../navigators/DemoNavigator"
+import { colors, spacing } from "../../../theme"
+import { useSafeAreaInsetsStyle } from "../../../hooks/useSafeAreaInsetsStyle"
 import * as Demos from "./demos"
 import { DrawerIconButton } from "./DrawerIconButton"
 
-const logo = require("../../../assets/images/logo.png")
+const logo = require("../../../../assets/images/logo.png")
 
 export interface Demo {
   name: string
@@ -35,7 +35,7 @@ interface DemoListItem {
   handleScroll?: (sectionIndex: number, itemIndex?: number) => void
 }
 
-const slugify = (str) =>
+const slugify = (str: string) =>
   str
     .toLowerCase()
     .trim()

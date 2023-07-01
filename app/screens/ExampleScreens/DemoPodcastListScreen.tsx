@@ -21,20 +21,20 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated"
-import { Button, Card, EmptyState, Icon, Screen, Text, Toggle } from "../components"
-import { isRTL, translate } from "../i18n"
-import { useStores } from "../models"
-import { Episode } from "../models/Episode"
-import { DemoTabScreenProps } from "../navigators/DemoNavigator"
-import { colors, spacing } from "../theme"
-import { delay } from "../utils/delay"
-import { openLinkInBrowser } from "../utils/openLinkInBrowser"
+import { Button, Icon, Screen, Text, Toggle } from "../../components"
+import { isRTL, translate } from "../../i18n"
+import { useStores } from "../../models"
+import { Episode } from "../../models/Episode"
+import { DemoTabScreenProps } from "../../navigators/DemoNavigator"
+import { colors, spacing } from "../../theme"
+import { delay } from "../../utils/delay"
+import { openLinkInBrowser } from "../../utils/openLinkInBrowser"
 
 const ICON_SIZE = 14
 
-const rnrImage1 = require("../../assets/images/rnr-image-1.png")
-const rnrImage2 = require("../../assets/images/rnr-image-2.png")
-const rnrImage3 = require("../../assets/images/rnr-image-3.png")
+const rnrImage1 = require("../../../assets/images/rnr-image-1.png")
+const rnrImage2 = require("../../../assets/images/rnr-image-2.png")
+const rnrImage3 = require("../../../assets/images/rnr-image-3.png")
 const rnrImages = [rnrImage1, rnrImage2, rnrImage3]
 
 export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = observer(
@@ -76,24 +76,7 @@ export const DemoPodcastListScreen: FC<DemoTabScreenProps<"DemoPodcastList">> = 
             isLoading ? (
               <ActivityIndicator />
             ) : (
-              <EmptyState
-                preset="generic"
-                style={$emptyState}
-                headingTx={
-                  episodeStore.favoritesOnly
-                    ? "demoPodcastListScreen.noFavoritesEmptyState.heading"
-                    : undefined
-                }
-                contentTx={
-                  episodeStore.favoritesOnly
-                    ? "demoPodcastListScreen.noFavoritesEmptyState.content"
-                    : undefined
-                }
-                button={episodeStore.favoritesOnly ? null : undefined}
-                buttonOnPress={manualRefresh}
-                imageStyle={$emptyStateImage}
-                ImageProps={{ resizeMode: "contain" }}
-              />
+              null
             )
           }
           ListHeaderComponent={
@@ -237,57 +220,7 @@ const EpisodeCard = observer(function EpisodeCard({
   )
 
   return (
-    <Card
-      style={$item}
-      verticalAlignment="force-footer-bottom"
-      onPress={handlePressCard}
-      onLongPress={handlePressFavorite}
-      HeadingComponent={
-        <View style={$metadata}>
-          <Text
-            style={$metadataText}
-            size="xxs"
-            accessibilityLabel={episode.datePublished.accessibilityLabel}
-          >
-            {episode.datePublished.textLabel}
-          </Text>
-          <Text
-            style={$metadataText}
-            size="xxs"
-            accessibilityLabel={episode.duration.accessibilityLabel}
-          >
-            {episode.duration.textLabel}
-          </Text>
-        </View>
-      }
-      content={`${episode.parsedTitleAndSubtitle.title} - ${episode.parsedTitleAndSubtitle.subtitle}`}
-      {...accessibilityHintProps}
-      RightComponent={<Image source={imageUri} style={$itemThumbnail} />}
-      FooterComponent={
-        <Button
-          onPress={handlePressFavorite}
-          onLongPress={handlePressFavorite}
-          style={[$favoriteButton, isFavorite && $unFavoriteButton]}
-          accessibilityLabel={
-            isFavorite
-              ? translate("demoPodcastListScreen.accessibility.unfavoriteIcon")
-              : translate("demoPodcastListScreen.accessibility.favoriteIcon")
-          }
-          LeftAccessory={ButtonLeftAccessory}
-        >
-          <Text
-            size="xxs"
-            accessibilityLabel={episode.duration.accessibilityLabel}
-            weight="medium"
-            text={
-              isFavorite
-                ? translate("demoPodcastListScreen.unfavoriteButton")
-                : translate("demoPodcastListScreen.favoriteButton")
-            }
-          />
-        </Button>
-      }
-    />
+    null
   )
 })
 
