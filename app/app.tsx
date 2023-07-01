@@ -70,11 +70,7 @@ interface AppProps {
  */
 function App(props: AppProps) {
   const { hideSplashScreen } = props
-  const {
-    initialNavigationState,
-    onNavigationStateChange,
-    isRestored: isNavigationStateRestored,
-  } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
+  const { initialNavigationState, onNavigationStateChange, isRestored: isNavigationStateRestored, } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
 
   const [areFontsLoaded] = useFonts(customFontsToLoad)
 
