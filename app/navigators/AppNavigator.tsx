@@ -39,9 +39,7 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
-  const {
-    authenticationStore: { isAuthenticated },
-  } = useStores()
+  const { authenticationStore: { isAuthenticated } } = useStores()
 
   return (
     <Stack.Navigator
