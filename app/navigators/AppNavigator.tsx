@@ -9,6 +9,7 @@ import { DemoNavigator, DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "app/navigators/navigationUtilities"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
 import { DarkTheme, DefaultTheme, NavigatorScreenParams, NavigationContainer } from "@react-navigation/native"
+import { ScreensEnum } from "app/enums"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -19,8 +20,8 @@ import { DarkTheme, DefaultTheme, NavigatorScreenParams, NavigationContainer } f
  * rather than passing state through navigation params.
  */
 export type AppStackParamList = {
+  Signin: undefined
   Welcome: undefined
-  Login: undefined
   Demo: NavigatorScreenParams<DemoTabParamList>
   // 🔥 Your screens go here
 }
@@ -31,10 +32,7 @@ export type AppStackParamList = {
  */
 const exitRoutes = Config.exitRoutes
 
-export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
-  AppStackParamList,
-  T
->
+export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<AppStackParamList, T>
 
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
@@ -48,7 +46,7 @@ const AppStack = observer(function AppStack() {
         navigationBarColor: colors.background,
         animation: "slide_from_right",
       }}
-      initialRouteName={isAuthenticated ? "Welcome" : "Login"}
+      initialRouteName={isAuthenticated ? "Welcome" : ScreensEnum.SIGNIN}
     >
       {isAuthenticated ? (
         <>
@@ -57,7 +55,7 @@ const AppStack = observer(function AppStack() {
         </>
       ) : (
         <>
-          <Stack.Screen name="Login" component={Screens.LoginScreen} />
+          <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.LoginScreen} />
         </>
       )}
     </Stack.Navigator>
@@ -75,7 +73,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
   return (
     <NavigationContainer
       ref={navigationRef}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      // theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
     >
       <AppStack />
