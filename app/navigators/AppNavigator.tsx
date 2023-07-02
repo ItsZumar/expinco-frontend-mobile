@@ -55,7 +55,7 @@ const AppStack = observer(function AppStack() {
         </>
       ) : (
         <>
-          <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.LoginScreen} />
+          <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
         </>
       )}
     </Stack.Navigator>
@@ -73,7 +73,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
   return (
     <NavigationContainer
       ref={navigationRef}
-      // theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
     >
       <AppStack />

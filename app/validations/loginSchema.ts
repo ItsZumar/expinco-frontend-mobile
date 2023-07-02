@@ -2,18 +2,20 @@ import { z } from "zod"
 
 // Define the validation schema using Zod
 const loginSchema = z.object({
-  authEmail: z
+  email: z
     .string()
-    .min(6, "Must be at least 6 characters")
-    .email("Must be a valid email address"),
-  username: z.string().min(4, "Username must be greater than 4"),
+    .email("Enter a valid email")
+    .min(5, "Email is required"),
+  password: z.string().min(4, "Password is required"),
 })
 
+type ErrorObj = Partial<{ email: string; password: string }>;
+
 // Function to validate the data using the Zod schema
-export const validateData = (data: { authEmail: string; username: string }) => {
-  const errorObj: { authEmail: string; username: string } = {
-    authEmail: null,
-    username: null,
+export const validateData = (data: ErrorObj) => {
+  const errorObj: ErrorObj = {
+    email: null,
+    password: null,
   }
 
   try {
@@ -21,9 +23,9 @@ export const validateData = (data: { authEmail: string; username: string }) => {
     return errorObj
   } catch (error) {
     // Convert the Zod error to a custom error object
-    error.errors.forEach((err) => {
+    error.errors.forEach((err: any) => {
       const fieldName = err.path.join("Error")
-      errorObj[fieldName] = err.message
+      errorObj[fieldName as keyof ErrorObj] = err.message
     })
 
     return errorObj

@@ -3,7 +3,11 @@ const en = {
     ok: "OK!",
     cancel: "Cancel",
     back: "Back",
-    logOut: "Log Out", // @demo remove-current-line
+    logOut: "Log Out",
+    signup: "Sign Up",
+    login: "Login",
+    email: "Email",
+    password: "Password",
   },
   welcomeScreen: {
     postscript:
@@ -119,7 +123,13 @@ const en = {
         "No favorites have been added yet. Tap the heart on an episode to add it to your favorites!",
     },
   },
-  // @demo remove-block-end
+  signinScreen: {
+    signin: "Signin",
+    forgotPass: "Forgot Password ?",
+    donthaveaccount: "Don't have an account yet?",
+    enterEmail: "Enter email",
+    enterPass: "Enter password",
+  },
 }
 
 export default en

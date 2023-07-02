@@ -11,18 +11,19 @@ const palette = {
   neutral800: "#191015",
   neutral900: "#000000",
 
-  primary100: "#F4E0D9",
-  primary200: "#E8C1B4",
-  primary300: "#DDA28E",
-  primary400: "#D28468",
-  primary500: "#C76542",
-  primary600: "#A54F31",
+  primary100: "#d5bfff",
+  primary200: "#b995ff",
+  primary300: "#9d6aff",
+  primary400: "#7F3DFF",
+  primary500: "#6515ff",
+  primary600: "#5000ea",
 
-  secondary100: "#DCDDE9",
-  secondary200: "#BCC0D6",
-  secondary300: "#9196B9",
-  secondary400: "#626894",
-  secondary500: "#41476E",
+  secondary100: "#95c6ff",
+  secondary200: "#6ab0ff",
+  secondary300: "#4099ff",
+  secondary400: "#1582ff",
+  secondary500: "#006dea",
+  secondary600: "#0059bf",
 
   accent100: "#FFEED4",
   accent200: "#FFE1B2",
@@ -30,8 +31,8 @@ const palette = {
   accent400: "#FBC878",
   accent500: "#FFBB50",
 
-  angry100: "#F2D6CD",
-  angry500: "#C03403",
+  angry100: "#ffbfbf",
+  angry500: "#ff4040",
 
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
@@ -59,7 +60,7 @@ export const colors = {
   /**
    * The default color of the screen background.
    */
-  background: palette.neutral200,
+  background: palette.neutral100,
   /**
    * The default border color.
    */
@@ -68,17 +69,8 @@ export const colors = {
    * The main tinting color.
    */
   tint: palette.primary500,
-  /**
-   * A subtle color used for lines.
-   */
+  
   separator: palette.neutral300,
-  /**
-   * Error messages.
-   */
   error: palette.angry500,
-  /**
-   * Error Background.
-   *
-   */
   errorBackground: palette.angry100,
 }

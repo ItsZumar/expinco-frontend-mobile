@@ -89,14 +89,14 @@ export function Button(props: ButtonProps) {
   } = props
 
   const preset: Presets = $viewPresets[props.preset] ? props.preset : "default"
-  function $viewStyle({ pressed }) {
+  function $viewStyle({ pressed }: PressableStateCallbackType) {
     return [
       $viewPresets[preset],
       $viewStyleOverride,
       !!pressed && [$pressedViewPresets[preset], $pressedViewStyleOverride],
     ]
   }
-  function $textStyle({ pressed }) {
+  function $textStyle({ pressed }: PressableStateCallbackType) {
     return [
       $textPresets[preset],
       $textStyleOverride,
@@ -125,7 +125,7 @@ export function Button(props: ButtonProps) {
 
 const $baseViewStyle: ViewStyle = {
   minHeight: 56,
-  borderRadius: 4,
+  borderRadius: 12,
   justifyContent: "center",
   alignItems: "center",
   flexDirection: "row",
@@ -137,7 +137,8 @@ const $baseViewStyle: ViewStyle = {
 const $baseTextStyle: TextStyle = {
   fontSize: 16,
   lineHeight: 20,
-  fontFamily: typography.primary.medium,
+  color: colors.palette.primary600,
+  fontFamily: typography.primary.bold,
   textAlign: "center",
   flexShrink: 1,
   flexGrow: 0,
@@ -152,12 +153,12 @@ const $viewPresets = {
     $baseViewStyle,
     {
       borderWidth: 1,
-      borderColor: colors.palette.neutral400,
+      borderColor: colors.palette.neutral200,
       backgroundColor: colors.palette.neutral100,
     },
   ] as StyleProp<ViewStyle>,
 
-  filled: [$baseViewStyle, { backgroundColor: colors.palette.neutral300 }] as StyleProp<ViewStyle>,
+  filled: [$baseViewStyle, { backgroundColor: colors.palette.primary500 }] as StyleProp<ViewStyle>,
 
   reversed: [
     $baseViewStyle,
@@ -167,13 +168,13 @@ const $viewPresets = {
 
 const $textPresets: Record<Presets, StyleProp<TextStyle>> = {
   default: $baseTextStyle,
-  filled: $baseTextStyle,
+  filled: [$baseTextStyle, {color: colors.palette.neutral100}],
   reversed: [$baseTextStyle, { color: colors.palette.neutral100 }],
 }
 
 const $pressedViewPresets: Record<Presets, StyleProp<ViewStyle>> = {
   default: { backgroundColor: colors.palette.neutral200 },
-  filled: { backgroundColor: colors.palette.neutral400 },
+  filled: { backgroundColor: colors.palette.primary600 },
   reversed: { backgroundColor: colors.palette.neutral700 },
 }
 
