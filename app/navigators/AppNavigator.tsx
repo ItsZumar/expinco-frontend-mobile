@@ -20,10 +20,12 @@ import { ScreensEnum } from "app/enums"
  * rather than passing state through navigation params.
  */
 export type AppStackParamList = {
-  Signin: undefined
-  Signup: undefined
   Welcome: undefined
   Demo: NavigatorScreenParams<DemoTabParamList>
+  
+  Signin: undefined
+  Signup: undefined
+  OTPVerification: undefined
   // 🔥 Your screens go here
 }
 
@@ -58,6 +60,7 @@ const AppStack = observer(function AppStack() {
         <>
           <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
           <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
+          <Stack.Screen name={ScreensEnum.OTP_VERIFICATION} component={Screens.OtpVerificationScreen} />
         </>
       )}
     </Stack.Navigator>

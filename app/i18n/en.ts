@@ -10,7 +10,9 @@ const en = {
     email: "Email",
     password: "Password",
     firstname: "First Name",
-    lastname: "Last Name"
+    lastname: "Last Name",
+    verification: "Verification",
+    verify: "Verify"
   },
   welcomeScreen: {
     postscript:
@@ -136,6 +138,11 @@ const en = {
     enterfirstname: "Enter firstname",
     enterlastname: "Enter lastname",
     alreadyHaveAccount: "Already have an account?"
+  },
+  otpVerificationScreen: {
+    otp: "Enter OTP",
+    sendOtpCode: "We have sent an OTP to your email address",
+    codeExpiresIn: "Code expires in "
   }
 }
 

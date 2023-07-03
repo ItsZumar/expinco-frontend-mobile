@@ -147,7 +147,8 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(({ navigation }) => 
           style={styles.tapButton}
           disabled={!agreeTandC}
           preset={agreeTandC ? "filled" : "reversed"}
-          onPress={signupHandler}
+          // onPress={signupHandler}
+          onPress={() => navigation.navigate(ScreensEnum.OTP_VERIFICATION as any)}
         />
 
         <View style={styles.bottomBlock}>

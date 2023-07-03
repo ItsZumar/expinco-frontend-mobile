@@ -7,3 +7,4 @@ export * from "./ExampleScreens/ErrorScreen/ErrorBoundary"
 // My screens
 export * from "./SignInScreen/SignInScreen";
 export * from "./SignUpScreen/SignUpScreen";
+export * from "./OTPVerificationScreen/OtpVerificationScreen"
