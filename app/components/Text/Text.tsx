@@ -45,10 +45,11 @@ const $sizeStyles = {
   xxl: { fontSize: 36, lineHeight: 44 } satisfies TextStyle,
   xl: { fontSize: 24, lineHeight: 34 } satisfies TextStyle,
   lg: { fontSize: 20, lineHeight: 32 } satisfies TextStyle,
-  md: { fontSize: 18, lineHeight: 26 } satisfies TextStyle,
-  sm: { fontSize: 16, lineHeight: 24 } satisfies TextStyle,
-  xs: { fontSize: 14, lineHeight: 21 } satisfies TextStyle,
-  xxs: { fontSize: 12, lineHeight: 18 } satisfies TextStyle,
+  md: { fontSize: 16, lineHeight: 26 } satisfies TextStyle,
+  sm: { fontSize: 14, lineHeight: 24 } satisfies TextStyle,
+  xs: { fontSize: 12, lineHeight: 21 } satisfies TextStyle,
+  xxs: { fontSize: 10, lineHeight: 18 } satisfies TextStyle,
+  xxxs: { fontSize: 8, lineHeight: 18 } satisfies TextStyle,
 }
 
 const $fontWeightStyles = Object.entries(typography.primary).reduce((acc, [weight, fontFamily]) => {
@@ -72,7 +73,7 @@ const $presets = {
 
   subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,
 
-  formLabel: [$baseStyle, $fontWeightStyles.medium, {color: colors.textDim}] as StyleProp<TextStyle>,
+  formLabel: [$baseStyle, $sizeStyles.xxs, $fontWeightStyles.medium, {color: colors.textDim}] as StyleProp<TextStyle>,
 
   formHelper: [$baseStyle, $sizeStyles.xxs, $fontWeightStyles.normal] as StyleProp<TextStyle>,
 }

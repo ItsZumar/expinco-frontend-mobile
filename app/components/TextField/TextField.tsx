@@ -230,7 +230,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 })
 
 const $labelStyle: TextStyle = {
-  marginBottom: spacing.xs,
+  marginBottom: spacing.xxs,
 }
 
 const $inputWrapperStyle: ViewStyle = {
@@ -238,7 +238,7 @@ const $inputWrapperStyle: ViewStyle = {
   alignItems: "flex-start",
   borderWidth: 1,
   borderRadius: 12,
-  paddingVertical: 8,
+  paddingVertical: 4,
   paddingHorizontal: 4,
   backgroundColor: colors.palette.neutral100,
   borderColor: colors.palette.neutral200,
@@ -250,7 +250,7 @@ const $inputStyle: TextStyle = {
   alignSelf: "stretch",
   fontFamily: typography.primary.normal,
   color: colors.text,
-  fontSize: 16,
+  fontSize: 14,
   height: 24,
   paddingVertical: 0,
   paddingHorizontal: 0,

@@ -21,6 +21,7 @@ import { ScreensEnum } from "app/enums"
  */
 export type AppStackParamList = {
   Signin: undefined
+  Signup: undefined
   Welcome: undefined
   Demo: NavigatorScreenParams<DemoTabParamList>
   // 🔥 Your screens go here
@@ -46,7 +47,7 @@ const AppStack = observer(function AppStack() {
         navigationBarColor: colors.background,
         animation: "slide_from_right",
       }}
-      initialRouteName={isAuthenticated ? "Welcome" : ScreensEnum.SIGNIN}
+      initialRouteName={ScreensEnum.SIGNUP}
     >
       {isAuthenticated ? (
         <>
@@ -55,6 +56,7 @@ const AppStack = observer(function AppStack() {
         </>
       ) : (
         <>
+          <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
           <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
         </>
       )}

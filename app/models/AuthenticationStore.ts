@@ -1,10 +1,14 @@
-import { validateData } from "../validations/loginSchema"
+import { validateData as LoginDataValidator } from "../validations/loginSchema"
+import { validateData as SignupDataValidator } from "app/validations/signupSchema"
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 
 export const AuthenticationStoreModel = types
   .model("AuthenticationStore")
   .props({
     authToken: types.maybe(types.string),
+
+    firstname: "",
+    lastname: "",
     email: "",
     password: "",
   })
@@ -13,11 +17,22 @@ export const AuthenticationStoreModel = types
       return !!store.authToken
     },
     get validationError() {
-      let errors = validateData({ email: store.email, password: store.password })
+      let errors = LoginDataValidator({ email: store.email, password: store.password })
       return errors;
     },
+    get validateSignupErrors() {
+      let errors = SignupDataValidator({ firstname: store.firstname, lastname: store.lastname, email: store.email, password: store.password })
+      return errors;
+    }
   }))
   .actions((store) => ({
+    setFirstName(value: string) {
+      store.firstname = value
+    },
+    setLastName(value: string) {
+      store.lastname = value
+    },
+
     setEmail(value: string) {
       store.email = value.replace(/ /g, "")
     },

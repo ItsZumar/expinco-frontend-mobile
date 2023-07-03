@@ -5,9 +5,12 @@ const en = {
     back: "Back",
     logOut: "Log Out",
     signup: "Sign Up",
+    signin: "Sign In",
     login: "Login",
     email: "Email",
     password: "Password",
+    firstname: "First Name",
+    lastname: "Last Name"
   },
   welcomeScreen: {
     postscript:
@@ -124,12 +127,16 @@ const en = {
     },
   },
   signinScreen: {
-    signin: "Signin",
     forgotPass: "Forgot Password ?",
     donthaveaccount: "Don't have an account yet?",
     enterEmail: "Enter email",
     enterPass: "Enter password",
   },
+  signupScreen: {
+    enterfirstname: "Enter firstname",
+    enterlastname: "Enter lastname",
+    alreadyHaveAccount: "Already have an account?"
+  }
 }
 
 export default en

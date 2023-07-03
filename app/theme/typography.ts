@@ -19,7 +19,7 @@ export const customFontsToLoad = {
 }
 
 const fonts = {
-  spaceGrotesk: {
+  inter: {
     // Cross-platform Google font.
     light: "interLight",
     normal: "interRegular",
@@ -59,7 +59,7 @@ export const typography = {
   /**
    * The primary font. Used in most places.
    */
-  primary: fonts.spaceGrotesk,
+  primary: fonts.inter,
   /**
    * An alternate font used for perhaps titles and stuff.
    */
