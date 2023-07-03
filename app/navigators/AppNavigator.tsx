@@ -47,7 +47,7 @@ const AppStack = observer(function AppStack() {
         navigationBarColor: colors.background,
         animation: "slide_from_right",
       }}
-      initialRouteName={ScreensEnum.SIGNUP}
+      initialRouteName={ScreensEnum.SIGNIN}
     >
       {isAuthenticated ? (
         <>
@@ -56,8 +56,8 @@ const AppStack = observer(function AppStack() {
         </>
       ) : (
         <>
-          <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
           <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
+          <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
         </>
       )}
     </Stack.Navigator>

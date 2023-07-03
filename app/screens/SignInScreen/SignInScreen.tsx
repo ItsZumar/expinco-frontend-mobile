@@ -38,7 +38,7 @@ export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => 
       function PasswordRightAccessory(props: TextFieldAccessoryProps) {
         return (
           <Icon
-            icon={showPassword ? "view" : "hidden"}
+            icon={showPassword ? "hidden" : "view"}
             color={colors.palette.neutral500}
             containerStyle={{ ...props.style, marginRight: 20 }}
             size={20}
@@ -87,7 +87,7 @@ export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => 
             autoCapitalize="none"
             autoComplete="password"
             autoCorrect={false}
-            secureTextEntry={showPassword}
+            secureTextEntry={!showPassword}
             labelTx="common.password"
             placeholderTx="signinScreen.enterPass"
             onSubmitEditing={login}
