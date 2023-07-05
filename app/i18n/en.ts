@@ -13,7 +13,8 @@ const en = {
     lastname: "Last Name",
     verification: "Verification",
     verify: "Verify",
-    continue: "Continue"
+    continue: "Continue",
+    submit: "Submit"
   },
   welcomeScreen: {
     postscript:
@@ -148,6 +149,9 @@ const en = {
   forgotPassword: {
     forgotPassword: "Forgot Password",
     dontWorryText: `Don’t worry.\nEnter your email to verify your identity!`
+  },
+  resetPassword: {
+    resetPass: "Reset Password"
   }
 }
 

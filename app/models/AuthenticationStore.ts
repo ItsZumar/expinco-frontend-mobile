@@ -1,6 +1,7 @@
 import { validateData as LoginDataValidator } from "../validations/loginSchema"
 import { validateData as SignupDataValidator } from "app/validations/signupSchema"
 import { validateData as ForgotPassDataValidator } from "app/validations/forgotPassSchema"
+import { validateData as ResetPassDataValidator } from "app/validations/resetPassSchema"
 
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 
@@ -13,6 +14,8 @@ export const AuthenticationStoreModel = types
     lastname: "",
     email: "",
     password: "",
+
+    confirmpassword: ""
   })
   .views((store) => ({
     get isAuthenticated() {
@@ -29,6 +32,10 @@ export const AuthenticationStoreModel = types
     get validateForgotPasswordErrors() {
       let errors = ForgotPassDataValidator({ email: store.email })
       return errors;
+    },
+    get validateResetPasswordErrors() {
+      let errors = ResetPassDataValidator({ password: store.password, confirmpassword: store.confirmpassword })
+      return errors;
     }
   }))
   .actions((store) => ({
@@ -44,6 +51,9 @@ export const AuthenticationStoreModel = types
     },
     setPassword(value: string) {
       store.password = value
+    },
+    setConfirmPassword(value: string) {
+      store.confirmpassword = value
     },
     logout() {
       store.email = ""
