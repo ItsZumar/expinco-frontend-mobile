@@ -4,8 +4,8 @@ import { ScrollView, TextInput, View, ViewStyle } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Button, Header, Screen, Text } from "app/components"
-import styles from "./styles"
 import { ScreensEnum } from "app/enums"
+import styles from "./styles"
 
 interface OtpVerificationScreenProps
   extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.OTP_VERIFICATION>> {}
