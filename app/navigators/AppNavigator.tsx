@@ -8,7 +8,12 @@ import { useColorScheme } from "react-native"
 import { DemoNavigator, DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "app/navigators/navigationUtilities"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
-import { DarkTheme, DefaultTheme, NavigatorScreenParams, NavigationContainer } from "@react-navigation/native"
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigatorScreenParams,
+  NavigationContainer,
+} from "@react-navigation/native"
 import { ScreensEnum } from "app/enums"
 
 /**
@@ -22,10 +27,11 @@ import { ScreensEnum } from "app/enums"
 export type AppStackParamList = {
   Welcome: undefined
   Demo: NavigatorScreenParams<DemoTabParamList>
-  
+
   Signin: undefined
   Signup: undefined
   OTPVerification: undefined
+  ForgotPassword: undefined
   // 🔥 Your screens go here
 }
 
@@ -35,12 +41,17 @@ export type AppStackParamList = {
  */
 const exitRoutes = Config.exitRoutes
 
-export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<AppStackParamList, T>
+export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<
+  AppStackParamList,
+  T
+>
 
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
-  const { authenticationStore: { isAuthenticated } } = useStores()
+  const {
+    authenticationStore: { isAuthenticated },
+  } = useStores()
 
   return (
     <Stack.Navigator
@@ -49,9 +60,14 @@ const AppStack = observer(function AppStack() {
         navigationBarColor: colors.background,
         animation: "slide_from_right",
       }}
-      initialRouteName={ScreensEnum.SIGNIN}
+      initialRouteName={ScreensEnum.FORGOT_PASSWORD}
     >
-      {isAuthenticated ? (
+      <Stack.Screen name={ScreensEnum.FORGOT_PASSWORD} component={Screens.ForgotPasswordScreen} />
+      <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
+      <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
+      <Stack.Screen name={ScreensEnum.OTP_VERIFICATION} component={Screens.OtpVerificationScreen} />
+
+      {/* {isAuthenticated ? (
         <>
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
           <Stack.Screen name="Demo" component={DemoNavigator} />
@@ -61,8 +77,9 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
           <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
           <Stack.Screen name={ScreensEnum.OTP_VERIFICATION} component={Screens.OtpVerificationScreen} />
+          <Stack.Screen name={ScreensEnum.FORGOT_PASSWORD} component={Screens.ForgotPasswordScreen} />
         </>
-      )}
+      )} */}
     </Stack.Navigator>
   )
 })

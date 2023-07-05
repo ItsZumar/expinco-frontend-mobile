@@ -62,6 +62,8 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = observer(({
   const _verifyOTP = async () => {
     let authCode = Object.values(otp).join("")
 
+    navigation.navigate(ScreensEnum.SIGNIN as any)
+
     // let checkAuthCode = await authStore.verifyAuthCode(params.email, authCode)
     // authCode is valid
     // if (checkAuthCode) {

@@ -1,5 +1,7 @@
 import { validateData as LoginDataValidator } from "../validations/loginSchema"
 import { validateData as SignupDataValidator } from "app/validations/signupSchema"
+import { validateData as ForgotPassDataValidator } from "app/validations/forgotPassSchema"
+
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 
 export const AuthenticationStoreModel = types
@@ -22,6 +24,10 @@ export const AuthenticationStoreModel = types
     },
     get validateSignupErrors() {
       let errors = SignupDataValidator({ firstname: store.firstname, lastname: store.lastname, email: store.email, password: store.password })
+      return errors;
+    },
+    get validateForgotPasswordErrors() {
+      let errors = ForgotPassDataValidator({ email: store.email })
       return errors;
     }
   }))

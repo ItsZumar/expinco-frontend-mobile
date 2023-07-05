@@ -8,3 +8,4 @@ export * from "./ExampleScreens/ErrorScreen/ErrorBoundary"
 export * from "./SignInScreen/SignInScreen";
 export * from "./SignUpScreen/SignUpScreen";
 export * from "./OTPVerificationScreen/OtpVerificationScreen"
+export * from "./ForgotPasswordScreen/ForgotPasswordScreen"

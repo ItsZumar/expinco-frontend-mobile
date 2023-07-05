@@ -12,7 +12,8 @@ const en = {
     firstname: "First Name",
     lastname: "Last Name",
     verification: "Verification",
-    verify: "Verify"
+    verify: "Verify",
+    continue: "Continue"
   },
   welcomeScreen: {
     postscript:
@@ -143,6 +144,10 @@ const en = {
     otp: "Enter OTP",
     sendOtpCode: "We have sent an OTP to your email address",
     codeExpiresIn: "Code expires in "
+  },
+  forgotPassword: {
+    forgotPassword: "Forgot Password",
+    dontWorryText: `Don’t worry.\nEnter your email to verify your identity!`
   }
 }
 
