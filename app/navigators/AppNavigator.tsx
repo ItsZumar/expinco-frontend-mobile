@@ -33,7 +33,9 @@ export type AppStackParamList = {
   OTPVerification: undefined
   ForgotPassword: undefined
   ResetPassword: undefined
-  // 🔥 Your screens go here
+
+  Main: undefined
+  Home: undefined
 }
 
 /**
@@ -61,13 +63,14 @@ const AppStack = observer(function AppStack() {
         navigationBarColor: colors.background,
         animation: "slide_from_right",
       }}
-      initialRouteName={ScreensEnum.RESET_PASSWORD}
+      initialRouteName={ScreensEnum.MAIN}
     >
       <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
       <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
       <Stack.Screen name={ScreensEnum.FORGOT_PASSWORD} component={Screens.ForgotPasswordScreen} />
       <Stack.Screen name={ScreensEnum.OTP_VERIFICATION} component={Screens.OtpVerificationScreen} />
       <Stack.Screen name={ScreensEnum.RESET_PASSWORD} component={Screens.ResetPasswordScreen} />
+      <Stack.Screen name={ScreensEnum.MAIN} component={Screens.MainScreen} />
 
       {/* {isAuthenticated ? (
         <>

@@ -10,3 +10,6 @@ export * from "./SignUpScreen/SignUpScreen"
 export * from "./OTPVerificationScreen/OtpVerificationScreen"
 export * from "./ForgotPasswordScreen/ForgotPasswordScreen"
 export * from "./ResetPasswordScreen/ResetPasswordScreen"
+
+export * from "./MainScreen/MainScreen"
+export * from "./MainScreen/HomeScreen/HomeScreen"

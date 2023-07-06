@@ -3,5 +3,7 @@ export enum ScreensEnum {
   SIGNUP = "Signup",
   OTP_VERIFICATION = "OTPVerification",
   FORGOT_PASSWORD = "ForgotPassword",
-  RESET_PASSWORD = "ResetPassword"
+  RESET_PASSWORD = "ResetPassword",
+  MAIN = 'Main',
+  HOME = 'Home'
 }

@@ -57,7 +57,7 @@ export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => 
     setIsSubmitted(false)
     setPassword("")
     setEmail("")
-    navigation.navigate(ScreensEnum.RESET_PASSWORD as any)
+    navigation.navigate(ScreensEnum.MAIN as any)
   }
 
   return (
