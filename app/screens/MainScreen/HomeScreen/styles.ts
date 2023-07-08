@@ -18,16 +18,19 @@ const styles = StyleSheet.create({
   },
   monthContainer: {
     flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
     borderWidth: 0.5,
     borderColor: colors.palette.neutral300,
     borderRadius: 20,
     paddingVertical: 6,
-    paddingHorizontal: 20,
+    paddingLeft: 12,
+    paddingRight: 20,
   },
   monthText: {
-    marginLeft: 12,
+    marginLeft: 6,
     fontSize: 14,
+    fontFamily: typography.fonts.inter.semiBold,
   },
   bellContainer: {
     padding: 8,
@@ -80,6 +83,12 @@ const styles = StyleSheet.create({
     color: colors.palette.neutral100,
     fontFamily: typography.fonts.inter.semiBold,
     fontSize: 24,
+  },
+  seeAllbtnBlock: {
+    backgroundColor: colors.palette.primary100,
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    borderRadius: 20,
   },
 })
 

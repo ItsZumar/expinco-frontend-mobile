@@ -71,7 +71,7 @@ const $presets = {
 
   heading: [$baseStyle, $sizeStyles.xxl, $fontWeightStyles.bold] as StyleProp<TextStyle>,
 
-  subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,
+  subheading: [$baseStyle, $sizeStyles.md, $fontWeightStyles.semiBold] as StyleProp<TextStyle>,
 
   formLabel: [$baseStyle, $sizeStyles.xxs, $fontWeightStyles.medium, {color: colors.textDim}] as StyleProp<TextStyle>,
 

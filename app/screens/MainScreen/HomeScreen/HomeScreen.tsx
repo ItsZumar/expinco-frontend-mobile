@@ -3,13 +3,14 @@ import { observer } from "mobx-react-lite"
 import { TouchableOpacity, View, ViewStyle } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Screen, AutoImage, Text } from "app/components"
+import { Screen, AutoImage, Text, AppHeader, TransactionCard } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors, typography } from "app/theme"
 import { wp } from "app/utils/responsive"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import styles from "./styles"
+import { TransactionData } from "./data"
 
 interface HomeScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.HOME>> {}
 
@@ -58,17 +59,19 @@ export const HomeScreen: FC<HomeScreenProps> = observer(() => {
       </View>
 
       <View style={{ paddingHorizontal: wp(5), marginTop: 30 }}>
-        <Text
-          text="Spend Frequency"
-          style={{ fontSize: 18, fontFamily: typography.fonts.inter.semiBold }}
-        />
+        <AppHeader text="Spend Frequency" />
         <View style={{ marginTop: 20, width: "100%", height: 170, backgroundColor: "purple" }} />
 
         <View
-          style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center", marginTop: 15 }}
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            marginTop: 15,
+          }}
         >
           {["Today", "Week", "Month", "Year"].map((el) => (
-            <View
+            <TouchableOpacity
               style={{
                 paddingHorizontal: 20,
                 paddingVertical: 6,
@@ -84,7 +87,22 @@ export const HomeScreen: FC<HomeScreenProps> = observer(() => {
                   fontFamily: typography.fonts.inter.semiBold,
                 }}
               />
-            </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <View style={{ marginTop: 10 }}>
+          <AppHeader
+            text="Recent Transactions"
+            rightComponent={() => (
+              <TouchableOpacity style={styles.seeAllbtnBlock}>
+                <Text text="See All" />
+              </TouchableOpacity>
+            )}
+          />
+
+          {TransactionData.map((item) => (
+            <TransactionCard {...item} onPress={() => {}} />
           ))}
         </View>
       </View>

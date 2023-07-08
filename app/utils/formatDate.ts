@@ -20,3 +20,9 @@ export const formatDate = (date: string, dateFormat?: string, options?: Options)
   }
   return format(parseISO(date), dateFormat ?? "MMM dd, yyyy", dateOptions)
 }
+
+export const getTimeFromDateString = (datetimeString: string) => {
+  const dateObject = parseISO(datetimeString)
+  const timeString = format(dateObject, "h:mm a")
+  return timeString
+}
