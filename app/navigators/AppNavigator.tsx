@@ -15,6 +15,7 @@ import {
   NavigationContainer,
 } from "@react-navigation/native"
 import { ScreensEnum } from "app/enums"
+import { TransactionType } from "app/enums/transactions.enum"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -36,6 +37,9 @@ export type AppStackParamList = {
 
   Main: undefined
   Home: undefined
+  AddTransaction: {
+    type: string
+  }
 }
 
 /**
@@ -71,6 +75,7 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen name={ScreensEnum.OTP_VERIFICATION} component={Screens.OtpVerificationScreen} />
       <Stack.Screen name={ScreensEnum.RESET_PASSWORD} component={Screens.ResetPasswordScreen} />
       <Stack.Screen name={ScreensEnum.MAIN} component={Screens.MainScreen} />
+      <Stack.Screen name={ScreensEnum.ADD_TRANSACTION} component={Screens.AddTransactionScreen} />
 
       {/* {isAuthenticated ? (
         <>

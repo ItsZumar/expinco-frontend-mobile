@@ -1,4 +1,4 @@
-import { validateData as LoginDataValidator } from "../validations/loginSchema"
+import { validateData as LoginDataValidator } from "../../validations/loginSchema"
 import { validateData as SignupDataValidator } from "app/validations/signupSchema"
 import { validateData as ForgotPassDataValidator } from "app/validations/forgotPassSchema"
 import { validateData as ResetPassDataValidator } from "app/validations/resetPassSchema"

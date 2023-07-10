@@ -5,18 +5,18 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Screen, AutoImage, Text, AppHeader, TransactionCard } from "app/components"
 import { ScreensEnum } from "app/enums"
-import { colors, typography } from "app/theme"
-import { wp } from "app/utils/responsive"
+import { colors } from "app/theme"
+import { TransactionData } from "./data"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import styles from "./styles"
-import { TransactionData } from "./data"
+import { TransactionType } from "app/enums/transactions.enum"
 
 interface HomeScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.HOME>> {}
 
-export const HomeScreen: FC<HomeScreenProps> = observer(() => {
+export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
   return (
-    <Screen style={$root} preset="auto">
+    <Screen style={$root} preset="auto" ScrollViewProps={{showsVerticalScrollIndicator: false}}>
       <View style={styles.mainHeader}>
         <AutoImage source={{ uri: "https://picsum.photos/200" }} style={styles.profileImage} />
 
@@ -25,9 +25,12 @@ export const HomeScreen: FC<HomeScreenProps> = observer(() => {
           <Text style={styles.monthText}>July</Text>
         </TouchableOpacity>
 
-        <View style={styles.bellContainer}>
+        <TouchableOpacity
+          style={styles.bellContainer}
+          onPress={() => navigation.navigate(ScreensEnum.SIGNIN as any)}
+        >
           <Ionicons name="md-notifications" size={25} color={colors.palette.primary500} />
-        </View>
+        </TouchableOpacity>
       </View>
 
       {/* Balance */}
@@ -37,19 +40,34 @@ export const HomeScreen: FC<HomeScreenProps> = observer(() => {
       </View>
 
       <View style={styles.transBtnBlock}>
-        <TouchableOpacity style={[styles.incBtnBlock, styles.incBg]}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(ScreensEnum.ADD_TRANSACTION as any, {
+              type: String(TransactionType.INCOME),
+            })
+          }
+          style={[styles.incBtnBlock, styles.incBg]}
+        >
           <View style={styles.arrowBlock}>
-            <Feather name="arrow-down" size={25} color={"#00A86B"} />
+            <Feather name="arrow-down" size={25} color={colors.palette.income} />
           </View>
+
           <View>
             <Text text="Income" style={styles.topLightText} />
             <Text text="$3020" style={styles.actualAmountText} />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.incBtnBlock, styles.expBg]}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(ScreensEnum.ADD_TRANSACTION as any, {
+              type: String(TransactionType.EXPENSE),
+            })
+          }
+          style={[styles.incBtnBlock, styles.expBg]}
+        >
           <View style={styles.arrowBlock}>
-            <Feather name="arrow-up" size={25} color={"#FD3C4A"} />
+            <Feather name="arrow-up" size={25} color={colors.palette.expense} />
           </View>
           <View>
             <Text text="Expense" style={styles.topLightText} />
@@ -58,51 +76,30 @@ export const HomeScreen: FC<HomeScreenProps> = observer(() => {
         </TouchableOpacity>
       </View>
 
-      <View style={{ paddingHorizontal: wp(5), marginTop: 30 }}>
+      <View style={styles.bottomBlock}>
         <AppHeader text="Spend Frequency" />
         <View style={{ marginTop: 20, width: "100%", height: 170, backgroundColor: "purple" }} />
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-            marginTop: 15,
-          }}
-        >
+        <View style={styles.graphSortBlock}>
           {["Today", "Week", "Month", "Year"].map((el) => (
-            <TouchableOpacity
-              style={{
-                paddingHorizontal: 20,
-                paddingVertical: 6,
-                borderRadius: 20,
-                backgroundColor: "#FCEED4",
-              }}
-            >
-              <Text
-                text={el}
-                style={{
-                  color: "orange",
-                  fontSize: 14,
-                  fontFamily: typography.fonts.inter.semiBold,
-                }}
-              />
+            <TouchableOpacity style={styles.timeStampBtn} key={el}>
+              <Text text={el} style={styles.timeStampText} />
             </TouchableOpacity>
           ))}
         </View>
 
-        <View style={{ marginTop: 10 }}>
+        <View style={styles.spacingTop}>
           <AppHeader
             text="Recent Transactions"
             rightComponent={() => (
               <TouchableOpacity style={styles.seeAllbtnBlock}>
-                <Text text="See All" />
+                <Text text="See All" style={styles.seeAllText} />
               </TouchableOpacity>
             )}
           />
 
           {TransactionData.map((item) => (
-            <TransactionCard {...item} onPress={() => {}} />
+            <TransactionCard {...item} onPress={() => {}} key={item._id} />
           ))}
         </View>
       </View>

@@ -1,6 +1,6 @@
 import React, { FC, useMemo, useRef, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { Pressable, TextInput, TouchableOpacity, View, ViewStyle } from "react-native"
+import { TextInput, TouchableOpacity, View } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import {

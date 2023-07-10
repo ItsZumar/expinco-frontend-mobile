@@ -14,7 +14,8 @@ const en = {
     verification: "Verification",
     verify: "Verify",
     continue: "Continue",
-    submit: "Submit"
+    submit: "Submit",
+    income: "Income"
   },
   welcomeScreen: {
     postscript:

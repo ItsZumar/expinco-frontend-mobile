@@ -12,3 +12,6 @@ export * from "./Toggle/Toggle"
 
 // Cards
 export * from './Cards/TransactionCard/TransactionCard';
+
+// HOCs
+export * from './HOC/ModalScreen/ModalScreen'

@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     marginHorizontal: wp(5),
   },
   profileImage: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     borderRadius: 20,
   },
   monthContainer: {
@@ -64,16 +64,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   incBg: {
-    backgroundColor: "#00A86B",
+    backgroundColor: colors.palette.income,
   },
   expBg: {
-    backgroundColor: "#FD3C4A",
+    backgroundColor: colors.palette.expense,
   },
   arrowBlock: {
     padding: 8,
     backgroundColor: "#FFF",
     borderRadius: 16,
-    marginHorizontal: 16,
+    marginHorizontal: 12,
   },
   topLightText: {
     color: colors.palette.neutral100,
@@ -90,6 +90,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 20,
   },
+  seeAllText: {
+    color: colors.palette.primary500,
+    fontFamily: typography.fonts.inter.medium,
+  },
+  bottomBlock: {
+    paddingHorizontal: wp(5),
+    marginTop: 30,
+  },
+  graphSortBlock: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: 15,
+  },
+  timeStampBtn: {
+    paddingHorizontal: 20,
+    paddingVertical: 6,
+    borderRadius: 20,
+    backgroundColor: "#FCEED4",
+  },
+  timeStampText: {
+    color: "orange",
+    fontSize: 14,
+    fontFamily: typography.fonts.inter.semiBold,
+  },
+  spacingTop: { marginTop: 12 },
 })
 
 export default styles
