@@ -2,6 +2,8 @@ import config from "../../../config"
 import { ApiResponse } from "apisauce"
 import { Api } from "../MainService/api"
 import { CategoriesI, CategoriesReponse } from "./transaction.types"
+import { CategoriesData } from "./data"
+import { ResponseKind } from "../MainService/apiProblem"
 
 export class TransactionApi {
   private api: Api
@@ -16,7 +18,8 @@ export class TransactionApi {
       // )
 
       // let data = await this.api.getResponse(response)
-      return data
+      // return data
+      return new Promise((resolve, _) => resolve({kind: ResponseKind.OK, response: CategoriesData}));
     } catch (e) {
       // logger(e.message)
       console.log("error")

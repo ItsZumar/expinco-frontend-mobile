@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
 import { isIOS, isAndroid } from "../../../utils/deviceInfo"
-import { colors } from "../../../theme"
+import { colors, typography } from "../../../theme"
 import { hp, wp } from "../../../utils/responsive"
 
 const styles = StyleSheet.create({
@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   renderCardBlock: {
-    justifyContent: "center",
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 15,
-    borderTopRightRadius: 9,
-    borderTopLeftRadius: 9,
   },
   shadowLayer: {
     shadowColor: colors.background,
@@ -67,22 +67,24 @@ const styles = StyleSheet.create({
     shadowOpacity: hp(0.02),
     shadowRadius: hp(0.4),
     borderRadius: 9,
-    // backgroundColor: "#fff",
-    // elevation: 5,
   },
-  renderCardImage: { width: wp(25), height: wp(25), borderRadius: 9 },
+  renderCardImage: { width: wp(12), height: wp(12), borderRadius: 50, marginRight: 20 },
   cardSelectionOverlay: {
-    width: wp(25),
-    height: wp(25),
+    width: wp(20),
+    height: wp(20),
     backgroundColor: colors.palette.primary500,
-    opacity: 0.7,
-    position: "absolute",
+    // opacity: 0.7,
+    // position: "absolute",
     zIndex: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 9,
+    // justifyContent: "center",
+    // alignItems: "center",
+    // borderRadius: 9,
   },
-  renderCardText: { fontSize: hp(1.2), textAlign: "center", marginTop: hp(0.4) },
+  renderCardText: {
+    fontSize: hp(1.8),
+    color: colors.text,
+    fontFamily: typography.fonts.inter.normal
+  },
   subTitleText: {
     marginBottom: hp(3),
     color: colors.text,
@@ -91,14 +93,8 @@ const styles = StyleSheet.create({
   verifyEmailBtn: {
     marginTop: hp(3),
   },
-  flatlistContentStyles: {
-    paddingBottom: hp(8),
-  },
   flatlistStyles: {
     flex: 1,
-  },
-  columnStyles: {
-    justifyContent: "space-between",
   },
   doneBtn: {
     position: "absolute",

@@ -15,3 +15,6 @@ export * from './Cards/TransactionCard/TransactionCard';
 
 // HOCs
 export * from './HOC/ModalScreen/ModalScreen'
+
+// Modals
+export * from './Modals/CategoryModal/CategoryModal';

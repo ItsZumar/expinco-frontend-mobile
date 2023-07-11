@@ -1,9 +1,8 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { TextInput, TouchableOpacity, View, ViewStyle } from "react-native"
-import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { TextInput, TouchableOpacity, View } from "react-native"
 import { AppStackScreenProps } from "app/navigators"
-import { Button, Header, Screen, Text } from "app/components"
+import { Button, Header, Screen, Text, CategoryModal } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { TransactionType } from "app/enums/transactions.enum"
 import { colors } from "app/theme"
@@ -14,6 +13,8 @@ import styles from "./styles"
 export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSACTION>> = observer(
   ({ navigation, route }) => {
     const { type } = route.params
+
+    const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false);
 
     return (
       <Screen
@@ -48,7 +49,7 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
             </View>
 
             <View style={styles.secondHalfContainer}>
-              <TouchableOpacity style={styles.itemContainer} onPress={() => {}}>
+              <TouchableOpacity style={styles.itemContainer} onPress={() => setShowCategoryModal(true)}>
                 <Text style={styles.itemTextHeading}>Select Category</Text>
                 <Ionicons name="chevron-down" size={25} color="gray" />
               </TouchableOpacity>
@@ -82,6 +83,16 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
             </View>
           </View>
         </View>
+
+        <CategoryModal
+          isVisible={showCategoryModal}
+          title="Select Category"
+          subTitle="Select the category of your transaction"
+          onPressClose={() => setShowCategoryModal(false)}
+          onPressDone={(data) => {
+            setShowCategoryModal(false)
+          }}
+        />
       </Screen>
     )
   },

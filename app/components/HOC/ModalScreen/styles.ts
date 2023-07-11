@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   TITLE: {
     color: colors.text,
     fontSize: hp(3.5),
+    lineHeight: hp(4)
   },
 })
 
