@@ -18,3 +18,4 @@ export * from './HOC/ModalScreen/ModalScreen'
 
 // Modals
 export * from './Modals/CategoryModal/CategoryModal';
+export * from './Modals/WalletModal/WalletModal';

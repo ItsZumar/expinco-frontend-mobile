@@ -159,27 +159,31 @@ const $viewPresets = {
   ] as StyleProp<ViewStyle>,
 
   filled: [$baseViewStyle, { backgroundColor: colors.palette.primary500 }] as StyleProp<ViewStyle>,
-
-  reversed: [
-    $baseViewStyle,
-    { backgroundColor: colors.palette.neutral800 },
-  ] as StyleProp<ViewStyle>,
+  reversed: [ $baseViewStyle, { backgroundColor: colors.palette.neutral800 }] as StyleProp<ViewStyle>,
+  income: [$baseViewStyle, { backgroundColor: colors.palette.income }] as StyleProp<ViewStyle>,
+  expense: [$baseViewStyle, { backgroundColor: colors.palette.expense }] as StyleProp<ViewStyle>
 }
 
 const $textPresets: Record<Presets, StyleProp<TextStyle>> = {
   default: $baseTextStyle,
   filled: [$baseTextStyle, {color: colors.palette.neutral100}],
   reversed: [$baseTextStyle, { color: colors.palette.neutral100 }],
+  income: [$baseTextStyle, { color: colors.palette.neutral100 }],
+  expense: [$baseTextStyle, { color: colors.palette.neutral100 }],
 }
 
 const $pressedViewPresets: Record<Presets, StyleProp<ViewStyle>> = {
   default: { backgroundColor: colors.palette.neutral200 },
   filled: { backgroundColor: colors.palette.primary600 },
   reversed: { backgroundColor: colors.palette.neutral700 },
+  income: { backgroundColor: colors.palette.neutral600 },
+  expense: { backgroundColor: colors.palette.neutral600 },
 }
 
 const $pressedTextPresets: Record<Presets, StyleProp<TextStyle>> = {
   default: { opacity: 0.9 },
   filled: { opacity: 0.9 },
   reversed: { opacity: 0.9 },
+  income: { opacity: 0.9 },
+  expense: { opacity: 0.9 }
 }

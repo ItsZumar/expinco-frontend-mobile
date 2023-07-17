@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     fontSize: 60,
     lineHeight: 67,
     fontFamily: typography.fonts.inter.bold,
-    color: colors.palette.accent100,
+    color: colors.palette.neutral100,
     marginBottom: 15,
   },
   secondHalfContainer: {
