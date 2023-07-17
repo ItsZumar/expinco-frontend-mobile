@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    flex: 1,
+    height: hp(100),
     backgroundColor: colors.background,
     paddingHorizontal: wp(5),
     paddingTop: isIOS ? hp(6.5) : hp(3),
