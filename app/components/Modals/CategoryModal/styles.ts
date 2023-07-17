@@ -12,8 +12,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   spacingBottom: {
-    marginBottom: hp(2),
+    position: "absolute",
+    bottom: hp(2),
   },
+  containerStyle: { paddingBottom: hp(10) },
 })
 
 export default styles

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react"
-import { TouchableOpacity, View, FlatList, ActivityIndicator } from "react-native"
-import { ModalHoc } from "../../HOC/ModalScreen/ModalScreen"
-import { AutoImage, Text, Button } from "../.."
-import { observer } from "mobx-react-lite"
-// import { CategoryModel } from "../../../models/categories/categories"
+import { colors } from "../../../theme"
 import { TxKeyPath } from "../../../i18n"
 import { useStores } from "../../../models"
-import { colors, typography } from "../../../theme"
-import MaterialIcons from "react-native-vector-icons/MaterialIcons"
-import styles from "./styles"
+import { observer } from "mobx-react-lite"
+import { Text, Button, ListItemCard } from "../.."
+import { ModalHoc } from "../../HOC/ModalScreen/ModalScreen"
+import { View, FlatList, ActivityIndicator } from "react-native"
+// import { CategoryModel } from "../../../models/categories/categories"
 import { TransactionCategoryI } from "app/interfaces"
+import styles from "./styles"
 
 interface Props {
   selectedItem?: TransactionCategoryI
@@ -75,22 +74,6 @@ export const WalletModal = observer(
       onPressDone(itemSelected)
     }
 
-    const renderItem = (item: TransactionCategoryI & { _id: string; selected: boolean }) => {
-      return (
-        <TouchableOpacity onPress={() => toggleSelected(item._id)} style={styles.renderCardBlock}>
-          <AutoImage source={{ uri: item.icon }} style={styles.renderCardImage} />
-          {item.selected ? (
-            <Text
-              text={item.name}
-              style={[styles.renderCardText, { fontFamily: typography.fonts.inter.bold }]}
-            />
-          ) : (
-            <Text text={item.name} style={styles.renderCardText} />
-          )}
-        </TouchableOpacity>
-      )
-    }
-
     const getWalletsFromServer = async () => {
       let response = await transactionStore.getCategories(state.page, 10)
 
@@ -126,7 +109,7 @@ export const WalletModal = observer(
         getWalletsFromServer()
 
         /**
-         * This will show the done button if user selects more than 2 categories
+         * This will show the done button if user a wallet
          */
         if (selectedItem?._id) {
           setShowDoneBtn(true)
@@ -164,9 +147,12 @@ export const WalletModal = observer(
         <FlatList
           data={state.list}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => renderItem(item)}
+          renderItem={({ item }) => (
+            <ListItemCard item={item} onPress={(_id) => toggleSelected(_id)} />
+          )}
           keyExtractor={({ _id }) => _id}
           style={styles.flatlistStyles}
+          contentContainerStyle={styles.containerStyle}
           ListFooterComponent={FooterComponent}
           ListEmptyComponent={() => !isLoading && <Text text="No wallets found!" />}
         />
@@ -175,7 +161,7 @@ export const WalletModal = observer(
             tx="common.ok"
             preset="reversed"
             onPress={_doneHandler}
-            style={{ marginBottom: 20 }}
+            style={styles.spacingBottom}
           />
         )}
       </ModalHoc>

@@ -152,6 +152,7 @@ export const CategoryModal = observer(
           )}
           keyExtractor={({ _id }) => _id}
           style={styles.flatlistStyles}
+          contentContainerStyle={styles.containerStyle}
           ListFooterComponent={FooterComponent}
           ListEmptyComponent={() => !isLoading && <Text text="No categories found!" />}
         />

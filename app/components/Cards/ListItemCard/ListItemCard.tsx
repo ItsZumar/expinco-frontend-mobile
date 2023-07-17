@@ -17,7 +17,7 @@ const ListItemCard = ({ item, onPress }: ListItemCardI) => {
     <TouchableOpacity
       key={item._id}
       onPress={() => onPress(item._id)}
-      style={[styles.renderCardBlock, item.selected && { borderColor: colors.palette.neutral900 }]}
+      style={[styles.renderCardBlock, item.selected && { borderColor: colors.palette.neutral600 }]}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <AutoImage source={{ uri: item.icon }} style={styles.renderCardImage} />
