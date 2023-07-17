@@ -5,10 +5,10 @@ import { observer } from "mobx-react-lite"
 import { AppStackScreenProps } from "app/navigators"
 import { FlatList, TouchableOpacity, View } from "react-native"
 import { Screen, Text, TransactionCard } from "app/components"
+import { hp, wp } from "app/utils/responsive"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 import { TransactionData } from "./data"
-import { hp, wp } from "app/utils/responsive"
 
 export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>> = observer(
   ({ navigation }) => {
