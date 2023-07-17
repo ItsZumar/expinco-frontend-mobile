@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react"
-import { observer } from "mobx-react-lite"
-import { TextInput, TouchableOpacity, View } from "react-native"
-import { AppStackScreenProps } from "app/navigators"
-import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
-import { ScreensEnum } from "app/enums"
-import { TransactionType } from "app/enums/transactions.enum"
 import { colors } from "app/theme"
+import { ScreensEnum } from "app/enums"
 import { hp } from "app/utils/responsive"
+import { observer } from "mobx-react-lite"
+import { AppStackScreenProps } from "app/navigators"
+import { TransactionType } from "app/enums/transactions.enum"
+import { TextInput, TouchableOpacity, View } from "react-native"
+import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
@@ -28,13 +28,8 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
         >
           <Header titleTx="common.income" leftIcon="back" onLeftPress={() => navigation.goBack()} />
 
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "space-between",
-            }}
-          >
-            <View style={{ marginHorizontal: 20, marginTop: hp(16) }}>
+          <View style={styles.underHeaderBlock}>
+            <View style={styles.amountBlock}>
               <Text style={styles.subTitleText}>How much?</Text>
               <View style={styles.rowFlexStartCenter}>
                 <Text style={styles.amountText}>$</Text>
@@ -71,7 +66,7 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.attachmentBtn}>
-                <Ionicons name="attach" size={25} color="gray" style={{ marginRight: 10 }} />
+                <Ionicons name="attach" size={25} color="gray" style={styles.spacingRight} />
                 <Text style={styles.itemTextHeading}>Add attachment</Text>
               </TouchableOpacity>
 
@@ -79,7 +74,7 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
                 text={type === TransactionType.INCOME ? "Add Income" : "Add Expense"}
                 onPress={() => {}}
                 preset={type === TransactionType.INCOME ? "income" : "expense"}
-                style={[{ marginTop: 40 }]}
+                style={styles.spacingTop}
               />
             </View>
           </View>

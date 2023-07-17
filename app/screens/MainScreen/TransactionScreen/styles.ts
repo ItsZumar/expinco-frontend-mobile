@@ -1,76 +1,77 @@
 import { StyleSheet } from "react-native"
 import { colors, typography } from "app/theme"
+import { hp, wp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
   rowFlexStartCenter: {
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
   },
+  amountBlock: {
+    marginHorizontal: wp(5),
+    marginTop: hp(16),
+  },
   subTitleText: {
-    fontSize: 18,
+    fontSize: hp(2.2),
     fontFamily: typography.fonts.inter.medium,
     color: colors.palette.neutral100,
-    marginBottom: 5,
+    marginBottom: hp(0.5),
   },
   amountText: {
-    fontSize: 60,
-    lineHeight: 67,
+    fontSize: hp(6.5),
+    lineHeight: hp(7),
     fontFamily: typography.fonts.inter.bold,
     color: colors.palette.neutral100,
-    marginBottom: 15,
+    marginBottom: hp(1.2),
   },
   secondHalfContainer: {
     flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: 20,
-    borderTopRightRadius: 32,
-    borderTopLeftRadius: 32,
+    backgroundColor: colors.palette.neutral100,
+    paddingHorizontal: wp(5),
+    borderTopRightRadius: hp(3),
+    borderTopLeftRadius: hp(3),
   },
   itemContainer: {
-    marginTop: 20,
+    marginTop: hp(2),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    height: 60,
-    paddingHorizontal: 15,
-    borderRadius: 16,
+    height: hp(8),
+    paddingHorizontal: wp(4),
+    borderRadius: hp(2),
     borderWidth: 1,
     borderColor: colors.palette.neutral200,
   },
   itemTextHeading: {
-    fontSize: 16,
+    fontSize: hp(2),
     fontFamily: typography.fonts.inter.normal,
     color: colors.textDim,
   },
   inputFieldStyle: {
     flex: 1,
     paddingLeft: -5,
-    fontSize: 16,
+    fontSize: hp(2),
     fontFamily: typography.fonts.inter.normal,
     color: colors.textDim,
   },
   attachmentBtn: {
-    marginTop: 20,
+    marginTop: hp(2),
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    height: 60,
-    paddingHorizontal: 15,
-    borderRadius: 16,
+    height: hp(8),
+    borderRadius: hp(2),
     borderWidth: 1,
     borderColor: colors.palette.neutral400,
     borderStyle: "dashed",
   },
-  incomeBgColor: {
-    backgroundColor: colors.palette.expense,
+  underHeaderBlock: {
+    flex: 1,
+    justifyContent: "space-between",
   },
-  expenseBgColor: {
-    backgroundColor: colors.palette.income,
-  },
+  spacingRight: { marginRight: wp(3) },
+  spacingTop: { marginTop: hp(4) },
 })
 
 export default styles
