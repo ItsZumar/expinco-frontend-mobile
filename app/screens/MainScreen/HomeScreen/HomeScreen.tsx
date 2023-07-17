@@ -16,7 +16,12 @@ interface HomeScreenProps extends NativeStackScreenProps<AppStackScreenProps<Scr
 
 export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
   return (
-    <Screen style={$root} preset="auto" ScrollViewProps={{showsVerticalScrollIndicator: false}}>
+    <Screen
+      style={$root}
+      preset="auto"
+      ScrollViewProps={{ showsVerticalScrollIndicator: false }}
+      StatusBarProps={{ backgroundColor: colors.palette.neutral100 }}
+    >
       <View style={styles.mainHeader}>
         <AutoImage source={{ uri: "https://picsum.photos/200" }} style={styles.profileImage} />
 

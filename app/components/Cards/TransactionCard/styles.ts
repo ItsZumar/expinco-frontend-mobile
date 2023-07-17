@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     flexDirection: "row",
     justifyContent: "flex-start",
-    padding: 15,
+    paddingVertical: 10,
     borderRadius: 15,
   },
   imageBlock: {
