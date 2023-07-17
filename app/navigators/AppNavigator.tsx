@@ -37,6 +37,7 @@ export type AppStackParamList = {
 
   Main: undefined
   Home: undefined
+  Transaction: undefined
   AddTransaction: {
     type: string
   }

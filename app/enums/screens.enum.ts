@@ -6,5 +6,6 @@ export enum ScreensEnum {
   RESET_PASSWORD = "ResetPassword",
   MAIN = 'Main',
   HOME = 'Home',
+  TRANSACTION = 'Transaction',
   ADD_TRANSACTION = 'AddTransaction'
 }

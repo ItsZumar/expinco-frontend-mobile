@@ -8,7 +8,7 @@ import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { HomeScreen } from "../"
+import { HomeScreen, TransactionScreen } from "../"
 
 interface MainScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.MAIN>> {}
 
@@ -34,7 +34,7 @@ export const MainScreen: FC<MainScreenProps> = observer(({ navigation }) => {
       />
       <Tab.Screen
         name="Transaction"
-        component={HomeScreen}
+        component={TransactionScreen}
         options={{
           tabBarIcon: ({color, size}) => (
             <Ionicons name="ios-file-tray-full" size={size} color={color} />

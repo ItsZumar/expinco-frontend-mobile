@@ -11,8 +11,10 @@ export * from "./OTPVerificationScreen/OtpVerificationScreen"
 export * from "./ForgotPasswordScreen/ForgotPasswordScreen"
 export * from "./ResetPasswordScreen/ResetPasswordScreen"
 
+// Home Screens
 export * from "./MainScreen/MainScreen"
 export * from "./MainScreen/HomeScreen/HomeScreen"
+export * from './MainScreen/TransactionScreen/TransactionScreen'
 
 // Transaction Screens
-export * from "./MainScreen/TransactionScreen/AddTransactionScreen"
+export * from "./MainScreen/HomeScreen/AddTransactionScreen/AddTransactionScreen"
