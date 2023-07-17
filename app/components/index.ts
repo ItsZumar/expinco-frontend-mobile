@@ -12,6 +12,7 @@ export * from "./Toggle/Toggle"
 
 // Cards
 export * from './Cards/TransactionCard/TransactionCard';
+export * from './Cards/ListItemCard/ListItemCard';
 
 // HOCs
 export * from './HOC/ModalScreen/ModalScreen'

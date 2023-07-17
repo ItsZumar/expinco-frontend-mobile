@@ -9,6 +9,7 @@ import { TextInput, TouchableOpacity, View } from "react-native"
 import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
+import { TransactionCategoryI } from "app/interfaces"
 
 export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSACTION>> = observer(
   ({ navigation, route }) => {
@@ -16,6 +17,10 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
 
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
     const [showWalletModal, setShowWalletModal] = useState<boolean>(false)
+
+    const [selectedCategory, setSelectedCategory] = useState<
+      TransactionCategoryI & { selected: boolean }
+    >()
 
     return (
       <Screen>
@@ -47,7 +52,9 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
                 style={styles.itemContainer}
                 onPress={() => setShowCategoryModal(true)}
               >
-                <Text style={styles.itemTextHeading}>Select Category</Text>
+                <Text style={styles.itemTextHeading}>
+                  {selectedCategory?.name ? selectedCategory.name : `Select Category`}
+                </Text>
                 <Ionicons name="chevron-down" size={25} color="gray" />
               </TouchableOpacity>
               <View style={styles.itemContainer}>
@@ -82,10 +89,13 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
 
         <CategoryModal
           isVisible={showCategoryModal}
+          selectedItem={selectedCategory}
           title="Choose Category"
           subTitle="Select the category of your transaction"
           onPressClose={() => setShowCategoryModal(false)}
           onPressDone={(data) => {
+            console.log("data ", data)
+            setSelectedCategory(data[0])
             setShowCategoryModal(false)
           }}
         />
