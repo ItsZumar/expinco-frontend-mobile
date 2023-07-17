@@ -5,11 +5,11 @@ import { hp } from "app/utils/responsive"
 import { observer } from "mobx-react-lite"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionType } from "app/enums/transactions.enum"
+import { TransactionCategoryI, WalletI } from "app/interfaces"
 import { TextInput, TouchableOpacity, View } from "react-native"
 import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
-import { TransactionCategoryI } from "app/interfaces"
 
 export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSACTION>> = observer(
   ({ navigation, route }) => {
@@ -18,17 +18,18 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
     const [showWalletModal, setShowWalletModal] = useState<boolean>(false)
 
-    const [selectedCategory, setSelectedCategory] = useState<
-      TransactionCategoryI & { selected: boolean }
-    >()
+    const [selectedCategory, setSelectedCategory] = useState<TransactionCategoryI & { selected: boolean }>()
+    const [selectedWallet, setSelectedWallet] = useState<WalletI & { selected: boolean }>()
+    const [description, setDescription] = useState<string>("")
 
     return (
       <Screen>
         <View
           style={{
             height: hp(100),
-            backgroundColor:
-              type === TransactionType.INCOME ? colors.palette.income : colors.palette.expense,
+            backgroundColor: type.match(TransactionType.INCOME)
+              ? colors.palette.income
+              : colors.palette.expense,
           }}
         >
           <Header titleTx="common.income" leftIcon="back" onLeftPress={() => navigation.goBack()} />
@@ -59,16 +60,20 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
               </TouchableOpacity>
               <View style={styles.itemContainer}>
                 <TextInput
+                  value={description}
                   placeholder="Description"
                   autoCorrect={false}
                   style={styles.inputFieldStyle}
+                  onChangeText={setDescription}
                 />
               </View>
               <TouchableOpacity
                 onPress={() => setShowWalletModal(true)}
                 style={styles.itemContainer}
               >
-                <Text style={styles.itemTextHeading}>Select Wallet</Text>
+                <Text style={styles.itemTextHeading}>
+                  {selectedWallet?.name ? selectedWallet.name : `Select Wallet`}
+                </Text>
                 <Ionicons name="chevron-down" size={25} color="gray" />
               </TouchableOpacity>
 
@@ -94,7 +99,6 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
           subTitle="Select the category of your transaction"
           onPressClose={() => setShowCategoryModal(false)}
           onPressDone={(data) => {
-            console.log("data ", data)
             setSelectedCategory(data[0])
             setShowCategoryModal(false)
           }}
@@ -106,6 +110,7 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
           subTitle="Select the wallet for your transaction"
           onPressClose={() => setShowWalletModal(false)}
           onPressDone={(data) => {
+            setSelectedWallet(data[0])
             setShowWalletModal(false)
           }}
         />
