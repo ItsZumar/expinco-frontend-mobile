@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { observer } from "mobx-react-lite"
-import { BudgetScreen, HomeScreen, TransactionScreen } from "../"
+import { BudgetScreen, HomeScreen, ProfileScreen, TransactionScreen } from "../"
 import { AppStackScreenProps } from "app/navigators"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
@@ -49,7 +49,7 @@ export const MainScreen: FC<MainScreenProps> = observer(({ navigation }) => {
       />
       <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, size }) => <Ionicons name="md-person" size={size} color={color} />,
         }}

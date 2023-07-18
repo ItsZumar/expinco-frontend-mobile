@@ -1,4 +1,4 @@
-import { colors } from "app/theme"
+import { colors, shadow } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
 import { StyleSheet } from "react-native"
 
@@ -27,7 +27,32 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(5),
   },
   p5: { padding: 5 },
-  displayHidden: { opacity: 0 },
+  alignSelfCenter: {
+    alignSelf: "center",
+  },
+  textAlignCenter: {
+    textAlign: "center",
+  },
+  profilePicBlock: {
+    width: wp(35),
+    height: wp(35),
+    overflow: "hidden",
+    borderRadius: wp(20),
+    borderWidth: 3,
+    borderColor: colors.palette.neutral100,
+    ...shadow.light,
+  },
+  profilePic: {
+    width: wp(35),
+    height: wp(35),
+    borderRadius: wp(20),
+  },
+  nameText: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "center",
+    marginTop: 10,
+  },
 })
 
 export default styles

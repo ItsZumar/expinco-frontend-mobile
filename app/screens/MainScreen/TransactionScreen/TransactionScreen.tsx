@@ -36,7 +36,12 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
           />
 
           <TouchableOpacity>
-            <Ionicons name="filter-outline" size={25} color="#262626" style={{ padding: 5 }} />
+            <Ionicons
+              name="filter-outline"
+              size={25}
+              color={colors.palette.neutral900}
+              style={{ padding: 5 }}
+            />
           </TouchableOpacity>
         </View>
 

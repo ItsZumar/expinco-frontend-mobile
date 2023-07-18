@@ -16,6 +16,7 @@ export * from "./MainScreen/MainScreen"
 export * from "./MainScreen/HomeScreen/HomeScreen"
 export * from './MainScreen/TransactionScreen/TransactionScreen'
 export * from './MainScreen/BudgetScreen/BudgetScreen';
+export * from './MainScreen/ProfileScreen/ProfileScreen';
 
 // Transaction Screens
 export * from "./MainScreen/HomeScreen/AddTransactionScreen/AddTransactionScreen"

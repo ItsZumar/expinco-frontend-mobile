@@ -8,7 +8,7 @@ import { AppStackScreenProps } from "app/navigators"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
-export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>> = observer(
+export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observer(
   ({ navigation }) => {
     return (
       <View style={styles.root}>

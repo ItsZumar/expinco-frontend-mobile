@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingTop: hp(2),
+    paddingTop: hp(3),
   },
   topBanner: {
     marginHorizontal: wp(5),
