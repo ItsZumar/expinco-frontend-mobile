@@ -5,7 +5,7 @@ import { useStores } from "app/models"
 import { colors } from "app/theme"
 import { observer } from "mobx-react-lite"
 import { useColorScheme } from "react-native"
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator"
+import { DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "app/navigators/navigationUtilities"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
 import {
@@ -15,7 +15,6 @@ import {
   NavigationContainer,
 } from "@react-navigation/native"
 import { ScreensEnum } from "app/enums"
-import { TransactionType } from "app/enums/transactions.enum"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -38,6 +37,7 @@ export type AppStackParamList = {
   Main: undefined
   Home: undefined
   Transaction: undefined
+  Budget: undefined
   AddTransaction: {
     type: string
   }

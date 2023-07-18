@@ -15,6 +15,7 @@ export * from "./ResetPasswordScreen/ResetPasswordScreen"
 export * from "./MainScreen/MainScreen"
 export * from "./MainScreen/HomeScreen/HomeScreen"
 export * from './MainScreen/TransactionScreen/TransactionScreen'
+export * from './MainScreen/BudgetScreen/BudgetScreen';
 
 // Transaction Screens
 export * from "./MainScreen/HomeScreen/AddTransactionScreen/AddTransactionScreen"

@@ -153,6 +153,9 @@ const en = {
   },
   resetPassword: {
     resetPass: "Reset Password"
+  },
+  budgetScreen: {
+    createBudget: "Create Budget"
   }
 }
 

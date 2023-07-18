@@ -7,5 +7,6 @@ export enum ScreensEnum {
   MAIN = 'Main',
   HOME = 'Home',
   TRANSACTION = 'Transaction',
+  BUDGET = 'Budget',
   ADD_TRANSACTION = 'AddTransaction'
 }

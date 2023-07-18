@@ -19,7 +19,7 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
     }, [])
 
     return (
-      <Screen style={styles.root} safeAreaEdges={["top"]}>
+      <View style={styles.root}>
         <View
           style={{
             marginVertical: 15,
@@ -35,7 +35,7 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
             style={{ fontSize: hp(3), lineHeight: hp(3.5) }}
           />
 
-          <TouchableOpacity style={{ paddingVertical: 4 }}>
+          <TouchableOpacity>
             <Ionicons name="filter-outline" size={25} color="#262626" style={{ padding: 5 }} />
           </TouchableOpacity>
         </View>
@@ -50,7 +50,7 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
           style={styles.listStyle}
           renderItem={({ item }) => <TransactionCard {...item} onPress={() => {}} />}
         />
-      </Screen>
+      </View>
     )
   },
 )
