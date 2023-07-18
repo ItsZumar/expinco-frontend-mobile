@@ -26,6 +26,8 @@ const styles = StyleSheet.create({
     right: 0,
     paddingHorizontal: wp(5),
   },
+  p5: { padding: 5 },
+  displayHidden: { opacity: 0 },
 })
 
 export default styles
