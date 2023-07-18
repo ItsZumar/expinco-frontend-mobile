@@ -1,9 +1,9 @@
 import React, { FC } from "react"
-import { Touchable, TouchableOpacity, View } from "react-native"
+import { TouchableOpacity, View } from "react-native"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { observer } from "mobx-react-lite"
-import { AutoImage, Button, Icon, Text } from "app/components"
+import { AutoImage, Icon, Text } from "app/components"
 import { AppStackScreenProps } from "app/navigators"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
@@ -85,7 +85,7 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = obser
               marginHorizontal: wp(5),
               justifyContent: "center",
               alignItems: "center",
-              marginBottom: 20
+              marginBottom: 20,
             }}
           >
             <Text text="Earned Badges will be shown here..." />
@@ -100,7 +100,7 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = obser
               alignItems: "center",
             }}
           >
-            <Text text="Badges will be shown here..." />
+            <Text text="Wallets will be shown here..." />
           </View>
         </View>
       </View>
