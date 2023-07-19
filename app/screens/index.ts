@@ -20,3 +20,6 @@ export * from './MainScreen/ProfileScreen/ProfileScreen';
 
 // Transaction Screens
 export * from "./MainScreen/HomeScreen/AddTransactionScreen/AddTransactionScreen"
+
+// Setting Screens
+export * from './Settings/SettingScreen';

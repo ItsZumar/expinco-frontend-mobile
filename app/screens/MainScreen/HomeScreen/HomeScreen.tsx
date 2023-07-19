@@ -34,7 +34,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
           style={styles.bellContainer}
           onPress={() => navigation.navigate(ScreensEnum.SIGNIN as any)}
         >
-          <Ionicons name="md-notifications" size={25} color={colors.palette.primary500} />
+          <Ionicons name="md-notifications-outline" size={25} color={colors.palette.primary500} />
         </TouchableOpacity>
       </View>
 

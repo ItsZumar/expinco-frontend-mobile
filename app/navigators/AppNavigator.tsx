@@ -40,6 +40,8 @@ export type AppStackParamList = {
   Budget: undefined
   Profile: undefined
 
+  Setting: undefined
+
   AddTransaction: {
     type: string
   }
@@ -79,6 +81,7 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen name={ScreensEnum.RESET_PASSWORD} component={Screens.ResetPasswordScreen} />
       <Stack.Screen name={ScreensEnum.MAIN} component={Screens.MainScreen} />
       <Stack.Screen name={ScreensEnum.ADD_TRANSACTION} component={Screens.AddTransactionScreen} />
+      <Stack.Screen name={ScreensEnum.SETTING} component={Screens.SettingScreen} />
 
       {/* {isAuthenticated ? (
         <>

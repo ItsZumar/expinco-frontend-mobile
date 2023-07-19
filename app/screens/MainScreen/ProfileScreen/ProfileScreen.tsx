@@ -3,11 +3,12 @@ import { TouchableOpacity, View } from "react-native"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { observer } from "mobx-react-lite"
-import { AutoImage, Icon, Text } from "app/components"
-import { AppStackScreenProps } from "app/navigators"
+import { AutoImage, Icon, Text, AppHeader } from "app/components"
+import { AppStackScreenProps, navigationRef } from "app/navigators"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 import { wp } from "app/utils/responsive"
+import { MY_WALLETS } from "./data"
 
 export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = observer(
   ({ navigation }) => {
@@ -16,7 +17,7 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = obser
         <View style={styles.headerBlock}>
           <Text text="Profile" preset="bold" style={styles.headerText} />
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate(ScreensEnum.SETTING)}>
             <Ionicons
               name="settings-outline"
               size={25}
@@ -27,81 +28,90 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = obser
         </View>
 
         {/* Profile Section */}
-        <View>
-          <View style={styles.alignSelfCenter}>
-            <View style={styles.profilePicBlock}>
-              <AutoImage source={{ uri: "https://picsum.photos/302" }} style={styles.profilePic} />
-            </View>
+        <View style={styles.alignSelfCenter}>
+          <View style={styles.profilePicBlock}>
+            <AutoImage source={{ uri: "https://picsum.photos/302" }} style={styles.profilePic} />
           </View>
+        </View>
 
-          <View style={styles.alignSelfCenter}>
-            <View style={styles.nameText}>
-              <Text text="Haseeb Ahmed" preset="subheading" />
-              {true && <Icon icon="verifiedBadge" size={15} style={{ marginLeft: wp(1) }} />}
-            </View>
+        <View style={styles.alignSelfCenter}>
+          <View style={styles.nameText}>
+            <Text text="Haseeb Ahmed" preset="subheading" />
+            {true && <Icon icon="verifiedBadge" size={15} style={{ marginLeft: wp(1) }} />}
           </View>
+        </View>
 
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            marginVertical: 30,
+            paddingHorizontal: wp(5),
+          }}
+        >
+          <View style={{ flexDirection: "column", alignItems: "center" }}>
+            <Text text="TOTAL INCOME" style={{ color: colors.textDim }} />
+            <Text
+              text="$34K"
+              preset="bold"
+              style={{
+                marginTop: 5,
+                color: colors.palette.primary500,
+                fontSize: 32,
+                lineHeight: 35,
+              }}
+            />
+          </View>
+          <View style={{ flexDirection: "column", alignItems: "center" }}>
+            <Text text="TOTAL EXPENSE" style={{ color: colors.textDim }} />
+            <Text
+              text="$102K"
+              preset="bold"
+              style={{
+                marginTop: 5,
+                color: colors.palette.primary500,
+                fontSize: 32,
+                lineHeight: 35,
+              }}
+            />
+          </View>
+        </View>
+
+        <View style={{ paddingHorizontal: wp(5) }}>
+          <AppHeader text="Wallets" />
           <View
             style={{
+              marginVertical: 10,
               flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-evenly",
-              marginVertical: 30,
-              paddingHorizontal: wp(5),
+              flexWrap: "wrap",
             }}
           >
-            <View style={{ flexDirection: "column", alignItems: "center" }}>
-              <Text text="TOTAL INCOME" style={{ color: colors.textDim }} />
-              <Text
-                text="34K"
-                preset="bold"
+            {MY_WALLETS.map((el) => (
+              <View
+                key={el._id}
                 style={{
-                  marginTop: 5,
-                  color: colors.palette.primary500,
-                  fontSize: 32,
-                  lineHeight: 35,
+                  marginRight: 10,
+                  marginBottom: 10,
+                  backgroundColor: colors.palette.primary100,
+                  paddingVertical: 4,
+                  paddingHorizontal: 16,
+                  borderRadius: 20,
                 }}
-              />
-            </View>
-            <View style={{ flexDirection: "column", alignItems: "center" }}>
-              <Text text="TOTAL EXPENSE" style={{ color: colors.textDim }} />
-              <Text
-                text="102K"
-                preset="bold"
-                style={{
-                  marginTop: 5,
-                  color: colors.palette.primary500,
-                  fontSize: 32,
-                  lineHeight: 35,
-                }}
-              />
-            </View>
+              >
+                <Text text={el.name.toUpperCase()} style={{ fontSize: 12, color: colors.text }} />
+              </View>
+            ))}
           </View>
 
+          <AppHeader text="Achievements" />
           <View
             style={{
-              backgroundColor: "red",
-              height: 100,
-              marginHorizontal: wp(5),
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: 20,
+              marginVertical: 10,
+              flexDirection: "row",
+              flexWrap: "wrap",
             }}
-          >
-            <Text text="Earned Badges will be shown here..." />
-          </View>
-
-          <View
-            style={{
-              backgroundColor: colors.palette.primary200,
-              height: 100,
-              marginHorizontal: wp(5),
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text text="Wallets will be shown here..." />
-          </View>
+          ></View>
         </View>
       </View>
     )
