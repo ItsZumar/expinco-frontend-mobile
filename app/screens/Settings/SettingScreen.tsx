@@ -1,14 +1,14 @@
 import React, { FC } from "react"
-import { ScrollView, TouchableOpacity, View, FlatList } from "react-native"
+import { TouchableOpacity, View, FlatList } from "react-native"
 import { colors, shadow } from "app/theme"
 import { ScreensEnum } from "app/enums"
-import { observer } from "mobx-react-lite"
-import { AutoImage, Icon, Text, Header } from "app/components"
-import { AppStackScreenProps } from "app/navigators"
 import { wp } from "app/utils/responsive"
+import { observer } from "mobx-react-lite"
+import { Text, Header } from "app/components"
+import { AppStackScreenProps } from "app/navigators"
+import { SETTINGS_ITEMS } from "./data"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
-import { SETTINGS_ITEMS } from "./data"
 
 export const SettingScreen: FC<AppStackScreenProps<ScreensEnum.SETTING>> = observer(
   ({ navigation }) => {
@@ -24,7 +24,6 @@ export const SettingScreen: FC<AppStackScreenProps<ScreensEnum.SETTING>> = obser
             <TouchableOpacity
               style={{
                 flex: 1,
-                // height: 60,
                 marginBottom: 15,
                 backgroundColor: colors.palette.neutral100,
                 marginHorizontal: wp(5),

@@ -4,11 +4,11 @@ import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { observer } from "mobx-react-lite"
 import { AutoImage, Icon, Text, AppHeader } from "app/components"
-import { AppStackScreenProps, navigationRef } from "app/navigators"
-import Ionicons from "react-native-vector-icons/Ionicons"
-import styles from "./styles"
+import { AppStackScreenProps } from "app/navigators"
 import { wp } from "app/utils/responsive"
 import { MY_WALLETS } from "./data"
+import Ionicons from "react-native-vector-icons/Ionicons"
+import styles from "./styles"
 
 export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = observer(
   ({ navigation }) => {
