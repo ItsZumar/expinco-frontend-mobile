@@ -24,3 +24,4 @@ export * from "./MainScreen/HomeScreen/AddTransactionScreen/AddTransactionScreen
 // Setting Screens
 export * from './Settings/SettingScreen';
 export * from './Settings/PersonalSettings/PersonalSettings'
+export * from './Settings/MyWallet/MyWallet'

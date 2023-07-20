@@ -16,4 +16,5 @@ export enum ScreensEnum {
 
   SETTING = 'Setting',
   PERSONAL_SETTINGS = 'PersonalSettings',
+  MY_WALLETS = 'MyWallets'
 }

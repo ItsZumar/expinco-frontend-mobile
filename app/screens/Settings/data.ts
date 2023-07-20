@@ -5,13 +5,13 @@ export const SETTINGS_ITEMS = [
     {
         _id: "0",
         name: "Personal",
-        onPress: () => navigate(ScreensEnum.PERSONAL_SETTINGS as any),
+        onPress: () => navigate(ScreensEnum.PERSONAL_SETTINGS),
         icon: "person-circle"
     }, 
     {
         _id: "1",
         name: "My Wallets",
-        href: "MY_WALLETS",
+        onPress: () => navigate(ScreensEnum.MY_WALLETS),
         icon: "wallet"
     },
     {
