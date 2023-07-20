@@ -61,7 +61,7 @@ export function Icon(props: IconProps) {
   } = props
 
   const isPressable = !!WrapperProps.onPress
-  
+
   const Wrapper: ComponentType<TouchableOpacityProps> = WrapperProps?.onPress
     ? TouchableOpacity
     : View
@@ -109,6 +109,16 @@ export const iconRegistry = {
   view: require("../../../assets/icons/view.png"),
   x: require("../../../assets/icons/x.png"),
   verifiedBadge: require("../../../assets/icons/verifiedbadge.png"),
+
+  // badges icons
+  badge1: require("../../../assets/icons/badges/badge1.png"),
+  badge2: require("../../../assets/icons/badges/badge2.png"),
+  badge3: require("../../../assets/icons/badges/badge3.png"),
+  badge4: require("../../../assets/icons/badges/badge4.png"),
+  badge5: require("../../../assets/icons/badges/badge5.png"),
+  badge6: require("../../../assets/icons/badges/badge6.png"),
+  badge7: require("../../../assets/icons/badges/badge7.png"),
+  badge8: require("../../../assets/icons/badges/badge8.png"),
 }
 
 const $imageStyle: ImageStyle = {
