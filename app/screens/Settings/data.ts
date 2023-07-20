@@ -1,10 +1,13 @@
+import { ScreensEnum } from "app/enums";
+import { navigate } from "app/navigators";
+
 export const SETTINGS_ITEMS = [
     {
         _id: "0",
         name: "Personal",
-        href: "EDIT_PROFILE",
+        onPress: () => navigate(ScreensEnum.PERSONAL_SETTINGS as any),
         icon: "person-circle"
-    },
+    }, 
     {
         _id: "1",
         name: "My Wallets",

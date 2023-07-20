@@ -22,6 +22,7 @@ export const SettingScreen: FC<AppStackScreenProps<ScreensEnum.SETTING>> = obser
           style={{ paddingTop: 20 }}
           renderItem={({ item }) => (
             <TouchableOpacity
+              onPress={item.onPress}
               style={{
                 flex: 1,
                 marginBottom: 15,
