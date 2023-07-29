@@ -26,7 +26,11 @@ export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observe
         </View>
 
         <View style={styles.createBudgetBtn}>
-          <Button tx="budgetScreen.createBudget" preset="filled" />
+          <Button
+            tx="budgetScreen.createBudget"
+            preset="filled"
+            onPress={() => navigation.navigate(ScreensEnum.CREATE_BUDGET as any)}
+          />
         </View>
       </View>
     )

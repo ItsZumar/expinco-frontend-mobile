@@ -124,8 +124,8 @@ export function Button(props: ButtonProps) {
 }
 
 const $baseViewStyle: ViewStyle = {
-  width: '100%',
-  alignSelf: 'center',
+  width: "100%",
+  alignSelf: "center",
   minHeight: 50,
   borderRadius: 12,
   justifyContent: "center",
@@ -161,14 +161,17 @@ const $viewPresets = {
   ] as StyleProp<ViewStyle>,
 
   filled: [$baseViewStyle, { backgroundColor: colors.palette.primary500 }] as StyleProp<ViewStyle>,
-  reversed: [ $baseViewStyle, { backgroundColor: colors.palette.neutral800 }] as StyleProp<ViewStyle>,
+  reversed: [
+    $baseViewStyle,
+    { backgroundColor: colors.palette.neutral800 },
+  ] as StyleProp<ViewStyle>,
   income: [$baseViewStyle, { backgroundColor: colors.palette.income }] as StyleProp<ViewStyle>,
-  expense: [$baseViewStyle, { backgroundColor: colors.palette.expense }] as StyleProp<ViewStyle>
+  expense: [$baseViewStyle, { backgroundColor: colors.palette.expense }] as StyleProp<ViewStyle>,
 }
 
 const $textPresets: Record<Presets, StyleProp<TextStyle>> = {
   default: $baseTextStyle,
-  filled: [$baseTextStyle, {color: colors.palette.neutral100}],
+  filled: [$baseTextStyle, { color: colors.palette.neutral100 }],
   reversed: [$baseTextStyle, { color: colors.palette.neutral100 }],
   income: [$baseTextStyle, { color: colors.palette.neutral100 }],
   expense: [$baseTextStyle, { color: colors.palette.neutral100 }],
@@ -187,5 +190,5 @@ const $pressedTextPresets: Record<Presets, StyleProp<TextStyle>> = {
   filled: { opacity: 0.9 },
   reversed: { opacity: 0.9 },
   income: { opacity: 0.9 },
-  expense: { opacity: 0.9 }
+  expense: { opacity: 0.9 },
 }

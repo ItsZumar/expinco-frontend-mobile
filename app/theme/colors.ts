@@ -40,7 +40,7 @@ const palette = {
   income: "#00A86B",
   expense: "#FD3C4A",
 
-  orange: "orange"
+  orange: "orange",
 } as const
 
 export const colors = {
@@ -74,7 +74,7 @@ export const colors = {
    * The main tinting color.
    */
   tint: palette.primary500,
-  
+
   separator: palette.neutral300,
   error: palette.angry500,
   errorBackground: palette.angry100,

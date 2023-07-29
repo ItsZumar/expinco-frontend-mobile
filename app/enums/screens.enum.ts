@@ -4,17 +4,18 @@ export enum ScreensEnum {
   OTP_VERIFICATION = "OTPVerification",
   FORGOT_PASSWORD = "ForgotPassword",
   RESET_PASSWORD = "ResetPassword",
-  
-  MAIN = 'Main',
 
-  HOME = 'Home',
-  TRANSACTION = 'Transaction',
-  BUDGET = 'Budget',
-  PROFILE = 'Profile',
+  MAIN = "Main",
 
-  ADD_TRANSACTION = 'AddTransaction',
+  HOME = "Home",
+  TRANSACTION = "Transaction",
+  BUDGET = "Budget",
+  PROFILE = "Profile",
 
-  SETTING = 'Setting',
-  PERSONAL_SETTINGS = 'PersonalSettings',
-  MY_WALLETS = 'MyWallets'
+  ADD_TRANSACTION = "AddTransaction",
+
+  SETTING = "Setting",
+  PERSONAL_SETTINGS = "PersonalSettings",
+  MY_WALLETS = "MyWallets",
+  CREATE_BUDGET = "CreateBudget",
 }
