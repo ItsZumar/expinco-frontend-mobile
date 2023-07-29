@@ -26,7 +26,7 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
         <View
           style={{
             height: hp(100),
-            backgroundColor: colors.palette.primaryPurple,
+            backgroundColor: colors.palette.primary500,
           }}
         >
           <Header
@@ -69,7 +69,7 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
                   />
                 </View>
                 <Switch
-                  trackColor={{ false: "#767577", true: colors.palette.primaryPurple }}
+                  trackColor={{ false: "#767577", true: colors.palette.primary500 }}
                   thumbColor={isEnabled ? colors.palette.neutral100 : "#f4f3f4"}
                   ios_backgroundColor="#3e3e3e"
                   onValueChange={toggleSwitch}
