@@ -48,9 +48,7 @@ export type AppStackParamList = {
     type: string
   }
 
-  CreateBudget: {
-    type: string
-  }
+  CreateBudget: undefined
 }
 
 /**

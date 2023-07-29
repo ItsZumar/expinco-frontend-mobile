@@ -39,7 +39,7 @@ const palette = {
 
   income: "#00A86B",
   expense: "#FD3C4A",
-  createBudget: "#7F3DFF",
+  primaryPurple: "#7F3DFF",
 
   orange: "orange",
 } as const

@@ -13,8 +13,6 @@ import styles from "./styles"
 
 export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGET>> = observer(
   ({ navigation, route }) => {
-    const { type } = route.params
-
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
     const [selectedCategory, setSelectedCategory] = useState<
       TransactionCategoryI & { selected: boolean }
@@ -28,11 +26,11 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
         <View
           style={{
             height: hp(100),
-            backgroundColor: colors.palette.createBudget,
+            backgroundColor: colors.palette.primaryPurple,
           }}
         >
           <Header
-            titleTx="common.createBudget"
+            titleTx="budgetScreen.createBudget"
             leftIcon="back"
             onLeftPress={() => navigation.goBack()}
           />
@@ -71,7 +69,7 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
                   />
                 </View>
                 <Switch
-                  trackColor={{ false: "#767577", true: colors.palette.createBudget }}
+                  trackColor={{ false: "#767577", true: colors.palette.primaryPurple }}
                   thumbColor={isEnabled ? colors.palette.neutral100 : "#f4f3f4"}
                   ios_backgroundColor="#3e3e3e"
                   onValueChange={toggleSwitch}
@@ -81,8 +79,8 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
 
               <Button
                 text="Continue"
+                preset="filled"
                 onPress={() => {}}
-                preset={type === TransactionType.CREATE_BUDGET ? "createBudget" : "expense"}
                 style={[styles.spacingTop, styles.spacingBottom]}
               />
             </View>
