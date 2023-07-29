@@ -16,7 +16,6 @@ const en = {
     continue: "Continue",
     submit: "Submit",
     income: "Income",
-    createBudget: "Create Budget",
   },
   welcomeScreen: {
     postscript:
