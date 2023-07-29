@@ -47,6 +47,10 @@ export type AppStackParamList = {
   AddTransaction: {
     type: string
   }
+
+  CreateBudget: {
+    type: string
+  }
 }
 
 /**
@@ -84,8 +88,12 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen name={ScreensEnum.MAIN} component={Screens.MainScreen} />
       <Stack.Screen name={ScreensEnum.ADD_TRANSACTION} component={Screens.AddTransactionScreen} />
       <Stack.Screen name={ScreensEnum.SETTING} component={Screens.SettingScreen} />
-      <Stack.Screen name={ScreensEnum.PERSONAL_SETTINGS} component={Screens.PersonalSettingScreen} />
+      <Stack.Screen
+        name={ScreensEnum.PERSONAL_SETTINGS}
+        component={Screens.PersonalSettingScreen}
+      />
       <Stack.Screen name={ScreensEnum.MY_WALLETS} component={Screens.MyWalletScreen} />
+      <Stack.Screen name={ScreensEnum.CREATE_BUDGET} component={Screens.CreateBudgetScreen} />
 
       {/* {isAuthenticated ? (
         <>

@@ -15,7 +15,8 @@ const en = {
     verify: "Verify",
     continue: "Continue",
     submit: "Submit",
-    income: "Income"
+    income: "Income",
+    createBudget: "Create Budget",
   },
   welcomeScreen: {
     postscript:
@@ -140,23 +141,23 @@ const en = {
   signupScreen: {
     enterfirstname: "Enter firstname",
     enterlastname: "Enter lastname",
-    alreadyHaveAccount: "Already have an account?"
+    alreadyHaveAccount: "Already have an account?",
   },
   otpVerificationScreen: {
     otp: "Enter OTP",
     sendOtpCode: "We have sent an OTP to your email address",
-    codeExpiresIn: "Code expires in "
+    codeExpiresIn: "Code expires in ",
   },
   forgotPassword: {
     forgotPassword: "Forgot Password",
-    dontWorryText: `Don’t worry.\nEnter your email to verify your identity!`
+    dontWorryText: `Don’t worry.\nEnter your email to verify your identity!`,
   },
   resetPassword: {
-    resetPass: "Reset Password"
+    resetPass: "Reset Password",
   },
   budgetScreen: {
-    createBudget: "Create Budget"
-  }
+    createBudget: "Create Budget",
+  },
 }
 
 export default en
