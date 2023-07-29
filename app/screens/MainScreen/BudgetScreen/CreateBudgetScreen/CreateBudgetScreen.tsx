@@ -4,15 +4,14 @@ import { ScreensEnum } from "app/enums"
 import { hp } from "app/utils/responsive"
 import { observer } from "mobx-react-lite"
 import { AppStackScreenProps } from "app/navigators"
-import { TransactionType } from "app/enums/transactions.enum"
-import { TransactionCategoryI, WalletI } from "app/interfaces"
+import { TransactionCategoryI } from "app/interfaces"
 import { Switch, TextInput, TouchableOpacity, View } from "react-native"
-import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
+import { Button, Header, Screen, Text, CategoryModal } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
 export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGET>> = observer(
-  ({ navigation, route }) => {
+  ({ navigation }) => {
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
     const [selectedCategory, setSelectedCategory] = useState<
       TransactionCategoryI & { selected: boolean }
@@ -69,9 +68,9 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
                   />
                 </View>
                 <Switch
-                  trackColor={{ false: "#767577", true: colors.palette.primary500 }}
-                  thumbColor={isEnabled ? colors.palette.neutral100 : "#f4f3f4"}
-                  ios_backgroundColor="#3e3e3e"
+                  trackColor={{ false: colors.palette.neutral300, true: colors.palette.primary500 }}
+                  thumbColor={isEnabled ? colors.palette.neutral100 : colors.palette.neutral100}
+                  ios_backgroundColor={colors.palette.neutral500}
                   onValueChange={toggleSwitch}
                   value={isEnabled}
                 />
