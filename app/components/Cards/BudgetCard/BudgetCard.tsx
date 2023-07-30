@@ -35,7 +35,7 @@ const BudgetCard = ({ cardData }: BudgetCardI) => {
       <View style={[styles.progressLine, { backgroundColor: cardData.color }]}></View>
 
       <Text text={`$${cardData.expenseAmount} of $${cardData.totalAmount}`} style={styles.amount} />
-      <View style={{}}>
+      <View>
         {cardData.expenseAmount > cardData.totalAmount ? (
           <View>
             <Text text="You have exceed the limit!" style={styles.alertText} />
