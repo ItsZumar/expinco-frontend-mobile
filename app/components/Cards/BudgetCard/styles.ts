@@ -1,22 +1,13 @@
 import { StyleSheet } from "react-native"
-import { colors, typography } from "../../../theme"
+import { colors, shadow, typography } from "../../../theme"
 import { hp, wp } from "../../../utils/responsive"
 
 const styles = StyleSheet.create({
   cardContainer: {
-    backgroundColor: "#FCFCFC",
+    backgroundColor: colors.palette.neutral200,
     padding: 15,
     marginBottom: 15,
     borderRadius: 15,
-    shadowColor: colors.palette.neutral500,
-    shadowOffset: {
-      width: 0,
-      height: 0.3,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
-
-    elevation: 4,
   },
   cardHeader: {
     flexDirection: "row",
@@ -24,8 +15,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   budgetType: {
-    //required changes
-    width: wp(40),
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.palette.neutral100,
@@ -53,7 +42,7 @@ const styles = StyleSheet.create({
     color: colors.palette.neutral600,
   },
   remainingAmount: { marginTop: 15, fontSize: 22, fontWeight: "800" },
-  alertText: { color: colors.error, fontSize: 13, marginBottom: 10 },
+  alertText: { color: colors.error, fontSize: 13 },
 })
 
 export default styles

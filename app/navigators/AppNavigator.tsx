@@ -49,6 +49,14 @@ export type AppStackParamList = {
   }
 
   CreateBudget: undefined
+  BudgetDetail: {
+    id: number
+  }
+  EditBudget: undefined
+  WalletDetail: {
+    id: number
+  }
+  CreateWallet: undefined
 }
 
 /**
@@ -92,6 +100,10 @@ const AppStack = observer(function AppStack() {
       />
       <Stack.Screen name={ScreensEnum.MY_WALLETS} component={Screens.MyWalletScreen} />
       <Stack.Screen name={ScreensEnum.CREATE_BUDGET} component={Screens.CreateBudgetScreen} />
+      <Stack.Screen name={ScreensEnum.BUDGET_DETAIL} component={Screens.BudgetDetailScreen} />
+      <Stack.Screen name={ScreensEnum.EDIT_BUDGET} component={Screens.EditBudgetScreen} />
+      <Stack.Screen name={ScreensEnum.WALLET_DETAIL} component={Screens.WalletDetailScreen} />
+      <Stack.Screen name={ScreensEnum.CREATE_WALLET} component={Screens.CreateWallet} />
 
       {/* {isAuthenticated ? (
         <>

@@ -156,6 +156,10 @@ const en = {
   },
   budgetScreen: {
     createBudget: "Create Budget",
+    editBudget: "Edit Budget",
+  },
+  walletScreen: {
+    createWallet: "Add new Wallet",
   },
 }
 

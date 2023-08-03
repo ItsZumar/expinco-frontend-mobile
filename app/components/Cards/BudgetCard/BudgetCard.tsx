@@ -1,7 +1,7 @@
 import React from "react"
 import { colors } from "app/theme"
 import { Text } from "app/components/Text/Text"
-import { View } from "react-native"
+import { TouchableOpacity, View } from "react-native"
 import styles from "./styles"
 import { Icon } from "app/components/Icon/Icon"
 
@@ -14,11 +14,16 @@ interface BudgetCardI {
     expenseAmount: number
     color: string
   }
+  onPress: (id: number) => void
 }
 
-const BudgetCard = ({ cardData }: BudgetCardI) => {
+const BudgetCard = ({ cardData, onPress }: BudgetCardI) => {
   return (
-    <View style={styles.cardContainer} key={cardData.id}>
+    <TouchableOpacity
+      style={styles.cardContainer}
+      key={cardData.id}
+      onPress={() => onPress(cardData.id)}
+    >
       <View style={styles.cardHeader}>
         <View style={styles.budgetType}>
           <View style={[styles.budgetCircle, { backgroundColor: cardData.color }]}></View>
@@ -29,22 +34,16 @@ const BudgetCard = ({ cardData }: BudgetCardI) => {
         )}
       </View>
 
-      <View>
-        <Text text={`Remaining $${cardData.remainingAmount}`} style={styles.remainingAmount} />
-      </View>
+      <Text text={`Remaining $${cardData.remainingAmount}`} style={styles.remainingAmount} />
       <View style={[styles.progressLine, { backgroundColor: cardData.color }]}></View>
 
       <Text text={`$${cardData.expenseAmount} of $${cardData.totalAmount}`} style={styles.amount} />
       <View>
-        {cardData.expenseAmount > cardData.totalAmount ? (
-          <View>
-            <Text text="You have exceed the limit!" style={styles.alertText} />
-          </View>
-        ) : (
-          <Text text="" />
+        {cardData.expenseAmount > cardData.totalAmount && (
+          <Text text="You have exceed the limit!" style={styles.alertText} />
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 

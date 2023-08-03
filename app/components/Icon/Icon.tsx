@@ -110,6 +110,13 @@ export const iconRegistry = {
   x: require("../../../assets/icons/x.png"),
   verifiedBadge: require("../../../assets/icons/verifiedbadge.png"),
   alert: require("../../../assets/icons/alert.png"),
+  edit: require("../../../assets/icons/edit.png"),
+  delete: require("../../../assets/icons/delete.png"),
+
+  paypal: require("../../../assets/icons/paypal.png"),
+  chase: require("../../../assets/icons/chase.png"),
+  wallet: require("../../../assets/icons/wallet.png"),
+  citi: require("../../../assets/icons/citi.png"),
 
   // badges icons
   badge1: require("../../../assets/icons/badges/badge1.png"),

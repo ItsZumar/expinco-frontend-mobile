@@ -10,27 +10,27 @@ import styles from "./styles"
 import { hp, wp } from "app/utils/responsive"
 import { BudgetCard } from "app/components/Cards/BudgetCard/BudgetCard"
 
+export const cardsDummyData = [
+  {
+    id: 1,
+    bugetType: "Shopping",
+    remainingAmount: 0,
+    totalAmount: 1000,
+    expenseAmount: 1200,
+    color: colors.palette.accent500,
+  },
+  {
+    id: 2,
+    bugetType: "Transportation",
+    remainingAmount: 350,
+    totalAmount: 700,
+    expenseAmount: 350,
+    color: colors.palette.secondary500,
+  },
+]
+
 export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observer(
   ({ navigation }) => {
-    const cardsDummyData = [
-      {
-        id: 1,
-        bugetType: "Shopping",
-        remainingAmount: 0,
-        totalAmount: 1000,
-        expenseAmount: 1200,
-        color: colors.palette.accent500,
-      },
-      {
-        id: 2,
-        bugetType: "Transportation",
-        remainingAmount: 350,
-        totalAmount: 700,
-        expenseAmount: 350,
-        color: colors.palette.secondary500,
-      },
-    ]
-
     return (
       <View style={styles.root}>
         <View style={styles.headerBlock}>
@@ -48,7 +48,10 @@ export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observe
 
         <View style={styles.innerContainer}>
           {cardsDummyData.map((cardData) => (
-            <BudgetCard cardData={cardData} />
+            <BudgetCard
+              cardData={cardData}
+              onPress={(id) => navigation.navigate("BudgetDetail", { id })}
+            />
           ))}
         </View>
 

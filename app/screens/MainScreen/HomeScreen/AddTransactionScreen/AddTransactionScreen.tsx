@@ -18,7 +18,9 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
     const [showWalletModal, setShowWalletModal] = useState<boolean>(false)
 
-    const [selectedCategory, setSelectedCategory] = useState<TransactionCategoryI & { selected: boolean }>()
+    const [selectedCategory, setSelectedCategory] = useState<
+      TransactionCategoryI & { selected: boolean }
+    >()
     const [selectedWallet, setSelectedWallet] = useState<WalletI & { selected: boolean }>()
     const [description, setDescription] = useState<string>("")
 
