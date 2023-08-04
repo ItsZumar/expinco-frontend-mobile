@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { View } from "react-native"
+import { FlatList, View } from "react-native"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { observer } from "mobx-react-lite"
@@ -9,28 +9,14 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 import { hp, wp } from "app/utils/responsive"
 import { BudgetCard } from "app/components/Cards/BudgetCard/BudgetCard"
-
-export const cardsDummyData = [
-  {
-    id: 1,
-    bugetType: "Shopping",
-    remainingAmount: 0,
-    totalAmount: 1000,
-    expenseAmount: 1200,
-    color: colors.palette.accent500,
-  },
-  {
-    id: 2,
-    bugetType: "Transportation",
-    remainingAmount: 350,
-    totalAmount: 700,
-    expenseAmount: 350,
-    color: colors.palette.secondary500,
-  },
-]
+import { cardsDummyData } from "./data"
 
 export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observer(
   ({ navigation }) => {
+    const renderBudgetCard = ({ item }: any) => (
+      <BudgetCard cardData={item} onPress={(id) => navigation.navigate("BudgetDetail", { id })} />
+    )
+
     return (
       <View style={styles.root}>
         <View style={styles.headerBlock}>
@@ -47,12 +33,11 @@ export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observe
         </View>
 
         <View style={styles.innerContainer}>
-          {cardsDummyData.map((cardData) => (
-            <BudgetCard
-              cardData={cardData}
-              onPress={(id) => navigation.navigate("BudgetDetail", { id })}
-            />
-          ))}
+          <FlatList
+            data={cardsDummyData}
+            renderItem={renderBudgetCard}
+            keyExtractor={(item) => item.id.toString()} // Assuming "id" is unique
+          />
         </View>
 
         <View style={styles.createBudgetBtn}>
@@ -66,3 +51,4 @@ export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observe
     )
   },
 )
+export { cardsDummyData }

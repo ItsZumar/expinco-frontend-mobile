@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
-import { hp } from "app/utils/responsive"
 import { observer } from "mobx-react-lite"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionCategoryI } from "app/interfaces"
@@ -22,12 +21,7 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
 
     return (
       <Screen>
-        <View
-          style={{
-            height: hp(100),
-            backgroundColor: colors.palette.primary500,
-          }}
-        >
+        <View style={styles.innerContainer}>
           <Header
             titleTx="budgetScreen.createBudget"
             leftIcon="back"

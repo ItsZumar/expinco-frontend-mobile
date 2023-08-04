@@ -117,6 +117,7 @@ export const iconRegistry = {
   chase: require("../../../assets/icons/chase.png"),
   wallet: require("../../../assets/icons/wallet.png"),
   citi: require("../../../assets/icons/citi.png"),
+  export: require("../../../assets/icons/export.png"),
 
   // badges icons
   badge1: require("../../../assets/icons/badges/badge1.png"),

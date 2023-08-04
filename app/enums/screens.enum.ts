@@ -16,6 +16,10 @@ export enum ScreensEnum {
 
   SETTING = "Setting",
   PERSONAL_SETTINGS = "PersonalSettings",
+  APP_SETTINGS = "AppSettings",
+  EXPORT_DATA = "ExportData",
+  ABOUT = "About",
+  PRIVACY_POLICY = "PrivacyPolicy",
 
   BUDGET_DETAIL = "BudgetDetail",
   EDIT_BUDGET = "EditBudget",
