@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
+import { hp } from "app/utils/responsive"
 import { observer } from "mobx-react-lite"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionCategoryI } from "app/interfaces"
@@ -9,7 +10,7 @@ import { Button, Header, Screen, Text, CategoryModal } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
-export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGET>> = observer(
+export const EditBudgetScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_BUDGET>> = observer(
   ({ navigation }) => {
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
     const [selectedCategory, setSelectedCategory] = useState<
@@ -21,9 +22,14 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
 
     return (
       <Screen>
-        <View style={styles.innerContainer}>
+        <View
+          style={{
+            height: hp(100),
+            backgroundColor: colors.palette.primary500,
+          }}
+        >
           <Header
-            titleTx="budgetScreen.createBudget"
+            titleTx="budgetScreen.editBudget"
             leftIcon="back"
             onLeftPress={() => navigation.goBack()}
           />

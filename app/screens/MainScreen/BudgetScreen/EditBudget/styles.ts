@@ -3,10 +3,6 @@ import { colors, typography } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
-  innerContainer: {
-    height: hp(100),
-    backgroundColor: colors.palette.primary500,
-  },
   rowFlexStartCenter: {
     flexDirection: "row",
     justifyContent: "flex-start",

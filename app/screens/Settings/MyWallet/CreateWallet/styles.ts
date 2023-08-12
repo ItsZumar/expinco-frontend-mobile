@@ -3,10 +3,6 @@ import { colors, typography } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
-  innerContainer: {
-    height: hp(100),
-    backgroundColor: colors.palette.primary500,
-  },
   rowFlexStartCenter: {
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -36,20 +32,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: hp(3),
     borderTopLeftRadius: hp(3),
   },
-  recieveAlertContainer: {
-    marginTop: hp(2),
-    marginBottom: hp(1),
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  recieveAlertInnerContainer: { width: 204 },
-  recieveAlertHeading: {
-    fontSize: hp(2.1),
-    fontWeight: "700",
-    marginBottom: hp(0.5),
-    marginTop: hp(0.9),
-  },
-  recieveAlertText: { fontSize: hp(1.7), color: colors.palette.neutral600, lineHeight: 17 },
   itemContainer: {
     marginTop: hp(2),
     flexDirection: "row",

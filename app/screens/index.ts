@@ -18,6 +18,8 @@ export * from "./MainScreen/TransactionScreen/TransactionScreen"
 export * from "./MainScreen/BudgetScreen/BudgetScreen"
 export * from "./MainScreen/ProfileScreen/ProfileScreen"
 export * from "./MainScreen/BudgetScreen/CreateBudgetScreen/CreateBudgetScreen"
+export * from "./MainScreen/BudgetScreen/DetailBudget/DetailBudget"
+export * from "./MainScreen/BudgetScreen/EditBudget/EditBudget"
 
 // Transaction Screens
 export * from "./MainScreen/HomeScreen/AddTransactionScreen/AddTransactionScreen"
@@ -26,3 +28,9 @@ export * from "./MainScreen/HomeScreen/AddTransactionScreen/AddTransactionScreen
 export * from "./Settings/SettingScreen"
 export * from "./Settings/PersonalSettings/PersonalSettings"
 export * from "./Settings/MyWallet/MyWallet"
+export * from "./Settings/MyWallet/WalletDetail/WalletDetail"
+export * from "./Settings/MyWallet/CreateWallet/CreateWallet"
+export * from "./Settings/AppSettings/AppSettings"
+export * from "./Settings/ExportData/ExportData"
+export * from "./Settings/AppSettings/About/About"
+export * from "./Settings/AppSettings/PrivacyPolicy/PrivacyPolicy"

@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { View } from "react-native"
+import { FlatList, View } from "react-native"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { observer } from "mobx-react-lite"
@@ -7,9 +7,16 @@ import { Button, Text } from "app/components"
 import { AppStackScreenProps } from "app/navigators"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
+import { hp, wp } from "app/utils/responsive"
+import { BudgetCard } from "app/components/Cards/BudgetCard/BudgetCard"
+import { cardsDummyData } from "./data"
 
 export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observer(
   ({ navigation }) => {
+    const renderBudgetCard = ({ item }: any) => (
+      <BudgetCard cardData={item} onPress={(id) => navigation.navigate("BudgetDetail", { id })} />
+    )
+
     return (
       <View style={styles.root}>
         <View style={styles.headerBlock}>
@@ -25,6 +32,14 @@ export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observe
           </View>
         </View>
 
+        <View style={styles.innerContainer}>
+          <FlatList
+            data={cardsDummyData}
+            renderItem={renderBudgetCard}
+            keyExtractor={(item) => item.id.toString()} // Assuming "id" is unique
+          />
+        </View>
+
         <View style={styles.createBudgetBtn}>
           <Button
             tx="budgetScreen.createBudget"
@@ -36,3 +51,4 @@ export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observe
     )
   },
 )
+export { cardsDummyData }

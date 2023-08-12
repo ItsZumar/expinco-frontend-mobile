@@ -5,6 +5,7 @@ import { StyleSheet } from "react-native"
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: colors.palette.neutral100,
   },
   textField: {
     marginBottom: hp(2.4),
@@ -41,6 +42,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     ...shadow.light,
   },
+  walletList: { paddingHorizontal: wp(5), paddingTop: 20 },
+  totalBalanceContainer: { height: hp(20), justifyContent: "center", alignItems: "center" },
+  totalBalanceImage: { width: "100%", height: hp(20), position: "absolute" },
+  addWalletBtn: { position: "absolute", bottom: 40 },
+  addWalletBtnContainer: { paddingHorizontal: wp(5) },
 })
 
 export default styles

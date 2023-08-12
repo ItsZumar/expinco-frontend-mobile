@@ -16,6 +16,16 @@ export enum ScreensEnum {
 
   SETTING = "Setting",
   PERSONAL_SETTINGS = "PersonalSettings",
-  MY_WALLETS = "MyWallets",
+  APP_SETTINGS = "AppSettings",
+  EXPORT_DATA = "ExportData",
+  ABOUT = "About",
+  PRIVACY_POLICY = "PrivacyPolicy",
+
+  BUDGET_DETAIL = "BudgetDetail",
+  EDIT_BUDGET = "EditBudget",
   CREATE_BUDGET = "CreateBudget",
+
+  MY_WALLETS = "MyWallets",
+  WALLET_DETAIL = "WalletDetail",
+  CREATE_WALLET = "CreateWallet",
 }

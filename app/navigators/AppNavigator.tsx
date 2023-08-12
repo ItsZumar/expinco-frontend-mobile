@@ -49,6 +49,18 @@ export type AppStackParamList = {
   }
 
   CreateBudget: undefined
+  BudgetDetail: {
+    id: number
+  }
+  EditBudget: undefined
+  WalletDetail: {
+    id: number
+  }
+  CreateWallet: undefined
+  AppSettings: undefined
+  ExportData: undefined
+  About: undefined
+  PrivacyPolicy: undefined
 }
 
 /**
@@ -92,6 +104,14 @@ const AppStack = observer(function AppStack() {
       />
       <Stack.Screen name={ScreensEnum.MY_WALLETS} component={Screens.MyWalletScreen} />
       <Stack.Screen name={ScreensEnum.CREATE_BUDGET} component={Screens.CreateBudgetScreen} />
+      <Stack.Screen name={ScreensEnum.BUDGET_DETAIL} component={Screens.BudgetDetailScreen} />
+      <Stack.Screen name={ScreensEnum.EDIT_BUDGET} component={Screens.EditBudgetScreen} />
+      <Stack.Screen name={ScreensEnum.WALLET_DETAIL} component={Screens.WalletDetailScreen} />
+      <Stack.Screen name={ScreensEnum.CREATE_WALLET} component={Screens.CreateWallet} />
+      <Stack.Screen name={ScreensEnum.APP_SETTINGS} component={Screens.AppSettingsScreen} />
+      <Stack.Screen name={ScreensEnum.EXPORT_DATA} component={Screens.ExportDataScreen} />
+      <Stack.Screen name={ScreensEnum.ABOUT} component={Screens.AboutScreen} />
+      <Stack.Screen name={ScreensEnum.PRIVACY_POLICY} component={Screens.PrivacyPolicyScreen} />
 
       {/* {isAuthenticated ? (
         <>

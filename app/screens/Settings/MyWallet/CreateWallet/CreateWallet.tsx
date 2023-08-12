@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
+import { hp } from "app/utils/responsive"
 import { observer } from "mobx-react-lite"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionCategoryI } from "app/interfaces"
@@ -9,7 +10,7 @@ import { Button, Header, Screen, Text, CategoryModal } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
-export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGET>> = observer(
+export const CreateWallet: FC<AppStackScreenProps<ScreensEnum.CREATE_WALLET>> = observer(
   ({ navigation }) => {
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
     const [selectedCategory, setSelectedCategory] = useState<
@@ -21,16 +22,21 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
 
     return (
       <Screen>
-        <View style={styles.innerContainer}>
+        <View
+          style={{
+            height: hp(100),
+            backgroundColor: colors.palette.primary500,
+          }}
+        >
           <Header
-            titleTx="budgetScreen.createBudget"
+            titleTx="walletScreen.createWallet"
             leftIcon="back"
             onLeftPress={() => navigation.goBack()}
           />
 
           <View style={styles.underHeaderBlock}>
             <View style={styles.amountBlock}>
-              <Text style={styles.subTitleText}>How much do you want to spend?</Text>
+              <Text style={styles.subTitleText}>Balance</Text>
               <View style={styles.rowFlexStartCenter}>
                 <Text style={styles.amountText}>$</Text>
                 <TextInput
@@ -52,23 +58,6 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
                 </Text>
                 <Ionicons name="chevron-down" size={25} color="gray" />
               </TouchableOpacity>
-
-              <View style={styles.recieveAlertContainer}>
-                <View style={styles.recieveAlertInnerContainer}>
-                  <Text text="Recieve Alert" style={styles.recieveAlertHeading} />
-                  <Text
-                    text="Recieve Alert when reaches some point."
-                    style={styles.recieveAlertText}
-                  />
-                </View>
-                <Switch
-                  trackColor={{ false: colors.palette.neutral300, true: colors.palette.primary500 }}
-                  thumbColor={isEnabled ? colors.palette.neutral100 : colors.palette.neutral100}
-                  ios_backgroundColor={colors.palette.neutral500}
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                />
-              </View>
 
               <Button
                 text="Continue"
