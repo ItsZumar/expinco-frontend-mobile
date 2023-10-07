@@ -73,9 +73,23 @@ const $presets = {
 
   subheading: [$baseStyle, $sizeStyles.md, $fontWeightStyles.semiBold] as StyleProp<TextStyle>,
 
-  formLabel: [$baseStyle, $sizeStyles.xxs, $fontWeightStyles.medium, {color: colors.textDim}] as StyleProp<TextStyle>,
+  formLabel: [
+    $baseStyle,
+    $sizeStyles.xxs,
+    $fontWeightStyles.medium,
+    { color: colors.textDim },
+  ] as StyleProp<TextStyle>,
 
   formHelper: [$baseStyle, $sizeStyles.xxs, $fontWeightStyles.normal] as StyleProp<TextStyle>,
+
+  pageHeading: [
+    $baseStyle,
+    $sizeStyles.md,
+    $fontWeightStyles.semiBold,
+    { color: colors.textDim },
+  ] as StyleProp<TextStyle>,
+
+  description: [$baseStyle, $sizeStyles.md, $fontWeightStyles.medium] as StyleProp<TextStyle>,
 }
 
 const $rtlStyle: TextStyle = isRTL ? { writingDirection: "rtl" } : {}

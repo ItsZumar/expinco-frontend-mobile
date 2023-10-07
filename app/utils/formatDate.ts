@@ -4,6 +4,7 @@ import I18n from "i18n-js"
 import ar from "date-fns/locale/ar-SA"
 import ko from "date-fns/locale/ko"
 import en from "date-fns/locale/en-US"
+import moment from "moment"
 
 type Options = Parameters<typeof format>[2]
 
@@ -25,4 +26,10 @@ export const getTimeFromDateString = (datetimeString: string) => {
   const dateObject = parseISO(datetimeString)
   const timeString = format(dateObject, "h:mm a")
   return timeString
+}
+
+export const getFormattedDate = (datetimeString: string) => {
+  const date = moment(datetimeString)
+  const formattedDate = date.format("dddd D MMMM YYYY  HH:mm")
+  return formattedDate
 }

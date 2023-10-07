@@ -1,20 +1,29 @@
 import React, { FC, useState } from "react"
-import { FlatList, ScrollView, TouchableOpacity, View } from "react-native"
-import { colors, shadow } from "app/theme"
-import { ScreensEnum } from "app/enums"
-import { hp, wp } from "app/utils/responsive"
-import { observer } from "mobx-react-lite"
-import { Text, Header, TextField, AutoImage, Button, ListItemCard, Icon } from "app/components"
-import { AppStackScreenProps } from "app/navigators"
-import Ionicons from "react-native-vector-icons/Ionicons"
-import styles from "./styles"
+import { FlatList, TouchableOpacity, View } from "react-native"
+import { hp } from "app/utils/responsive"
 import { Switch } from "react-native"
+import { colors } from "app/theme"
+import { observer } from "mobx-react-lite"
+import { ScreensEnum } from "app/enums"
+import { Text, Header, Icon } from "app/components"
+import { AppStackScreenProps } from "app/navigators"
 import { SETTING_ITEMS } from "./data"
+import styles from "./styles"
 
 export const AppSettingsScreen: FC<AppStackScreenProps<ScreensEnum.APP_SETTINGS>> = observer(
   ({ navigation }) => {
-    const [isEnabled, setIsEnabled] = useState(false)
-    const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
+    const [settingItems, setSettingItems] = useState<any>(SETTING_ITEMS)
+
+    const toggleSwitch = (itemId: any) => {
+      const updatedItems = settingItems.map((item: any) => {
+        if (item.id === itemId) {
+          return { ...item, isEnabled: !item.isEnabled }
+        }
+        return item
+      })
+
+      setSettingItems(updatedItems)
+    }
 
     const renderItem = ({ item }: any) => {
       return (
@@ -30,10 +39,10 @@ export const AppSettingsScreen: FC<AppStackScreenProps<ScreensEnum.APP_SETTINGS>
           {item.icon == null ? (
             <Switch
               trackColor={{ false: colors.palette.neutral300, true: colors.palette.primary500 }}
-              thumbColor={isEnabled ? colors.palette.neutral100 : colors.palette.neutral100}
+              thumbColor={item.isEnabled ? colors.palette.neutral100 : colors.palette.neutral100}
               ios_backgroundColor={colors.palette.neutral500}
-              onValueChange={toggleSwitch}
-              value={isEnabled}
+              onValueChange={() => toggleSwitch(item.id)}
+              value={item.isEnabled}
             />
           ) : (
             <Icon icon={item.icon} color={colors.palette.primary500} />
@@ -46,7 +55,7 @@ export const AppSettingsScreen: FC<AppStackScreenProps<ScreensEnum.APP_SETTINGS>
       <View style={styles.root}>
         <Header title="Settings" leftIcon="back" onLeftPress={() => navigation.goBack()} />
         <View style={styles.innerContainer}>
-          <FlatList data={SETTING_ITEMS} renderItem={renderItem} keyExtractor={(item) => item.id} />
+          <FlatList data={settingItems} renderItem={renderItem} keyExtractor={(item) => item.id} />
           <Text text="Delete My Account" style={styles.link} />
         </View>
       </View>

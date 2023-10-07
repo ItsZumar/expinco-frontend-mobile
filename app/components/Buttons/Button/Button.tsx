@@ -7,8 +7,8 @@ import {
   TextStyle,
   ViewStyle,
 } from "react-native"
-import { colors, spacing, typography } from "../../theme"
-import { Text, TextProps } from "../Text/Text"
+import { colors, spacing, typography } from "../../../theme"
+import { Text, TextProps } from "../../Text/Text"
 
 type Presets = keyof typeof $viewPresets
 

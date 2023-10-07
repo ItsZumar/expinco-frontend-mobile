@@ -28,4 +28,7 @@ export enum ScreensEnum {
   MY_WALLETS = "MyWallets",
   WALLET_DETAIL = "WalletDetail",
   CREATE_WALLET = "CreateWallet",
+
+  DETAIL_TRANSACTION = "DetailTransactionScreen",
+  NOTIFICATION_SCREEN = "NotificationScreen",
 }

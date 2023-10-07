@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react"
-import { colors } from "app/theme"
-import { ScreensEnum } from "app/enums"
-import { hp } from "app/utils/responsive"
-import { observer } from "mobx-react-lite"
-import { AppStackScreenProps } from "app/navigators"
-import { TransactionType } from "app/enums/transactions.enum"
-import { TransactionCategoryI, WalletI } from "app/interfaces"
 import { TextInput, TouchableOpacity, View } from "react-native"
+import { hp } from "app/utils/responsive"
+import { colors } from "app/theme"
+import { observer } from "mobx-react-lite"
+import { ScreensEnum } from "app/enums"
+import { TransactionType } from "app/enums/transactions.enum"
+import { AppStackScreenProps } from "app/navigators"
+import { TransactionCategoryI, WalletI } from "app/interfaces"
 import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
@@ -17,7 +17,6 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
 
     const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
     const [showWalletModal, setShowWalletModal] = useState<boolean>(false)
-
     const [selectedCategory, setSelectedCategory] = useState<
       TransactionCategoryI & { selected: boolean }
     >()
@@ -34,7 +33,12 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
               : colors.palette.expense,
           }}
         >
-          <Header titleTx="common.income" leftIcon="back" onLeftPress={() => navigation.goBack()} />
+          {/* type === TransactionType.INCOME ? "Add Income" : "Add Expense" */}
+          <Header
+            titleTx={type === TransactionType.INCOME ? "common.income" : "common.expense"}
+            leftIcon="back"
+            onLeftPress={() => navigation.goBack()}
+          />
 
           <View style={styles.underHeaderBlock}>
             <View style={styles.amountBlock}>

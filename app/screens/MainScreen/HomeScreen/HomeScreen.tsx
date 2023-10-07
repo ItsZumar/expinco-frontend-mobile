@@ -7,10 +7,10 @@ import { Screen, AutoImage, Text, AppHeader, TransactionCard } from "app/compone
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import { TransactionData } from "./data"
+import { TransactionType } from "app/enums/transactions.enum"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import styles from "./styles"
-import { TransactionType } from "app/enums/transactions.enum"
 
 interface HomeScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.HOME>> {}
 
@@ -32,7 +32,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
 
         <TouchableOpacity
           style={styles.bellContainer}
-          onPress={() => navigation.navigate(ScreensEnum.SIGNIN as any)}
+          onPress={() => navigation.navigate(ScreensEnum.NOTIFICATION_SCREEN as any)}
         >
           <Ionicons name="md-notifications-outline" size={25} color={colors.palette.primary500} />
         </TouchableOpacity>
@@ -104,7 +104,13 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
           />
 
           {TransactionData.map((item) => (
-            <TransactionCard {...item} onPress={() => {}} key={item._id} />
+            <TransactionCard
+              {...item}
+              onPress={() => {
+                navigation.navigate(ScreensEnum.DETAIL_TRANSACTION)
+              }}
+              key={item._id}
+            />
           ))}
         </View>
       </View>

@@ -61,6 +61,8 @@ export type AppStackParamList = {
   ExportData: undefined
   About: undefined
   PrivacyPolicy: undefined
+  DetailTransactionScreen: undefined
+  NotificationScreen: undefined
 }
 
 /**
@@ -112,6 +114,11 @@ const AppStack = observer(function AppStack() {
       <Stack.Screen name={ScreensEnum.EXPORT_DATA} component={Screens.ExportDataScreen} />
       <Stack.Screen name={ScreensEnum.ABOUT} component={Screens.AboutScreen} />
       <Stack.Screen name={ScreensEnum.PRIVACY_POLICY} component={Screens.PrivacyPolicyScreen} />
+      <Stack.Screen
+        name={ScreensEnum.DETAIL_TRANSACTION}
+        component={Screens.DetailTransactionScreen}
+      />
+      <Stack.Screen name={ScreensEnum.NOTIFICATION_SCREEN} component={Screens.NotificationScreen} />
 
       {/* {isAuthenticated ? (
         <>
