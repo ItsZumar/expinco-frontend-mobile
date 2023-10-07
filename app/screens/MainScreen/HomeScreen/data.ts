@@ -10,7 +10,9 @@ export const TransactionData = [
       createdAt: "2023-07-08T13:57:53.274Z",
       updatedAt: "2023-07-08T13:57:53.274Z",
     },
-    description: "This is test gaming transaction",
+    name: "Test gaming transaction",
+    description:
+      "This is test gaming transaction. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
     wallet: {
       _id: "64a96b3562c5c32e9b62fe06",
       amount: 700,
@@ -31,6 +33,7 @@ export const TransactionData = [
       createdAt: "2023-07-08T13:57:53.274Z",
       updatedAt: "2023-07-08T13:57:53.274Z",
     },
+    name: "Test gaming transaction",
     description: "This is test gaming transaction",
     wallet: {
       _id: "64a96b3562c5c32e9b62fe06",
@@ -52,6 +55,7 @@ export const TransactionData = [
       createdAt: "2023-07-08T13:57:53.274Z",
       updatedAt: "2023-07-08T13:57:53.274Z",
     },
+    name: "Test gaming transaction",
     description: "This is test gaming transaction",
     wallet: {
       _id: "64a96b3562c5c32e9b62fe06",

@@ -1,22 +1,36 @@
 import React, { FC, useEffect, useState } from "react"
-import { colors } from "app/theme"
-import { ScreensEnum } from "app/enums"
-import { observer } from "mobx-react-lite"
-import { AppStackScreenProps } from "app/navigators"
 import { FlatList, TouchableOpacity, View } from "react-native"
-import { Screen, Text, TransactionCard } from "app/components"
+import { colors } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
+import { observer } from "mobx-react-lite"
+import { ScreensEnum } from "app/enums"
+import { TransactionData } from "./data"
+import { AppStackScreenProps } from "app/navigators"
+import { FilterByItems, SortByItems } from "./TransactionFilterModalData"
+import { FilterModal, Text, TransactionCard } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
-import { TransactionData } from "./data"
 
 export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>> = observer(
   ({ navigation }) => {
     const [state, setState] = useState([])
+    const [filterModal, setFilterModal] = useState<boolean>(false)
 
     useEffect(() => {
       setState(TransactionData)
     }, [])
+
+    const openFilterModal = () => {
+      setFilterModal((prev) => !prev)
+    }
+
+    const closeFilterModal = () => {
+      setFilterModal(false)
+    }
+
+    const onPressSortByItems = () => {}
+
+    const onPressFilterByItems = () => {}
 
     return (
       <View style={styles.root}>
@@ -35,7 +49,7 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
             style={{ fontSize: hp(3), lineHeight: hp(3.5) }}
           />
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={openFilterModal}>
             <Ionicons
               name="filter-outline"
               size={25}
@@ -53,7 +67,26 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
           data={state}
           keyExtractor={(item) => String(item._id)}
           style={styles.listStyle}
-          renderItem={({ item }) => <TransactionCard {...item} onPress={() => {}} />}
+          renderItem={({ item }) => (
+            <TransactionCard
+              {...item}
+              onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION)}
+            />
+          )}
+        />
+
+        <FilterModal
+          isVisible={filterModal}
+          title="Filter Transaction"
+          sortByItems={SortByItems}
+          onPressSortByItems={onPressSortByItems}
+          filterByItems={FilterByItems}
+          onPressFilterByItems={onPressFilterByItems}
+          onModalClose={closeFilterModal}
+          onPressApply={(data) => {
+            console.log("apply", data)
+            setFilterModal(false)
+          }}
         />
       </View>
     )

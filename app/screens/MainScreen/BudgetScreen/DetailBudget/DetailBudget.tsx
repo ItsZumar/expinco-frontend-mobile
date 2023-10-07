@@ -1,14 +1,13 @@
 import React, { FC, useEffect, useState } from "react"
-import { FlatList, View } from "react-native"
-import { ScreensEnum } from "app/enums"
-import { wp } from "app/utils/responsive"
-import { observer } from "mobx-react-lite"
-import { AppHeader, Button, Header, Icon, Text, TransactionCard } from "app/components"
-import { AppStackScreenProps } from "app/navigators"
+import { FlatList, View, TouchableOpacity } from "react-native"
 import { colors } from "app/theme"
+import { observer } from "mobx-react-lite"
+import { ScreensEnum } from "app/enums"
 import { cardsDummyData } from "../BudgetScreen"
-import styles from "./styles"
 import { TransactionData } from "../../TransactionScreen/data"
+import { AppStackScreenProps } from "app/navigators"
+import { AppHeader, Button, Header, Icon, Text, TransactionCard } from "app/components"
+import styles from "./styles"
 
 export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAIL>> = observer(
   ({ navigation, route }) => {
@@ -29,8 +28,12 @@ export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAI
           onLeftPress={() => navigation.goBack()}
           RightActionComponent={
             <View style={styles.headerIcons}>
-              <Icon icon="edit" size={22} style={{ marginRight: 5 }} />
-              <Icon icon="delete" size={22} />
+              <TouchableOpacity>
+                <Icon icon="edit" size={22} style={{ marginRight: 5 }} />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Icon icon="delete" size={22} />
+              </TouchableOpacity>
             </View>
           }
         />
@@ -53,23 +56,27 @@ export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAI
           <View style={styles.centerDivider}></View>
 
           <View style={styles.amountContainer}>
-            <Text text={`Remaining `} style={styles.remainingAmount} />
-            <Text
-              text={`$${filteredBudgetData[0].remainingAmount}`}
-              style={styles.remainingAmount}
-            />
+            <Text text={`Remaining `} preset="title" />
+            <Text text={`$${filteredBudgetData[0].remainingAmount}`} preset="heading" />
           </View>
         </View>
 
-        <View style={{ paddingHorizontal: wp(5) }}>
+        <View style={styles.headingContainer}>
           <AppHeader text="Transactions" />
         </View>
+
         <FlatList
           data={state}
           keyExtractor={(item) => String(item._id)}
           style={styles.listStyle}
-          renderItem={({ item }) => <TransactionCard {...item} onPress={() => {}} />}
+          renderItem={({ item }) => (
+            <TransactionCard
+              {...item}
+              onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION)}
+            />
+          )}
         />
+
         <View style={styles.createBudgetBtn}>
           <Button
             tx="budgetScreen.editBudget"

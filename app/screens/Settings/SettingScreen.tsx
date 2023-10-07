@@ -9,9 +9,14 @@ import { AppStackScreenProps } from "app/navigators"
 import { SETTINGS_ITEMS } from "./data"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
+import { useStores } from "app/models"
 
 export const SettingScreen: FC<AppStackScreenProps<ScreensEnum.SETTING>> = observer(
   ({ navigation }) => {
+    const {
+      authenticationStore: { logout },
+    } = useStores()
+
     return (
       <View style={styles.root}>
         <Header title="Settings" leftIcon="back" onLeftPress={() => navigation.goBack()} />
@@ -22,7 +27,14 @@ export const SettingScreen: FC<AppStackScreenProps<ScreensEnum.SETTING>> = obser
           style={{ paddingTop: 20 }}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={item.onPress}
+              onPress={
+                item.name === "Logout"
+                  ? () => {
+                      logout()
+                      navigation.navigate(ScreensEnum.SIGNUP)
+                    }
+                  : item.onPress
+              }
               style={{
                 flex: 1,
                 marginBottom: 15,

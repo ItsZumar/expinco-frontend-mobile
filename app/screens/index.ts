@@ -21,8 +21,11 @@ export * from "./MainScreen/BudgetScreen/CreateBudgetScreen/CreateBudgetScreen"
 export * from "./MainScreen/BudgetScreen/DetailBudget/DetailBudget"
 export * from "./MainScreen/BudgetScreen/EditBudget/EditBudget"
 
+export * from "./MainScreen/HomeScreen/NotificationScreen/NotificationScreen"
+
 // Transaction Screens
 export * from "./MainScreen/HomeScreen/AddTransactionScreen/AddTransactionScreen"
+export * from "./DetailTransactionScreen/DetailTransactionScreen"
 
 // Setting Screens
 export * from "./Settings/SettingScreen"

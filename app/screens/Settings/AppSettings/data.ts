@@ -6,11 +6,13 @@ export const SETTING_ITEMS = [
     id: "0",
     listItem: "Theme",
     icon: null,
+    isEnabled: false,
   },
   {
     id: "1",
     listItem: "Notification",
     icon: null,
+    isEnabled: false,
   },
   {
     id: "2",
