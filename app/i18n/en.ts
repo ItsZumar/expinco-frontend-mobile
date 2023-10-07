@@ -16,6 +16,7 @@ const en = {
     continue: "Continue",
     submit: "Submit",
     income: "Income",
+    expense: "Expense",
   },
   welcomeScreen: {
     postscript:
@@ -160,6 +161,9 @@ const en = {
   },
   walletScreen: {
     createWallet: "Add new Wallet",
+  },
+  transactionScreen: {
+    detailTransaction: "Detail Transaction",
   },
 }
 

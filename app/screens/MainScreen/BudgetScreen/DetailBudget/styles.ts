@@ -1,6 +1,6 @@
+import { StyleSheet } from "react-native"
 import { colors } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
-import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
   budgetType: {
@@ -19,7 +19,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginRight: 10,
   },
-  remainingAmount: { marginTop: 15, fontSize: 22, fontWeight: "800" },
+  headingContainer: {
+    paddingHorizontal: wp(5),
+    marginTop: hp(2),
+    marginBottom: hp(-2),
+  },
   listStyle: {
     marginTop: hp(2),
     paddingHorizontal: wp(5),
@@ -31,15 +35,24 @@ const styles = StyleSheet.create({
     right: 0,
     paddingHorizontal: wp(5),
   },
-  detailBudgetContainer: { backgroundColor: colors.palette.neutral100, height: hp(100) },
-  headerIcons: { flexDirection: "row", paddingHorizontal: wp(4) },
+  detailBudgetContainer: {
+    backgroundColor: colors.palette.neutral100,
+    height: hp(100),
+  },
+  headerIcons: {
+    flexDirection: "row",
+    paddingHorizontal: wp(4),
+  },
   alertHeading: {
     flexDirection: "row",
     paddingHorizontal: wp(4),
     paddingVertical: hp(1.4),
     backgroundColor: colors.error,
   },
-  alertHeadingText: { color: colors.palette.neutral100, marginLeft: 10 },
+  alertHeadingText: {
+    color: colors.palette.neutral100,
+    marginLeft: 10,
+  },
   middleContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -48,8 +61,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingVertical: hp(2),
   },
-  centerDivider: { width: wp(0.4), height: hp(12), backgroundColor: colors.palette.neutral200 },
-  amountContainer: { flexDirection: "column", alignItems: "center" },
+  centerDivider: {
+    width: wp(0.4),
+    height: hp(12),
+    backgroundColor: colors.palette.neutral200,
+  },
+  amountContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
 })
 
 export default styles
