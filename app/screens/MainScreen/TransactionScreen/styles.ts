@@ -8,6 +8,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     paddingTop: hp(3),
   },
+  headerContainer: {
+    marginVertical: 15,
+    paddingHorizontal: wp(5),
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  heading: {
+    fontSize: hp(3),
+    lineHeight: hp(3.5),
+  },
   topBanner: {
     marginHorizontal: wp(5),
     backgroundColor: "#EEE5FF",

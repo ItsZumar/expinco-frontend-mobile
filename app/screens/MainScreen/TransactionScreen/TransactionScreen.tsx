@@ -34,20 +34,8 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
 
     return (
       <View style={styles.root}>
-        <View
-          style={{
-            marginVertical: 15,
-            paddingHorizontal: wp(5),
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            text="Transactions"
-            preset="bold"
-            style={{ fontSize: hp(3), lineHeight: hp(3.5) }}
-          />
+        <View style={styles.headerContainer}>
+          <Text text="Transactions" preset="bold" style={styles.heading} />
 
           <TouchableOpacity onPress={openFilterModal}>
             <Ionicons
