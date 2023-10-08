@@ -18,7 +18,7 @@ export * from "./Cards/NotificationCard/NotificationCard"
 
 // HOCs
 export * from "./HOC/ModalScreen/ModalScreen"
-export * from "./HOC/StickyBottomModalScreen/StickyBottomModalScreen"
+export * from "./HOC/StickyBottomModal/StickyBottomModal"
 
 // Modals
 export * from "./Modals/CategoryModal/CategoryModal"
