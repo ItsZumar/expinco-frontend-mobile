@@ -3,6 +3,10 @@ import { colors } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    // flex: 1,
+    backgroundColor: colors.palette.neutral100,
+  },
   budgetType: {
     flexDirection: "row",
     alignItems: "center",

@@ -37,3 +37,5 @@ export * from "./Settings/AppSettings/AppSettings"
 export * from "./Settings/ExportData/ExportData"
 export * from "./Settings/AppSettings/About/About"
 export * from "./Settings/AppSettings/PrivacyPolicy/PrivacyPolicy"
+
+export * from "./FinancialReportScreen/FinancialReportScreen"

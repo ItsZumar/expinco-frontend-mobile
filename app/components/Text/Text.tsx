@@ -73,6 +73,8 @@ const $presets = {
 
   subheading: [$baseStyle, $sizeStyles.md, $fontWeightStyles.semiBold] as StyleProp<TextStyle>,
 
+  largeHeading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.semiBold] as StyleProp<TextStyle>,
+
   formLabel: [
     $baseStyle,
     $sizeStyles.xxs,

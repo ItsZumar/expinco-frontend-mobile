@@ -1,6 +1,6 @@
+import { colors } from "app/theme"
+import { hp, wp } from "app/utils/responsive"
 import { StyleSheet } from "react-native"
-import { colors } from "../../../theme"
-import { hp, wp } from "../../../utils/responsive"
 
 const styles = StyleSheet.create({
   selectedBtnStyle: {

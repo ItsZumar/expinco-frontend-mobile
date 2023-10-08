@@ -63,6 +63,7 @@ export type AppStackParamList = {
   PrivacyPolicy: undefined
   DetailTransactionScreen: undefined
   NotificationScreen: undefined
+  FinancialReportScreen: undefined
 }
 
 /**
@@ -119,6 +120,7 @@ const AppStack = observer(function AppStack() {
         component={Screens.DetailTransactionScreen}
       />
       <Stack.Screen name={ScreensEnum.NOTIFICATION_SCREEN} component={Screens.NotificationScreen} />
+      <Stack.Screen name={ScreensEnum.FINANCIAL_REPORT} component={Screens.FinancialReportScreen} />
 
       {/* {isAuthenticated ? (
         <>

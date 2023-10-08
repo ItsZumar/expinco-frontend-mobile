@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
-import { colors, typography } from "../../../theme"
-import { hp, wp } from "../../../utils/responsive"
+import { hp, wp } from "app/utils/responsive"
+import { colors } from "app/theme"
 
 const styles = StyleSheet.create({
   walletCardContainer: {
@@ -9,18 +9,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 10,
-    paddingVertical: 18,
+    paddingVertical: hp(2),
     borderBottomWidth: 1,
     borderBottomColor: colors.palette.neutral200,
   },
   iconContainer: {
     backgroundColor: colors.palette.neutral200,
     padding: wp(3.5),
-    borderRadius: 15,
-    marginRight: 10,
+    borderRadius: hp(1.8),
+    marginRight: wp(2.5),
   },
-  primaryText: { fontSize: 18, fontFamily: typography.fonts.inter.medium },
-  innerLeftContainer: { flexDirection: "row", alignItems: "center" },
+  innerLeftContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 })
 
 export default styles

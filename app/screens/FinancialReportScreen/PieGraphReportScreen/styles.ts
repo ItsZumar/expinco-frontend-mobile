@@ -1,18 +1,41 @@
 import { StyleSheet } from "react-native"
-import { colors, shadow, typography } from "../../../theme"
-import { hp, wp } from "../../../utils/responsive"
+import { colors } from "app/theme"
+import { hp, wp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    backgroundColor: colors.palette.neutral200,
-    padding: hp(2),
-    marginBottom: hp(1.7),
-    borderRadius: hp(1.5),
+  mainContainer: {
+    flex: 1,
+    marginTop: hp(2),
   },
-  cardHeader: {
+  amount: {
+    marginBottom: hp(1),
+  },
+  btnContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
+    borderColor: colors.palette.neutral200,
+    borderWidth: 1,
+    backgroundColor: colors.palette.neutral200,
+    marginTop: hp(2),
+    borderRadius: hp(3),
+  },
+  btn: {
+    flex: 1,
+    padding: hp(1),
+    borderRadius: hp(3),
+    alignItems: "center",
+  },
+  activeBtn: {
+    backgroundColor: colors.palette.primary500,
+  },
+  activeBtnTxt: {
+    color: colors.palette.neutral100,
+  },
+  transactionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: hp(1),
   },
   budgetType: {
     flexDirection: "row",
@@ -32,16 +55,9 @@ const styles = StyleSheet.create({
   },
   progressLine: {
     alignSelf: "center",
-    width: wp(83),
     height: hp(1.4),
     borderRadius: hp(2),
     marginTop: hp(0.6),
-  },
-  remainingAmount: {
-    marginTop: hp(2.5),
-  },
-  alertText: {
-    color: colors.error,
   },
 })
 

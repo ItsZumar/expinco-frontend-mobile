@@ -3,42 +3,42 @@ import { hp, wp } from "app/utils/responsive"
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: colors.background,
-    paddingTop: hp(3),
-  },
+  // root: {
+  //   flex: 1,
+  //   backgroundColor: colors.background,
+  // },
   headerBlock: {
-    marginVertical: 15,
+    paddingTop: hp(5),
+    paddingBottom: hp(2),
     paddingHorizontal: wp(5),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    backgroundColor: colors.background,
   },
   headerText: {
     fontSize: hp(3),
     lineHeight: hp(3.5),
   },
-  createBudgetBtn: {
-    position: "absolute",
-    bottom: hp(2),
-    left: 0,
-    right: 0,
-    paddingHorizontal: wp(5),
+
+  p5: {
+    padding: wp(2),
   },
-  p5: { padding: 5 },
-  displayHidden: { opacity: 0 },
+  displayHidden: {
+    opacity: 0,
+  },
   innerContainer: {
+    flex: 1,
     paddingHorizontal: wp(5),
+    backgroundColor: colors.background,
   },
   cardContainer: {
     backgroundColor: "#FCFCFC",
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 15,
+    padding: hp(2),
+    marginBottom: hp(2),
+    borderRadius: hp(3),
   },
   budgetType: {
-    //required changes
     width: wp(40),
     flexDirection: "row",
     alignItems: "center",
@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   budgetCircle: {
-    width: 15,
-    height: 15,
-    borderRadius: 50,
-    marginRight: 10,
+    width: wp(4),
+    height: hp(2),
+    borderRadius: hp(4),
+    marginRight: wp(2),
   },
   progressLine: {
     alignSelf: "center",

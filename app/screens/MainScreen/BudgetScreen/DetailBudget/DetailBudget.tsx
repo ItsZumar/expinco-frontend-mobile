@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { FC, useState } from "react"
 import { FlatList, View, TouchableOpacity } from "react-native"
 import { colors } from "app/theme"
 import { observer } from "mobx-react-lite"
 import { ScreensEnum } from "app/enums"
 import { cardsDummyData } from "../BudgetScreen"
-import { TransactionData } from "../../TransactionScreen/data"
+import { TransactionData } from "app/constants"
 import { AppStackScreenProps } from "app/navigators"
 import { AppHeader, Header, Icon, Text, TransactionCard, Screen } from "app/components"
 import styles from "./styles"
@@ -14,10 +14,10 @@ export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAI
     const { id } = route.params
     const [state] = useState(TransactionData)
 
-    const filteredBudgetData = cardsDummyData.filter((obj) => obj.id === id)
+    const budgetData = cardsDummyData.filter((obj) => obj.id === id)
 
     return (
-      <View style={{ flex: 1, backgroundColor: "#fff" }}>
+      <View style={styles.mainContainer}>
         <Header
           title="Detail Budget"
           leftIcon="back"
@@ -33,25 +33,25 @@ export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAI
             </View>
           }
         />
-        {filteredBudgetData[0].expenseAmount > filteredBudgetData[0].totalAmount && (
+
+        {budgetData[0].expenseAmount > budgetData[0].totalAmount && (
           <View style={styles.alertHeading}>
             <Icon icon="alert" size={22} color={colors.palette.neutral100} />
             <Text text="You have Exceeded the Limit!" style={styles.alertHeadingText} />
           </View>
         )}
+
         <View style={styles.middleContainer}>
           <View style={styles.budgetType}>
-            <View
-              style={[styles.budgetCircle, { backgroundColor: filteredBudgetData[0].color }]}
-            ></View>
-            <Text text={filteredBudgetData[0].bugetType} style={{ textTransform: "capitalize" }} />
+            <View style={[styles.budgetCircle, { backgroundColor: budgetData[0].color }]}></View>
+            <Text text={budgetData[0].bugetType} preset="default" />
           </View>
 
           <View style={styles.centerDivider}></View>
 
           <View style={styles.amountContainer}>
             <Text text={`Remaining `} preset="title" />
-            <Text text={`$${filteredBudgetData[0].remainingAmount}`} preset="heading" />
+            <Text text={`$${budgetData[0].remainingAmount}`} preset="heading" />
           </View>
         </View>
 

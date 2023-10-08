@@ -1,5 +1,5 @@
 import React from "react"
-import { TouchableOpacity } from "react-native"
+import { StyleProp, TextStyle, TouchableOpacity, ViewStyle } from "react-native"
 import { Text } from "app/components/Text/Text"
 import styles from "./styles"
 
@@ -8,8 +8,8 @@ interface RoundedButtonI {
   name: string
   isSelected?: boolean
   onPress: () => void
-  containerStyle?: any
-  textStyle?: any
+  containerStyle?: StyleProp<ViewStyle>
+  textStyle?: StyleProp<TextStyle>
 }
 
 const RoundedButton = ({
@@ -24,12 +24,12 @@ const RoundedButton = ({
     <TouchableOpacity
       onPress={onPress}
       key={id}
-      style={[styles.btnStyle, isSelected ? styles.selectedBtnStyle : containerStyle]}
+      style={[styles.btnStyle, isSelected && styles.selectedBtnStyle, containerStyle]}
     >
       <Text
         text={name}
         preset="bold"
-        style={[styles.textStyle, isSelected ? styles.selectedTextStyle : textStyle]}
+        style={[styles.textStyle, isSelected && styles.selectedTextStyle, textStyle]}
       />
     </TouchableOpacity>
   )

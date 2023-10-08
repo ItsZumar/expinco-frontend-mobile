@@ -12,9 +12,9 @@ const styles = StyleSheet.create({
     marginHorizontal: wp(5),
   },
   profileImage: {
-    width: 35,
-    height: 35,
-    borderRadius: 20,
+    width: wp(9),
+    height: hp(4.5),
+    borderRadius: hp(3),
   },
   monthContainer: {
     flexDirection: "row",
@@ -22,19 +22,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 0.5,
     borderColor: colors.palette.neutral300,
-    borderRadius: 20,
-    paddingVertical: 6,
-    paddingLeft: 12,
-    paddingRight: 20,
+    borderRadius: hp(3),
+    paddingVertical: hp(0.8),
+    paddingLeft: wp(4),
+    paddingRight: wp(5),
   },
   monthText: {
-    marginLeft: 6,
-    fontSize: 14,
-    fontFamily: typography.fonts.inter.semiBold,
+    marginLeft: wp(0.6),
   },
   bellContainer: {
-    padding: 8,
-    borderRadius: 20,
+    padding: hp(0.8),
+    borderRadius: hp(3),
   },
   accountBalanceText: {
     textAlign: "center",
@@ -42,24 +40,23 @@ const styles = StyleSheet.create({
   },
   amountText: {
     textAlign: "center",
-    fontFamily: typography.fonts.inter.semiBold,
     color: colors.palette.neutral900,
-    fontSize: hp(4),
-    paddingTop: hp(2),
   },
-  topBlock: { marginVertical: 20 },
+  topBlock: {
+    marginVertical: hp(3.5),
+  },
   transBtnBlock: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: wp(5),
-    gap: 20,
-    marginTop: 15,
+    gap: wp(5),
+    marginTop: hp(2),
   },
   incBtnBlock: {
     flex: 1,
-    height: 80,
-    borderRadius: 20,
+    height: hp(10),
+    borderRadius: hp(2.5),
     flexDirection: "row",
     alignItems: "center",
   },
@@ -70,14 +67,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.palette.expense,
   },
   arrowBlock: {
-    padding: 8,
-    backgroundColor: "#FFF",
-    borderRadius: 16,
-    marginHorizontal: 12,
+    padding: wp(2),
+    backgroundColor: colors.palette.neutral100,
+    borderRadius: hp(1.8),
+    marginHorizontal: wp(3.5),
   },
   topLightText: {
     color: colors.palette.neutral100,
-    marginBottom: 6,
+    marginBottom: hp(0.8),
   },
   actualAmountText: {
     color: colors.palette.neutral100,
@@ -86,9 +83,9 @@ const styles = StyleSheet.create({
   },
   seeAllbtnBlock: {
     backgroundColor: colors.palette.primary100,
-    paddingVertical: 6,
-    paddingHorizontal: 16,
-    borderRadius: 20,
+    paddingVertical: hp(0.8),
+    paddingHorizontal: wp(4),
+    borderRadius: hp(4),
   },
   seeAllText: {
     color: colors.palette.primary500,
@@ -96,26 +93,24 @@ const styles = StyleSheet.create({
   },
   bottomBlock: {
     paddingHorizontal: wp(5),
-    marginTop: 30,
+    marginTop: hp(3),
   },
   graphSortBlock: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    marginTop: 15,
+    marginTop: hp(2),
   },
   timeStampBtn: {
-    paddingHorizontal: 20,
-    paddingVertical: 6,
-    borderRadius: 20,
+    paddingHorizontal: wp(5.5),
+    paddingVertical: hp(0.8),
+    borderRadius: hp(5),
     backgroundColor: "#FCEED4",
   },
   timeStampText: {
     color: "orange",
-    fontSize: 14,
-    fontFamily: typography.fonts.inter.semiBold,
   },
-  spacingTop: { marginTop: 12 },
+  spacingTop: { marginTop: hp(2) },
 })
 
 export default styles
