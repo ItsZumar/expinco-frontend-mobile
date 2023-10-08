@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginRight: 10,
   },
-  primaryText: { fontSize: 18, fontWeight: "700" },
+  primaryText: { fontSize: 18, fontFamily: typography.fonts.inter.medium },
   innerLeftContainer: { flexDirection: "row", alignItems: "center" },
 })
 

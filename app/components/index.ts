@@ -16,6 +16,9 @@ export * from "./Cards/TransactionCard/TransactionCard"
 export * from "./Cards/ListItemCard/ListItemCard"
 export * from "./Cards/NotificationCard/NotificationCard"
 
+// Charts
+export * from './Charts/MyLineChart/MyLineChart';
+
 // HOCs
 export * from "./HOC/ModalScreen/ModalScreen"
 export * from "./HOC/StickyBottomModal/StickyBottomModal"

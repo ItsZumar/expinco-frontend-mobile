@@ -52,7 +52,7 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = o
         </View>
 
         <ScrollView style={styles.walletList}>
-          {myWalletsData.map((walletData) => (
+          {[...myWalletsData, ...myWalletsData].map((walletData) => (
             <WalletListCard
               walletData={walletData}
               onPress={(id) => navigation.navigate("WalletDetail", { id })}

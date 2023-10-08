@@ -198,7 +198,6 @@ export function Screen(props: ScreenProps) {
   } = props
 
   const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)
-  console.log("containerInsets === ", $containerInsets);
 
   return (
     <View style={[$containerStyle, { backgroundColor }, $containerInsets]}>
