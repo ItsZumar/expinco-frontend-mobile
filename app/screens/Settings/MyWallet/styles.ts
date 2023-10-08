@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   walletList: { paddingHorizontal: wp(5), paddingTop: 20 },
   totalBalanceContainer: { height: hp(20), justifyContent: "center", alignItems: "center" },
   totalBalanceImage: { width: "100%", height: hp(20), position: "absolute" },
-  addWalletBtn: { position: "absolute", bottom: 40 },
+  addWalletBtn: { position: "absolute", bottom: hp(2) },
   addWalletBtnContainer: { paddingHorizontal: wp(5) },
 })
 

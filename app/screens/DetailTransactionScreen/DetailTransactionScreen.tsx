@@ -6,7 +6,7 @@ import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionData as transaction } from "./data"
-import { Button, Header, Text, AlertBox, AlertBottomModal } from "app/components"
+import { Button, Header, Text, AlertBox, AlertBottomModal, Screen } from "app/components"
 import { getFormattedDate } from "app/utils/formatDate"
 import {
   TransactionAttachmentTypesI,
@@ -52,8 +52,11 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
           rightIcon="delete"
           onRightPress={openModal}
         />
-
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={styles.scrollViewStyle}>
+        <Screen
+          preset="scroll"
+          safeAreaEdges={["bottom"]}
+          ScrollViewProps={{ showsVerticalScrollIndicator: false }}
+        >
           <View
             style={[
               styles.topContainer,
@@ -117,10 +120,9 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
               style={{ marginTop: hp(2) }}
             />
           </View>
-        </ScrollView>
+        </Screen>
 
         {/* MODALS */}
-
         <AlertBottomModal
           title="Remove this transaction?"
           message="Are you sure do you wanna remove this transaction?"

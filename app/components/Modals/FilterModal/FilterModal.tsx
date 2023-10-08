@@ -79,20 +79,16 @@ const FilterModal = ({
     >
       <View style={styles.titleContainer}>
         <Text text={title} preset="subheading" style={styles.flexSpace} />
-        <RoundedButton
-          name="Reset"
-          onPress={onResetPress}
-          containerStyle={styles.resetBtnStyle}
-          textStyle={styles.resetBtnText}
-        />
+        <RoundedButton name="Reset" onPress={onResetPress} />
       </View>
 
-      {filterItemsBy && filterItemsBy.length != 0 && (
+      {filterItemsBy && filterItemsBy.length !== 0 && (
         <>
           <Text text={"Filter By"} preset="subheading" style={styles.headingStyle} />
           <View style={styles.roundedBtnsContainer}>
             {filterItemsBy.map((item: any) => (
               <RoundedButton
+                key={item.id}
                 id={item.id}
                 name={item.name}
                 isSelected={item.isSelected}
@@ -103,12 +99,13 @@ const FilterModal = ({
         </>
       )}
 
-      {sortItemsBy && sortItemsBy.length != 0 && (
+      {sortItemsBy && sortItemsBy.length !== 0 && (
         <>
           <Text text={"Sort By"} preset="subheading" style={styles.headingStyle} />
           <View style={styles.roundedBtnsContainer}>
             {sortItemsBy.map((item: any) => (
               <RoundedButton
+                key={item.id}
                 id={item.id}
                 name={item.name}
                 isSelected={item.isSelected}

@@ -1,27 +1,28 @@
 import React, { ReactNode } from "react"
-import { View, Modal, TouchableWithoutFeedback } from "react-native"
+import { View, Modal, TouchableWithoutFeedback, ModalProps } from "react-native"
 import styles from "./styles"
 
-interface Props {
-  children: ReactNode
+interface PropsI extends ModalProps {
   isVisible: boolean
+  children: ReactNode
   onPressClose?: () => void
   onBackdropPress: () => void
 }
 
 const StickyBottomModalHoc = ({
-  children,
   isVisible = false,
   onPressClose,
   onBackdropPress,
-}: Props) => {
+  children,
+  ...rest
+}: PropsI) => {
   return (
     <Modal
       animationType="fade"
       transparent={true}
       visible={isVisible}
       onRequestClose={onPressClose}
-      //   {...rest}
+      {...rest}
     >
       <TouchableWithoutFeedback onPress={onBackdropPress}>
         <View style={styles.backdrop}>

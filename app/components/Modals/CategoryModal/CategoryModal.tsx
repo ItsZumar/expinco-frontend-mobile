@@ -6,7 +6,6 @@ import { observer } from "mobx-react-lite"
 import { Text, Button, ListItemCard } from "../.."
 import { ModalHoc } from "../../HOC/ModalScreen/ModalScreen"
 import { View, FlatList, ActivityIndicator } from "react-native"
-// import { CategoryModel } from "../../../models/categories/categories"
 import { TransactionCategoryI } from "app/interfaces"
 import styles from "./styles"
 

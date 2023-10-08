@@ -1,9 +1,9 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { TouchableOpacity, View, ViewStyle } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Screen, AutoImage, Text, AppHeader, TransactionCard } from "app/components"
+import { Screen, AutoImage, Text, AppHeader, TransactionCard, MyLineChart } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import { TransactionData } from "./data"
@@ -83,7 +83,11 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
 
       <View style={styles.bottomBlock}>
         <AppHeader text="Spend Frequency" />
-        <View style={{ marginTop: 20, width: "100%", height: 170, backgroundColor: "purple" }} />
+        {/* <View style={{ marginTop: 20, width: "100%", height: 170, backgroundColor: "purple" }} /> */}
+
+        <View>
+          <MyLineChart />
+        </View>
 
         <View style={styles.graphSortBlock}>
           {["Today", "Week", "Month", "Year"].map((el) => (

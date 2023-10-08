@@ -6,29 +6,25 @@ import { ScreensEnum } from "app/enums"
 import { cardsDummyData } from "../BudgetScreen"
 import { TransactionData } from "../../TransactionScreen/data"
 import { AppStackScreenProps } from "app/navigators"
-import { AppHeader, Button, Header, Icon, Text, TransactionCard } from "app/components"
+import { AppHeader, Header, Icon, Text, TransactionCard, Screen } from "app/components"
 import styles from "./styles"
 
 export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAIL>> = observer(
   ({ navigation, route }) => {
     const { id } = route.params
-    const [state, setState] = useState([])
+    const [state] = useState(TransactionData)
 
     const filteredBudgetData = cardsDummyData.filter((obj) => obj.id === id)
 
-    useEffect(() => {
-      setState(TransactionData)
-    }, [])
-
     return (
-      <View style={styles.detailBudgetContainer}>
+      <View style={{ flex: 1, backgroundColor: "#fff" }}>
         <Header
           title="Detail Budget"
           leftIcon="back"
           onLeftPress={() => navigation.goBack()}
           RightActionComponent={
             <View style={styles.headerIcons}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate(ScreensEnum.EDIT_BUDGET as any)}>
                 <Icon icon="edit" size={22} style={{ marginRight: 5 }} />
               </TouchableOpacity>
               <TouchableOpacity>
@@ -37,14 +33,12 @@ export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAI
             </View>
           }
         />
-
         {filteredBudgetData[0].expenseAmount > filteredBudgetData[0].totalAmount && (
           <View style={styles.alertHeading}>
             <Icon icon="alert" size={22} color={colors.palette.neutral100} />
             <Text text="You have Exceeded the Limit!" style={styles.alertHeadingText} />
           </View>
         )}
-
         <View style={styles.middleContainer}>
           <View style={styles.budgetType}>
             <View
@@ -66,8 +60,8 @@ export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAI
         </View>
 
         <FlatList
-          data={state}
-          keyExtractor={(item) => String(item._id)}
+          data={[...state, ...state, ...state]}
+          keyExtractor={(item, index) => String(item._id + index)}
           style={styles.listStyle}
           renderItem={({ item }) => (
             <TransactionCard
@@ -76,14 +70,6 @@ export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAI
             />
           )}
         />
-
-        <View style={styles.createBudgetBtn}>
-          <Button
-            tx="budgetScreen.editBudget"
-            preset="filled"
-            onPress={() => navigation.navigate(ScreensEnum.EDIT_BUDGET as any)}
-          />
-        </View>
       </View>
     )
   },

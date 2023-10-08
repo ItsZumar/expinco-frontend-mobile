@@ -6,12 +6,6 @@ const styles = StyleSheet.create({
   flexSpace: {
     flex: 1,
   },
-  resetBtnStyle: {
-    borderColor: colors.palette.primary500,
-  },
-  resetBtnText: {
-    color: colors.palette.primary500,
-  },
   titleContainer: {
     flexDirection: "row",
     gap: wp(2),

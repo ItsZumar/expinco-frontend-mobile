@@ -20,7 +20,7 @@ export const CreateBudgetScreen: FC<AppStackScreenProps<ScreensEnum.CREATE_BUDGE
     const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
 
     return (
-      <Screen>
+      <Screen preset="fixed">
         <View style={styles.innerContainer}>
           <Header
             titleTx="budgetScreen.createBudget"

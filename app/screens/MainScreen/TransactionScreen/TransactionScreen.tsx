@@ -1,7 +1,6 @@
-import React, { FC, useEffect, useState } from "react"
+import React, { FC, useState } from "react"
 import { FlatList, TouchableOpacity, View } from "react-native"
 import { colors } from "app/theme"
-import { hp, wp } from "app/utils/responsive"
 import { observer } from "mobx-react-lite"
 import { ScreensEnum } from "app/enums"
 import { TransactionData } from "./data"
@@ -13,12 +12,8 @@ import styles from "./styles"
 
 export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>> = observer(
   ({ navigation }) => {
-    const [state, setState] = useState([])
+    const [state] = useState(TransactionData)
     const [filterModal, setFilterModal] = useState<boolean>(false)
-
-    useEffect(() => {
-      setState(TransactionData)
-    }, [])
 
     const openFilterModal = () => {
       setFilterModal((prev) => !prev)

@@ -36,8 +36,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(5),
   },
   detailBudgetContainer: {
+    flex: 1,
     backgroundColor: colors.palette.neutral100,
-    height: hp(100),
+    // height: hp(100),
   },
   headerIcons: {
     flexDirection: "row",

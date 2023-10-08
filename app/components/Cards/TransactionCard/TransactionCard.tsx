@@ -20,27 +20,29 @@ export const TransactionCard = ({
   onPress,
 }: TransactionCardI) => {
   return (
-    <TouchableOpacity onPress={() => onPress(_id)} style={styles.container}>
-      <View style={styles.imageBlock}>
-        <AutoImage source={{ uri: category.icon }} style={styles.categoryImage} />
-      </View>
+    <View style={{flex: 1}}>
+      <TouchableOpacity onPress={() => onPress(_id)} style={styles.container}>
+        <View style={styles.imageBlock}>
+          <AutoImage source={{ uri: category.icon }} style={styles.categoryImage} />
+        </View>
 
-      <View style={styles.textBlock}>
-        <View>
-          <Text text={category.name} style={styles.categoryText} />
-          <Text text={description} numberOfLines={1} style={styles.descText} />
+        <View style={styles.textBlock}>
+          <View>
+            <Text text={category.name} style={styles.categoryText} />
+            <Text text={description} numberOfLines={1} style={styles.descText} />
+          </View>
+          <View style={styles.lastTextBlock}>
+            <Text
+              text={`$` + type === TransactionType.EXPENSE ? "- " : "+ " + amount.toString()}
+              style={[
+                styles.amountText,
+                type === TransactionType.EXPENSE ? { color: "#FD3C4A" } : { color: "#00A86B" },
+              ]}
+            />
+            <Text text={getTimeFromDateString(createdAt)} style={styles.timeText} />
+          </View>
         </View>
-        <View style={styles.lastTextBlock}>
-          <Text
-            text={`$` + type === TransactionType.EXPENSE ? "- " : "+ " + amount.toString()}
-            style={[
-              styles.amountText,
-              type === TransactionType.EXPENSE ? { color: "#FD3C4A" } : { color: "#00A86B" },
-            ]}
-          />
-          <Text text={getTimeFromDateString(createdAt)} style={styles.timeText} />
-        </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   )
 }
