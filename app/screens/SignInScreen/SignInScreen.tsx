@@ -1,5 +1,4 @@
 import React, { FC, useMemo, useRef, useState } from "react"
-import { observer } from "mobx-react-lite"
 import { TextInput, TouchableOpacity, View } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
@@ -14,24 +13,23 @@ import {
 } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
-import { useStores } from "app/models"
-import { useFieldErrorHandler } from "app/hooks/useFieldErrorHandler"
 import styles from "./styles"
 
-interface SignInScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.SIGNIN>> {}
+interface SignInScreenProps
+  extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.SIGNIN>> {}
 
-export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => {
-  const {
-    authenticationStore: { email, password, setEmail, setPassword, validationError },
-  } = useStores()
+export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
+  // const {
+  //   authenticationStore: { email, password, setEmail, setPassword, validationError },
+  // } = useStores()
 
   const passwordInput = useRef<TextInput>()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
-  const { formHavingError } = useFieldErrorHandler(validationError)
-  const error = isSubmitted ? validationError : null
+  // const { formHavingError } = useFieldErrorHandler(validationError)
+  // const error = isSubmitted ? validationError : null
 
   const PasswordRightAccessory = useMemo(
     () =>
@@ -42,7 +40,7 @@ export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => 
             color={colors.palette.neutral500}
             containerStyle={{ ...props.style, marginRight: 20 }}
             size={20}
-            onPress={() => setShowPassword(prev => !prev)}
+            onPress={() => setShowPassword((prev) => !prev)}
           />
         )
       },
@@ -52,11 +50,11 @@ export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => 
   const login = () => {
     setIsSubmitted(true)
 
-    if (formHavingError) return
+    // if (formHavingError) return
 
-    setIsSubmitted(false)
-    setPassword("")
-    setEmail("")
+    // setIsSubmitted(false)
+    // setPassword("")
+    // setEmail("")
     navigation.navigate(ScreensEnum.MAIN as any)
   }
 
@@ -67,8 +65,8 @@ export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => 
       <View style={styles.spacingHorizonal}>
         <View style={styles.spacingTop}>
           <TextField
-            value={email}
-            onChangeText={setEmail}
+            // value={email}
+            // onChangeText={setEmail}
             containerStyle={styles.textField}
             autoCapitalize="none"
             autoComplete="email"
@@ -76,14 +74,14 @@ export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => 
             keyboardType="email-address"
             labelTx="common.email"
             placeholderTx="signinScreen.enterEmail"
-            helper={error?.email}
-            status={error?.email ? "error" : undefined}
+            // helper={error?.email}
+            // status={error?.email ? "error" : undefined}
             onSubmitEditing={() => passwordInput.current?.focus()}
           />
           <TextField
             ref={passwordInput}
-            value={password}
-            onChangeText={setPassword}
+            // value={password}
+            // onChangeText={setPassword}
             containerStyle={styles.textField}
             autoCapitalize="none"
             autoComplete="password"
@@ -93,8 +91,8 @@ export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => 
             placeholderTx="signinScreen.enterPass"
             onSubmitEditing={login}
             RightAccessory={PasswordRightAccessory}
-            helper={error?.password}
-            status={error?.password ? "error" : undefined}
+            // helper={error?.password}
+            // status={error?.password ? "error" : undefined}
           />
           <Button tx="common.login" style={styles.tapButton} preset="filled" onPress={login} />
         </View>
@@ -112,4 +110,4 @@ export const SignInScreen: FC<SignInScreenProps> = observer(({ navigation }) => 
       </View>
     </Screen>
   )
-})
+}

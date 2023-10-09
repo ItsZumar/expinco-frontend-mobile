@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from "react"
-import { observer } from "mobx-react-lite"
 import { ScrollView, TextInput, View, ViewStyle } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
@@ -10,7 +9,7 @@ import styles from "./styles"
 interface OtpVerificationScreenProps
   extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.OTP_VERIFICATION>> {}
 
-export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = observer(({ navigation }) => {
+export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigation }) => {
   const input1 = useRef(null)
   const input2 = useRef(null)
   const input3 = useRef(null)
@@ -231,7 +230,7 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = observer(({
       </ScrollView>
     </Screen>
   )
-})
+}
 
 const $root: ViewStyle = {
   flex: 1,

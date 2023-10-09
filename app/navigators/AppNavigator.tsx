@@ -1,11 +1,8 @@
 import React from "react"
 import Config from "app/config"
 import * as Screens from "app/screens"
-import { useStores } from "app/models"
 import { colors } from "app/theme"
-import { observer } from "mobx-react-lite"
 import { useColorScheme } from "react-native"
-import { DemoTabParamList } from "./DemoNavigator"
 import { navigationRef, useBackButtonHandler } from "app/navigators/navigationUtilities"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
 import {
@@ -25,9 +22,6 @@ import { ScreensEnum } from "app/enums"
  * rather than passing state through navigation params.
  */
 export type AppStackParamList = {
-  Welcome: undefined
-  Demo: NavigatorScreenParams<DemoTabParamList>
-
   Signin: undefined
   Signup: undefined
   OTPVerification: undefined
@@ -79,10 +73,10 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
-const AppStack = observer(function AppStack() {
-  const {
-    authenticationStore: { isAuthenticated },
-  } = useStores()
+const AppStack = () => {
+  // const {
+  //   authenticationStore: { isAuthenticated },
+  // } = useStores()
 
   return (
     <Stack.Navigator
@@ -137,12 +131,12 @@ const AppStack = observer(function AppStack() {
       )} */}
     </Stack.Navigator>
   )
-})
+}
 
 export interface NavigationProps
   extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 
-export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
+export const AppNavigator = (props: NavigationProps) => {
   const colorScheme = useColorScheme()
 
   useBackButtonHandler((routeName) => exitRoutes.includes(routeName))
@@ -156,4 +150,4 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
       <AppStack />
     </NavigationContainer>
   )
-})
+}

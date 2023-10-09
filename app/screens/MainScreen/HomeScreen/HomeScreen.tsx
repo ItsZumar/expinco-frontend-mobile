@@ -1,6 +1,5 @@
 import React, { FC } from "react"
 import { FlatList, TouchableOpacity, View, ViewStyle } from "react-native"
-import { observer } from "mobx-react-lite"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import {
@@ -22,7 +21,7 @@ import styles from "./styles"
 
 interface HomeScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.HOME>> {}
 
-export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
+export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <Screen
       style={$root}
@@ -125,7 +124,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
       </View>
     </Screen>
   )
-})
+}
 
 const $root: ViewStyle = {
   flex: 1,

@@ -3,26 +3,10 @@ import { Image, ImageProps, ImageURISource, Platform } from "react-native"
 
 // TODO: document new props
 export interface AutoImageProps extends ImageProps {
-  /**
-   * How wide should the image be?
-   */
   maxWidth?: number
-  /**
-   * How tall should the image be?
-   */
   maxHeight?: number
 }
 
-/**
- * A hook that will return the scaled dimensions of an image based on the
- * provided dimensions' aspect ratio. If no desired dimensions are provided,
- * it will return the original dimensions of the remote image.
- *
- * How is this different from `resizeMode: 'contain'`? Firstly, you can
- * specify only one side's size (not both). Secondly, the image will scale to fit
- * the desired dimensions instead of just being contained within its image-container.
- *
- */
 export function useAutoImage(
   remoteUri: string,
   dimensions?: [maxWidth: number, maxHeight: number],
@@ -51,11 +35,6 @@ export function useAutoImage(
   }
 }
 
-/**
- * An Image component that automatically sizes a remote or data-uri image.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-AutoImage.md)
- */
 export function AutoImage(props: AutoImageProps) {
   const { maxWidth, maxHeight, ...ImageProps } = props
   const source = props.source as ImageURISource

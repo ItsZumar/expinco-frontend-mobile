@@ -1,7 +1,0 @@
-export * from "./DemoIcon"
-export * from "./DemoTextField"
-export * from "./DemoToggle"
-export * from "./DemoButton"
-export * from "./DemoAutoImage"
-export * from "./DemoText"
-export * from "./DemoHeader"
