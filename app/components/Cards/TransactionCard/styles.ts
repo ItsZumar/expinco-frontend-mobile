@@ -3,6 +3,9 @@ import { wp } from "app/utils/responsive"
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
+  card: {
+    flex: 1,
+  },
   container: {
     marginBottom: 5,
     flexDirection: "row",
@@ -30,11 +33,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 12,
   },
-  categoryText: {
-    fontSize: 16,
-    fontFamily: typography.fonts.inter.semiBold,
-    marginBottom: 5,
-  },
   descText: {
     maxWidth: wp(48),
     color: colors.textDim,
@@ -44,8 +42,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   amountText: {
-    fontSize: 16,
-    fontFamily: typography.fonts.inter.bold,
     marginBottom: 5,
   },
   timeText: {

@@ -1,9 +1,17 @@
-import React, { FC, useEffect, useState } from "react"
-import { observer } from "mobx-react-lite"
+import React, { FC } from "react"
 import { FlatList, TouchableOpacity, View, ViewStyle } from "react-native"
+import { observer } from "mobx-react-lite"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Screen, AutoImage, Text, AppHeader, TransactionCard, MyLineChart } from "app/components"
+import {
+  Screen,
+  AutoImage,
+  Text,
+  AppHeader,
+  TransactionCard,
+  MyLineChart,
+  ArrowRoundButton,
+} from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import { TransactionData } from "app/constants"
@@ -25,10 +33,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
       <View style={styles.mainHeader}>
         <AutoImage source={{ uri: "https://picsum.photos/200" }} style={styles.profileImage} />
 
-        <TouchableOpacity style={styles.monthContainer}>
-          <Ionicons name="chevron-down" size={25} color={colors.palette.primary500} />
-          <Text text="July" preset="bold" style={styles.monthText} />
-        </TouchableOpacity>
+        <ArrowRoundButton title="July" onPress={() => {}} />
 
         <TouchableOpacity
           style={styles.bellContainer}

@@ -18,11 +18,17 @@ export const LineGraphReportScreen = ({
   transactions,
   navigation,
 }: LineGraphReportScreenI) => {
-  const [activeToggle, setActiveToggle] = useState<"expense" | "income">("expense")
+  const [activeToggle, setActiveToggle] = useState<"expense" | "income" | string>("expense")
 
-  const onToggleBtnPress = (toggle: "expense" | "income") => {
+  const onToggleBtnPress = (toggle: "expense" | "income" | string) => {
     setActiveToggle(toggle)
   }
+
+  const filteredTransactions = transactions.filter(
+    (transaction) =>
+      (activeToggle === "expense" && transaction.type.toLowerCase() === "expense") ||
+      (activeToggle === "income" && transaction.type.toLowerCase() === "income"),
+  )
 
   return (
     <View style={styles.mainContainer}>
@@ -34,26 +40,19 @@ export const LineGraphReportScreen = ({
 
       {/* Income Expense Toggle Button */}
       <View style={styles.btnContainer}>
-        <TouchableOpacity
-          style={[styles.btn, activeToggle === "expense" && styles.activeBtn]}
-          onPress={() => onToggleBtnPress("expense")}
-        >
-          <Text
-            preset="subheading"
-            text="Expense"
-            style={activeToggle === "expense" && styles.activeBtnTxt}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.btn, activeToggle === "income" && styles.activeBtn]}
-          onPress={() => onToggleBtnPress("income")}
-        >
-          <Text
-            preset="subheading"
-            text="Income"
-            style={activeToggle === "income" && styles.activeBtnTxt}
-          />
-        </TouchableOpacity>
+        {["expense", "income"].map((type) => (
+          <TouchableOpacity
+            key={type}
+            style={[styles.btn, activeToggle === type && styles.activeBtn]}
+            onPress={() => onToggleBtnPress(type)}
+          >
+            <Text
+              preset="subheading"
+              text={type === "expense" ? "Expense" : "Income"}
+              style={activeToggle === type && styles.activeBtnTxt}
+            />
+          </TouchableOpacity>
+        ))}
       </View>
 
       <View style={styles.transactionHeader}>
@@ -69,7 +68,7 @@ export const LineGraphReportScreen = ({
       </View>
 
       <FlatList
-        data={transactions}
+        data={filteredTransactions}
         keyExtractor={(item) => String(item._id)}
         renderItem={({ item }) => (
           <TransactionCard

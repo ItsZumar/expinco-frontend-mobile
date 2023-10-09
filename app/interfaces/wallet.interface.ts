@@ -1,5 +1,6 @@
 export interface WalletI {
-  _id: string
-  amount: number
+  id: string
+  icon: string | any
   name: string
+  amount: number
 }

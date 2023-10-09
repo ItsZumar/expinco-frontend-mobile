@@ -11,12 +11,18 @@ interface PieGraphReportScreenI {
   transactions: TransactionI[]
 }
 
-export const PieGraphReportScreen = ({ totalAmount, transactions }: PieGraphReportScreenI) => {
+const PieGraphReportScreen: React.FC<PieGraphReportScreenI> = ({ totalAmount, transactions }) => {
   const [activeToggle, setActiveToggle] = useState<"expense" | "income">("expense")
 
   const onToggleBtnPress = (toggle: "expense" | "income") => {
     setActiveToggle(toggle)
   }
+
+  const filteredTransactions = transactions.filter(
+    (transaction) =>
+      (activeToggle === "expense" && transaction.type.toLowerCase() === "expense") ||
+      (activeToggle === "income" && transaction.type.toLowerCase() === "income"),
+  )
 
   return (
     <View style={styles.mainContainer}>
@@ -61,10 +67,12 @@ export const PieGraphReportScreen = ({ totalAmount, transactions }: PieGraphRepo
       </View>
 
       <FlatList
-        data={transactions}
+        data={filteredTransactions}
         keyExtractor={(item) => String(item._id)}
         renderItem={({ item }) => <ReportCards {...item} />}
       />
     </View>
   )
 }
+
+export { PieGraphReportScreen }

@@ -4,7 +4,7 @@ import { hp, wp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
   mainContainer: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: colors.palette.neutral100,
   },
   budgetType: {
@@ -13,36 +13,23 @@ const styles = StyleSheet.create({
     backgroundColor: colors.palette.neutral100,
     borderColor: colors.palette.neutral200,
     borderWidth: 1,
-    paddingVertical: 3,
-    paddingHorizontal: 8,
-    borderRadius: 30,
+    paddingVertical: hp(0.3),
+    paddingHorizontal: wp(1),
+    borderRadius: hp(2),
   },
   budgetCircle: {
-    width: 15,
-    height: 15,
-    borderRadius: 50,
-    marginRight: 10,
+    width: wp(4),
+    height: hp(2),
+    borderRadius: hp(2),
+    marginRight: wp(2.7),
   },
   headingContainer: {
     paddingHorizontal: wp(5),
     marginTop: hp(2),
-    marginBottom: hp(-2),
   },
   listStyle: {
-    marginTop: hp(2),
-    paddingHorizontal: wp(5),
-  },
-  createBudgetBtn: {
-    position: "absolute",
-    bottom: hp(2),
-    left: 0,
-    right: 0,
-    paddingHorizontal: wp(5),
-  },
-  detailBudgetContainer: {
     flex: 1,
-    backgroundColor: colors.palette.neutral100,
-    // height: hp(100),
+    paddingHorizontal: wp(5),
   },
   headerIcons: {
     flexDirection: "row",

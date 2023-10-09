@@ -1,4 +1,4 @@
-import { colors, shadow } from "app/theme"
+import { colors } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
 import { StyleSheet } from "react-native"
 
@@ -11,14 +11,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.palette.neutral100,
     paddingHorizontal: wp(5),
   },
+  listItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: hp(1.9),
+  },
   link: {
-    fontSize: hp(2.2),
     color: colors.error,
-    paddingHorizontal: wp(5),
-    fontWeight: "700",
     marginTop: hp(1.3),
-    position: "absolute",
-    top: hp(30),
   },
 })
 

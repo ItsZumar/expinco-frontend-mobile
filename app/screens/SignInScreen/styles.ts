@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
 import { colors, spacing } from "app/theme"
-import { hp } from "../../utils/responsive"
+import { hp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
   forgetpassBlock: {

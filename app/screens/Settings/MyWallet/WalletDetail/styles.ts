@@ -1,4 +1,4 @@
-import { colors, shadow } from "app/theme"
+import { colors } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
 import { StyleSheet } from "react-native"
 

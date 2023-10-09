@@ -2,16 +2,12 @@ import React from "react"
 import { Text } from "app/components/Text/Text"
 import { TouchableOpacity, View } from "react-native"
 import { Icon } from "app/components/Icon/Icon"
+import { WalletI } from "app/interfaces"
 import styles from "./styles"
 
 interface WalletListCardI {
-  walletData: {
-    id: number
-    icon: string | any
-    walletTitle: string
-    amount: number
-  }
-  onPress: (id: number) => void
+  walletData: WalletI
+  onPress?: (id: string) => void
 }
 
 const WalletListCard = ({ walletData, onPress }: WalletListCardI) => {
@@ -25,7 +21,7 @@ const WalletListCard = ({ walletData, onPress }: WalletListCardI) => {
         <View style={styles.iconContainer}>
           <Icon icon={walletData.icon} size={25} />
         </View>
-        <Text text={walletData.walletTitle} preset="subheading" />
+        <Text text={walletData.name} preset="subheading" />
       </View>
       <Text text={`$${walletData.amount}`} preset="subheading" />
     </TouchableOpacity>

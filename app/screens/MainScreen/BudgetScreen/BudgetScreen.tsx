@@ -8,14 +8,13 @@ import { AppStackScreenProps } from "app/navigators"
 import { cardsDummyData } from "./data"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
-import { hp, wp } from "app/utils/responsive"
 
 export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observer(
   ({ navigation }) => {
     return (
-      <>
+      <View style={styles.root}>
         <View style={styles.headerBlock}>
-          <Text text="Budgets" preset="bold" style={styles.headerText} />
+          <Text text="Budgets" preset="headerText" />
 
           <View style={styles.displayHidden}>
             <Ionicons
@@ -31,28 +30,23 @@ export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = observe
           <FlatList
             showsVerticalScrollIndicator={false}
             data={cardsDummyData}
-            renderItem={({ item }: any) => (
+            renderItem={({ item }) => (
               <BudgetCard
                 cardData={item}
                 onPress={(id) => navigation.navigate("BudgetDetail", { id })}
               />
             )}
             keyExtractor={(item) => item.id.toString()}
+            ListFooterComponent={
+              <Button
+                tx="budgetScreen.createBudget"
+                preset="filled"
+                onPress={() => navigation.navigate(ScreensEnum.CREATE_BUDGET as any)}
+              />
+            }
           />
         </View>
-        <View
-          style={{
-            paddingHorizontal: wp(5),
-            marginBottom: hp(2),
-          }}
-        >
-          <Button
-            tx="budgetScreen.createBudget"
-            preset="filled"
-            onPress={() => navigation.navigate(ScreensEnum.CREATE_BUDGET as any)}
-          />
-        </View>
-      </>
+      </View>
     )
   },
 )

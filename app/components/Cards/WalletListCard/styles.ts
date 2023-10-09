@@ -4,11 +4,11 @@ import { colors } from "app/theme"
 
 const styles = StyleSheet.create({
   walletCardContainer: {
-    // flex: 1,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
+    paddingHorizontal: wp(5),
     paddingVertical: hp(2),
     borderBottomWidth: 1,
     borderBottomColor: colors.palette.neutral200,

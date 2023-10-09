@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react"
 import { TouchableOpacity, View, Modal } from "react-native"
-import { Text } from "../.."
-import { colors } from "../../../theme"
-import { TxKeyPath } from "../../../i18n"
-import { hp } from "../../../utils/responsive"
+import { TxKeyPath } from "app/i18n"
+import { Text } from "app/components/Text/Text"
+import { colors } from "app/theme"
+import { hp } from "app/utils/responsive"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 

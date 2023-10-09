@@ -1,7 +1,7 @@
+import { colors } from "app/theme"
+import { isIOS } from "app/utils/deviceInfo"
+import { hp, wp } from "app/utils/responsive"
 import { StyleSheet } from "react-native"
-import { isIOS } from "../../../utils/deviceInfo"
-import { hp, wp } from "../../../utils/responsive"
-import { colors } from "../../../theme"
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   TITLE: {
     color: colors.text,
     fontSize: hp(3.5),
-    lineHeight: hp(4)
+    lineHeight: hp(4),
   },
 })
 

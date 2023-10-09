@@ -54,7 +54,7 @@ export type AppStackParamList = {
   }
   EditBudget: undefined
   WalletDetail: {
-    id: number
+    id: string
   }
   CreateWallet: undefined
   AppSettings: undefined
