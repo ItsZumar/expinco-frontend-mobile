@@ -21,9 +21,17 @@ export const ReportCards = ({ ...item }: TransactionI) => {
           <View style={[styles.budgetCircle, { backgroundColor: categoryColor }]}></View>
           <Text text={item.category.name} preset="default" />
         </View>
-        <Text text={`-$${item.amount}`} preset="largeHeading" style={{ color: colors.error }} />
+        <Text
+          text={item.type.toLowerCase() === "expense" ? `-$${item.amount}` : `+$${item.amount}`}
+          preset="largeHeading"
+          style={
+            item.type.toLowerCase() === "expense"
+              ? { color: colors.error }
+              : { color: colors.palette.income }
+          }
+        />
       </View>
-      <View style={[styles.progressLine, { backgroundColor: colors.palette.primary500 }]}></View>
+      <View style={[styles.progressLine, { backgroundColor: categoryColor }]}></View>
     </TouchableOpacity>
   )
 }

@@ -1,3 +1,6 @@
+import { useSafeAreaInsetsStyle } from "app/hooks/useSafeAreaInsetsStyle"
+import { translate, isRTL } from "app/i18n"
+import { colors, spacing, typography } from "app/theme"
 import React, { ReactElement } from "react"
 import {
   StyleProp,
@@ -7,9 +10,7 @@ import {
   View,
   ViewStyle,
 } from "react-native"
-import { isRTL, translate } from "../../i18n"
-import { colors, spacing, typography } from "../../theme"
-import { ExtendedEdge, useSafeAreaInsetsStyle } from "../../hooks/useSafeAreaInsetsStyle"
+import { ExtendedEdge } from "../../hooks/useSafeAreaInsetsStyle"
 import { Icon, IconTypes } from "../Icon/Icon"
 import { Text, TextProps } from "../Text/Text"
 

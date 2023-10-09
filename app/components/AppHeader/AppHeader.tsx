@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 import { TextStyle, View, TouchableOpacity } from "react-native"
-import { TxKeyPath } from "../../i18n"
+import { TxKeyPath } from "app/i18n"
 import { Text } from "../Text/Text"
 import styles from "./styles"
 

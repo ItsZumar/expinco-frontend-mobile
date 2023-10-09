@@ -1,9 +1,10 @@
 import React from "react"
 import { TouchableOpacity, View } from "react-native"
-import { AutoImage, Text } from "../../"
 import { TransactionI } from "app/interfaces"
 import { getTimeFromDateString } from "app/utils/formatDate"
 import { TransactionType } from "app/enums/transactions.enum"
+import { AutoImage } from "app/components/AutoImage/AutoImage"
+import { Text } from "app/components/Text/Text"
 import styles from "./styles"
 
 export type TransactionCardI = TransactionI & {
@@ -20,7 +21,7 @@ export const TransactionCard = ({
   onPress,
 }: TransactionCardI) => {
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.card}>
       <TouchableOpacity onPress={() => onPress(_id)} style={styles.container}>
         <View style={styles.imageBlock}>
           <AutoImage source={{ uri: category.icon }} style={styles.categoryImage} />
@@ -28,12 +29,13 @@ export const TransactionCard = ({
 
         <View style={styles.textBlock}>
           <View>
-            <Text text={category.name} style={styles.categoryText} />
+            <Text text={category.name} preset="subheading" />
             <Text text={description} numberOfLines={1} style={styles.descText} />
           </View>
           <View style={styles.lastTextBlock}>
             <Text
               text={`$` + type === TransactionType.EXPENSE ? "- " : "+ " + amount.toString()}
+              preset="subheading"
               style={[
                 styles.amountText,
                 type === TransactionType.EXPENSE ? { color: "#FD3C4A" } : { color: "#00A86B" },

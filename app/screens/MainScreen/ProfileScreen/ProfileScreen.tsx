@@ -5,8 +5,9 @@ import { colors } from "app/theme"
 import { observer } from "mobx-react-lite"
 import { ScreensEnum } from "app/enums"
 import { AppStackScreenProps } from "app/navigators"
-import { MY_ACHIEVEMENTS, MY_WALLETS } from "./data"
+import { MY_ACHIEVEMENTS } from "./data"
 import { AutoImage, Icon, Text, AppHeader } from "app/components"
+import { myWalletsData } from "app/constants"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
@@ -88,9 +89,9 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = obser
                 flexWrap: "wrap",
               }}
             >
-              {MY_WALLETS.map((el) => (
+              {myWalletsData.map((el) => (
                 <View
-                  key={el._id}
+                  key={el.id}
                   style={{
                     marginRight: 10,
                     marginBottom: 10,

@@ -1,26 +1,19 @@
+import { StyleSheet } from "react-native"
 import { colors } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
-import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
-  // root: {
-  //   flex: 1,
-  //   backgroundColor: colors.background,
-  // },
+  root: {
+    flex: 1,
+  },
   headerBlock: {
     paddingTop: hp(5),
-    paddingBottom: hp(2),
     paddingHorizontal: wp(5),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: colors.background,
   },
-  headerText: {
-    fontSize: hp(3),
-    lineHeight: hp(3.5),
-  },
-
   p5: {
     padding: wp(2),
   },
@@ -31,12 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: wp(5),
     backgroundColor: colors.background,
-  },
-  cardContainer: {
-    backgroundColor: "#FCFCFC",
-    padding: hp(2),
-    marginBottom: hp(2),
-    borderRadius: hp(3),
+    paddingVertical: hp(2),
   },
   budgetType: {
     width: wp(40),

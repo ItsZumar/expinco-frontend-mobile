@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
-import { colors, typography } from "../../../theme"
-import { hp, wp } from "../../../utils/responsive"
+import { colors, typography } from "app/theme"
+import { hp, wp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
   renderCardBlock: {

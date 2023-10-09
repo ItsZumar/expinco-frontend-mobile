@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react"
-import { colors } from "../../../theme"
-import { TxKeyPath } from "../../../i18n"
-import { useStores } from "../../../models"
-import { observer } from "mobx-react-lite"
-import { Text, Button, ListItemCard } from "../.."
-import { ModalHoc } from "../../HOC/ModalScreen/ModalScreen"
 import { View, FlatList, ActivityIndicator } from "react-native"
-// import { CategoryModel } from "../../../models/categories/categories"
+import { colors } from "app/theme"
+import { observer } from "mobx-react-lite"
+import { TxKeyPath } from "app/i18n"
+import { useStores } from "app/models"
 import { TransactionCategoryI } from "app/interfaces"
+import { Text, Button, ListItemCard, ModalHoc } from "../.."
 import styles from "./styles"
 
 interface Props {

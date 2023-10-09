@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
 import { colors, spacing } from "app/theme"
-import { hp } from "../../utils/responsive"
+import { hp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
   forgetpassBlock: {
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
   spacing2: {
-    marginTop: 20
+    marginTop: 20,
   },
   textField: {
     marginBottom: spacing.lg,

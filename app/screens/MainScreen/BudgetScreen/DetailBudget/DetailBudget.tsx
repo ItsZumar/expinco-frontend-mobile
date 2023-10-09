@@ -59,17 +59,19 @@ export const BudgetDetailScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET_DETAI
           <AppHeader text="Transactions" />
         </View>
 
-        <FlatList
-          data={[...state, ...state, ...state]}
-          keyExtractor={(item, index) => String(item._id + index)}
-          style={styles.listStyle}
-          renderItem={({ item }) => (
-            <TransactionCard
-              {...item}
-              onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION)}
-            />
-          )}
-        />
+        <View style={styles.listStyle}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={[...state, ...state, ...state]}
+            keyExtractor={(item, index) => String(item._id + index)}
+            renderItem={({ item }) => (
+              <TransactionCard
+                {...item}
+                onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION)}
+              />
+            )}
+          />
+        </View>
       </View>
     )
   },

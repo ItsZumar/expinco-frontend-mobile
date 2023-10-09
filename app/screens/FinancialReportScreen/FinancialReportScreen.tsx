@@ -1,14 +1,12 @@
 import React, { FC, useState } from "react"
-import { TouchableOpacity, View } from "react-native"
-import { colors } from "app/theme"
+import { View } from "react-native"
 import { observer } from "mobx-react-lite"
 import { ScreensEnum } from "app/enums"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionData } from "app/constants"
 import { PieGraphReportScreen } from "./PieGraphReportScreen/PieGraphReportScreen"
 import { LineGraphReportScreen } from "./LineGraphReportScreen/LineGraphReportScreen"
-import { Header, Screen, Text, ToggleButton } from "app/components"
-import Ionicons from "react-native-vector-icons/Ionicons"
+import { ArrowRoundButton, Header, Screen, ToggleButton } from "app/components"
 import styles from "./styles"
 
 const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT>> = observer(
@@ -34,10 +32,7 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
           style={styles.screenStyle}
         >
           <View style={styles.topContainer}>
-            <TouchableOpacity style={styles.monthContainer}>
-              <Ionicons name="chevron-down" size={25} color={colors.palette.primary500} />
-              <Text text="July" preset="bold" />
-            </TouchableOpacity>
+            <ArrowRoundButton title="July" onPress={() => {}} />
 
             <View style={styles.toggleScreenBtns}>
               <ToggleButton

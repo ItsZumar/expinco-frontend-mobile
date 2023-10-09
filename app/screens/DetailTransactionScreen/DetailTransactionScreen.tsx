@@ -14,7 +14,6 @@ import styles from "./styles"
 
 export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_TRANSACTION>> =
   observer(({ navigation, route }) => {
-    // const { id }: any = route.params
     const [transaction] = useState<TransactionI>(TransactionData[0])
     const [modalVisible, setModalVisible] = useState<boolean>(false)
     const [alertModalVisible, setAlertModalVisible] = useState<boolean>(false)
