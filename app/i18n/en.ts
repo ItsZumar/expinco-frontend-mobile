@@ -164,6 +164,7 @@ const en = {
   },
   transactionScreen: {
     detailTransaction: "Detail Transaction",
+    financialReport: "Financial Report",
   },
 }
 

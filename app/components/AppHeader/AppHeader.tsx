@@ -29,4 +29,4 @@ const AppHeader = ({ text, tx, textStyle = {}, rightComponent, onRightPress }: P
   )
 }
 
-export {AppHeader};
+export { AppHeader }

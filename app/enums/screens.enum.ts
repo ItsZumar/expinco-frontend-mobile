@@ -31,4 +31,5 @@ export enum ScreensEnum {
 
   DETAIL_TRANSACTION = "DetailTransactionScreen",
   NOTIFICATION_SCREEN = "NotificationScreen",
+  FINANCIAL_REPORT = "FinancialReportScreen",
 }

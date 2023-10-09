@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { TouchableOpacity, View, ViewStyle } from "react-native"
+import { FlatList, TouchableOpacity, View, ViewStyle } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Screen, AutoImage, Text, AppHeader, TransactionCard, MyLineChart } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
-import { TransactionData } from "./data"
+import { TransactionData } from "app/constants"
 import { TransactionType } from "app/enums/transactions.enum"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
@@ -27,7 +27,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
 
         <TouchableOpacity style={styles.monthContainer}>
           <Ionicons name="chevron-down" size={25} color={colors.palette.primary500} />
-          <Text style={styles.monthText}>July</Text>
+          <Text text="July" preset="bold" style={styles.monthText} />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -40,8 +40,8 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
 
       {/* Balance */}
       <View style={styles.topBlock}>
-        <Text text="Account Balance" style={styles.accountBalanceText} />
-        <Text text="$9140" style={styles.amountText} />
+        <Text text="Account Balance" preset="default" style={styles.accountBalanceText} />
+        <Text text="$9140" preset="heading" style={styles.amountText} />
       </View>
 
       <View style={styles.transBtnBlock}>
@@ -58,7 +58,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
           </View>
 
           <View>
-            <Text text="Income" style={styles.topLightText} />
+            <Text text="Income" preset="default" style={styles.topLightText} />
             <Text text="$3020" style={styles.actualAmountText} />
           </View>
         </TouchableOpacity>
@@ -75,7 +75,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
             <Feather name="arrow-up" size={25} color={colors.palette.expense} />
           </View>
           <View>
-            <Text text="Expense" style={styles.topLightText} />
+            <Text text="Expense" preset="default" style={styles.topLightText} />
             <Text text="$1205" style={styles.actualAmountText} />
           </View>
         </TouchableOpacity>
@@ -83,7 +83,6 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
 
       <View style={styles.bottomBlock}>
         <AppHeader text="Spend Frequency" />
-        {/* <View style={{ marginTop: 20, width: "100%", height: 170, backgroundColor: "purple" }} /> */}
 
         <View>
           <MyLineChart />
@@ -92,7 +91,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
         <View style={styles.graphSortBlock}>
           {["Today", "Week", "Month", "Year"].map((el) => (
             <TouchableOpacity style={styles.timeStampBtn} key={el}>
-              <Text text={el} style={styles.timeStampText} />
+              <Text text={el} preset="bold" style={styles.timeStampText} />
             </TouchableOpacity>
           ))}
         </View>
@@ -107,15 +106,16 @@ export const HomeScreen: FC<HomeScreenProps> = observer(({ navigation }) => {
             )}
           />
 
-          {TransactionData.map((item) => (
-            <TransactionCard
-              {...item}
-              onPress={() => {
-                navigation.navigate(ScreensEnum.DETAIL_TRANSACTION)
-              }}
-              key={item._id}
-            />
-          ))}
+          <FlatList
+            data={TransactionData}
+            keyExtractor={(item) => String(item._id)}
+            renderItem={({ item }) => (
+              <TransactionCard
+                {...item}
+                onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION)}
+              />
+            )}
+          />
         </View>
       </View>
     </Screen>

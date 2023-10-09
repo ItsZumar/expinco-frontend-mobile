@@ -1,24 +1,21 @@
 import React, { FC, useState } from "react"
-import { ScrollView, View } from "react-native"
+import { View } from "react-native"
 import { hp, wp } from "app/utils/responsive"
 import { observer } from "mobx-react-lite"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import { AppStackScreenProps } from "app/navigators"
-import { TransactionData as transaction } from "./data"
-import { Button, Header, Text, AlertBox, AlertBottomModal, Screen } from "app/components"
+import { TransactionData } from "app/constants"
 import { getFormattedDate } from "app/utils/formatDate"
-import {
-  TransactionAttachmentTypesI,
-  transactionAttachments,
-  transactionTypes,
-  transactionTypesI,
-} from "app/constants"
+import { transactionAttachments, transactionTypes } from "app/constants"
+import { Button, Header, Text, AlertBox, AlertBottomModal, Screen } from "app/components"
+import { TransactionAttachmentTypesI, TransactionI, transactionTypesI } from "app/interfaces"
 import styles from "./styles"
 
 export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_TRANSACTION>> =
   observer(({ navigation, route }) => {
     // const { id }: any = route.params
+    const [transaction] = useState<TransactionI>(TransactionData[0])
     const [modalVisible, setModalVisible] = useState<boolean>(false)
     const [alertModalVisible, setAlertModalVisible] = useState<boolean>(false)
 

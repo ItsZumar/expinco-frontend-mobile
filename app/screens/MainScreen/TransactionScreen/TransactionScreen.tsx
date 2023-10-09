@@ -3,10 +3,9 @@ import { FlatList, TouchableOpacity, View } from "react-native"
 import { colors } from "app/theme"
 import { observer } from "mobx-react-lite"
 import { ScreensEnum } from "app/enums"
-import { TransactionData } from "./data"
 import { AppStackScreenProps } from "app/navigators"
-import { FilterByItems, SortByItems } from "./TransactionFilterModalData"
 import { FilterModal, Text, TransactionCard } from "app/components"
+import { FilterByItems, SortByItems, TransactionData } from "app/constants"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
@@ -42,10 +41,14 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.topBanner}>
+        <TouchableOpacity
+          style={styles.topBanner}
+          onPress={() => navigation.navigate(ScreensEnum.FINANCIAL_REPORT)}
+        >
           <Text style={styles.topBannerText} text="See your financial report" />
           <Ionicons name="chevron-forward" size={22} color={colors.palette.primary500} />
         </TouchableOpacity>
+
         <FlatList
           data={state}
           keyExtractor={(item) => String(item._id)}

@@ -3,22 +3,28 @@ import { hp, wp } from "app/utils/responsive"
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
-  rootContainer: { flex: 1, backgroundColor: colors.palette.neutral100 },
-  detailWalletContainer: { flexDirection: "column", alignItems: "center", marginBottom: wp(20) },
+  mainContainer: {
+    flex: 1,
+    paddingHorizontal: wp(5),
+    backgroundColor: colors.palette.neutral100,
+  },
+  detailWalletContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    marginBottom: wp(10),
+  },
   iconContainer: {
     backgroundColor: colors.palette.neutral200,
     paddingHorizontal: wp(3),
     paddingVertical: hp(1.5),
-    marginTop: 30,
-    borderRadius: 10,
+    marginTop: hp(3),
+    marginBottom: hp(1),
+    borderRadius: hp(1.5),
   },
-  walletTitle: { fontSize: 25, fontWeight: "bold", padding: 12 },
-  walletAmount: { fontSize: 33, fontWeight: "bold", padding: 12 },
-  primaryHeading: { paddingHorizontal: wp(5), fontSize: 17, fontWeight: "bold" },
-
-  listStyle: {
-    marginTop: hp(2),
+  primaryHeading: {
     paddingHorizontal: wp(5),
+    fontSize: 17,
+    fontWeight: "bold",
   },
 })
 

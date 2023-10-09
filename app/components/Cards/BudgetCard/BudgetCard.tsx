@@ -27,20 +27,25 @@ const BudgetCard = ({ cardData, onPress }: BudgetCardI) => {
       <View style={styles.cardHeader}>
         <View style={styles.budgetType}>
           <View style={[styles.budgetCircle, { backgroundColor: cardData.color }]}></View>
-          <Text text={cardData.bugetType} style={{ textTransform: "capitalize" }} />
+          <Text text={cardData.bugetType} preset="default" />
         </View>
         {cardData.expenseAmount > cardData.totalAmount && (
           <Icon icon="alert" size={22} color={colors.error} />
         )}
       </View>
 
-      <Text text={`Remaining $${cardData.remainingAmount}`} style={styles.remainingAmount} />
+      <Text
+        text={`Remaining $${cardData.remainingAmount}`}
+        style={styles.remainingAmount}
+        preset="largeHeading"
+      />
       <View style={[styles.progressLine, { backgroundColor: cardData.color }]}></View>
 
-      <Text text={`$${cardData.expenseAmount} of $${cardData.totalAmount}`} style={styles.amount} />
+      <Text text={`$${cardData.expenseAmount} of $${cardData.totalAmount}`} preset="default" />
+
       <View>
         {cardData.expenseAmount > cardData.totalAmount && (
-          <Text text="You have exceed the limit!" style={styles.alertText} />
+          <Text text="You have exceed the limit!" preset="default" style={styles.alertText} />
         )}
       </View>
     </TouchableOpacity>

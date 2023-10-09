@@ -1,9 +1,10 @@
 import React from "react"
 import { Text } from "app/components/Text/Text"
-import { colors, typography } from "app/theme"
+import { typography } from "app/theme"
 import { hp, wp } from "app/utils/responsive"
-import { Modal, View, Pressable, GestureResponderEvent, StyleSheet, Button } from "react-native"
+import { Modal, View, Pressable, GestureResponderEvent, Button } from "react-native"
 import Ionicons from "react-native-vector-icons/Ionicons"
+import styles from "./styles"
 
 interface PropsI {
   open: boolean
@@ -26,9 +27,7 @@ interface PropsI {
 const AlertBox = ({
   open = false,
   onClose,
-  autoClose = false,
   type,
-  title,
   description,
   primaryButtonText,
   secondaryButtonText,
@@ -100,50 +99,3 @@ const AlertBox = ({
 }
 
 export { AlertBox }
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    backgroundColor: "rgba(0,0,0,.1)",
-    zIndex: 1,
-  },
-  modalView: {
-    width: wp(80),
-    alignItems: "center",
-    borderRadius: wp(3),
-    backgroundColor: colors.palette.neutral100,
-    padding: 20,
-  },
-  typeBlock: {
-    width: hp(6),
-    height: hp(6),
-    borderRadius: hp(4),
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 12,
-  },
-  typeSuccessBlock: {
-    backgroundColor: colors.palette.primary500,
-    color: "white",
-  },
-  typeErrorBlock: {
-    backgroundColor: "#FFDBDB",
-    color: "red",
-  },
-  title: {
-    textAlign: "center",
-    marginBottom: 13,
-    fontWeight: "bold",
-  },
-  description: { textAlign: "center" },
-
-  primaryButton: { width: wp(70), paddingVertical: hp(1), marginTop: 20 },
-  secondaryButton: { width: wp(70), paddingVertical: hp(1), marginTop: 12 },
-})

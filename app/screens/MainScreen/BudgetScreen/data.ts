@@ -17,4 +17,28 @@ export const cardsDummyData = [
     expenseAmount: 350,
     color: colors.palette.secondary500,
   },
+  {
+    id: 3,
+    bugetType: "Transportation",
+    remainingAmount: 350,
+    totalAmount: 700,
+    expenseAmount: 350,
+    color: colors.palette.secondary500,
+  },
+  {
+    id: 4,
+    bugetType: "Transportation",
+    remainingAmount: 350,
+    totalAmount: 700,
+    expenseAmount: 350,
+    color: colors.palette.secondary500,
+  },
+  {
+    id: 5,
+    bugetType: "Transportation",
+    remainingAmount: 350,
+    totalAmount: 700,
+    expenseAmount: 350,
+    color: colors.palette.secondary500,
+  },
 ]
