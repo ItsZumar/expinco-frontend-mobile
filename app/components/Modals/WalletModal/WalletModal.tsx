@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite"
 import { TxKeyPath } from "app/i18n"
 import { useStores } from "app/models"
 import { TransactionCategoryI } from "app/interfaces"
-import { Text, Button, ListItemCard, ModalHoc } from "../.."
+import { Text, Button, ListItemCard, ModalHoc } from "app/components"
 import styles from "./styles"
 
 interface Props {

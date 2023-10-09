@@ -16,11 +16,13 @@ import React from "react"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 import * as Linking from "expo-linking"
 import { useInitialRootStore } from "./models"
-import { AppNavigator, useNavigationPersistence } from "./navigators"
+import { AppNavigator } from "./navigators"
 import { ErrorBoundary } from "./screens/ExampleScreens/ErrorScreen/ErrorBoundary"
-import * as storage from "./utils/storage"
 import { customFontsToLoad } from "./theme"
 import { setupReactotron } from "./services/reactotron"
+import { Provider } from "react-redux"
+import { persistor, store } from "./store/store"
+import { PersistGate } from "redux-persist/integration/react"
 import Config from "./config"
 
 // Set up Reactotron, which is a free desktop app for inspecting and debugging
@@ -70,7 +72,7 @@ interface AppProps {
  */
 function App(props: AppProps) {
   const { hideSplashScreen } = props
-  const { initialNavigationState, onNavigationStateChange, isRestored: isNavigationStateRestored, } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
+  // const { initialNavigationState, onNavigationStateChange, isRestored: isNavigationStateRestored, } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
 
   const [areFontsLoaded] = useFonts(customFontsToLoad)
 
@@ -90,7 +92,7 @@ function App(props: AppProps) {
   // In iOS: application:didFinishLaunchingWithOptions:
   // In Android: https://stackoverflow.com/a/45838109/204044
   // You can replace with your own loading component if you wish.
-  if (!rehydrated || !isNavigationStateRestored || !areFontsLoaded) return null
+  // if (!rehydrated || !isNavigationStateRestored || !areFontsLoaded) return null
 
   const linking = {
     prefixes: [prefix],
@@ -99,13 +101,17 @@ function App(props: AppProps) {
 
   // otherwise, we're ready to render the app
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics} >
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
-        <AppNavigator
-          linking={linking}
-          initialState={initialNavigationState}
-          onStateChange={onNavigationStateChange}
-        />
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <AppNavigator
+              linking={linking}
+              // initialState={initialNavigationState}
+              // onStateChange={onNavigationStateChange}
+            />
+          </PersistGate>
+        </Provider>
       </ErrorBoundary>
     </SafeAreaProvider>
   )

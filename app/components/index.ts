@@ -7,7 +7,7 @@ export * from "./Text/Text"
 export * from "./TextField/TextField"
 export * from "./Toggle/Toggle"
 
-//Buttons
+// Buttons
 export * from "./Buttons/Button/Button"
 export * from "./Buttons/RoundedButton/RoundedButton"
 export * from "./Buttons/ToggleButton/ToggleButton"

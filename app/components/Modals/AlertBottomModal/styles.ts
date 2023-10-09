@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { hp, wp } from "../../../utils/responsive"
+import { hp, wp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
   spacing: {
