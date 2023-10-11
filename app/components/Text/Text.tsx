@@ -1,7 +1,7 @@
-import { TxKeyPath, isRTL, translate } from "app/i18n"
-import { colors, typography } from "app/theme"
 import i18n from "i18n-js"
 import React from "react"
+import { colors, typography } from "app/theme"
+import { TxKeyPath, isRTL, translate } from "app/i18n"
 import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native"
 
 type Sizes = keyof typeof $sizeStyles

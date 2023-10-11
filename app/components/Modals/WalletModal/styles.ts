@@ -1,6 +1,6 @@
-import { colors } from "../../../theme"
+import { colors } from "app/theme"
 import { StyleSheet } from "react-native"
-import { hp } from "../../../utils/responsive"
+import { hp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
   subTitleText: {

@@ -1,17 +1,15 @@
 import React, { FC } from "react"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
-import { observer } from "mobx-react-lite"
 import { BudgetScreen, HomeScreen, ProfileScreen, TransactionScreen } from "../"
 import { AppStackScreenProps } from "app/navigators"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import Ionicons from "react-native-vector-icons/Ionicons"
 
-
 interface MainScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.MAIN>> {}
 
-export const MainScreen: FC<MainScreenProps> = observer(({ navigation }) => {
+export const MainScreen: FC<MainScreenProps> = ({ navigation }) => {
   const Tab = createBottomTabNavigator()
 
   return (
@@ -56,4 +54,4 @@ export const MainScreen: FC<MainScreenProps> = observer(({ navigation }) => {
       />
     </Tab.Navigator>
   )
-})
+}

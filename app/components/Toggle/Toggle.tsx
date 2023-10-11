@@ -12,10 +12,10 @@ import {
   View,
   ViewStyle,
 } from "react-native"
-import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated"
 import { colors, spacing } from "../../theme"
-import { iconRegistry, IconTypes } from "../Icon/Icon"
 import { Text, TextProps } from "../Text/Text"
+import { iconRegistry, IconTypes } from "../Icon/Icon"
+import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated"
 
 type Variants = "checkbox" | "switch" | "radio"
 

@@ -1,5 +1,4 @@
 import React, { FC, useMemo, useRef, useState } from "react"
-import { observer } from "mobx-react-lite"
 import { ScrollView, TextInput, TouchableOpacity, View, ViewStyle } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
@@ -15,27 +14,25 @@ import {
 } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
-import { useStores } from "app/models"
-import { useFieldErrorHandler } from "app/hooks/useFieldErrorHandler"
 import styles from "./styles"
 
 interface SignUpScreenProps
   extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.SIGNUP>> {}
 
-export const SignUpScreen: FC<SignUpScreenProps> = observer(({ navigation }) => {
-  const {
-    authenticationStore: {
-      firstname,
-      lastname,
-      email,
-      password,
-      setFirstName,
-      setLastName,
-      setEmail,
-      setPassword,
-      validateSignupErrors,
-    },
-  } = useStores()
+export const SignUpScreen: FC<SignUpScreenProps> = ({ navigation }) => {
+  // const {
+  //   authenticationStore: {
+  //     firstname,
+  //     lastname,
+  //     email,
+  //     password,
+  //     setFirstName,
+  //     setLastName,
+  //     setEmail,
+  //     setPassword,
+  //     validateSignupErrors,
+  //   },
+  // } = useStores()
 
   const passwordInput = useRef<TextInput>()
 
@@ -44,8 +41,8 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(({ navigation }) => 
   const [agreeTandC, setAgreeTandC] = useState<boolean>(false)
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
-  const { formHavingError } = useFieldErrorHandler(validateSignupErrors)
-  const error = isSubmitted ? validateSignupErrors : null
+  // const { formHavingError } = useFieldErrorHandler(validateSignupErrors)
+  // const error = isSubmitted ? validateSignupErrors : null
 
   const PasswordRightAccessory = useMemo(
     () =>
@@ -66,11 +63,11 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(({ navigation }) => 
   const signupHandler = () => {
     setIsSubmitted(true)
 
-    if (formHavingError) return
+    // if (formHavingError) return
 
-    setIsSubmitted(false)
-    setPassword("")
-    setEmail("")
+    // setIsSubmitted(false)
+    // setPassword("")
+    // setEmail("")
   }
 
   return (
@@ -80,34 +77,34 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(({ navigation }) => 
       <ScrollView style={styles.spacingHorizonal} showsVerticalScrollIndicator={false}>
         <View style={styles.spacing2} />
         <TextField
-          value={firstname}
-          onChangeText={setFirstName}
+          // value={firstname}
+          // onChangeText={setFirstName}
           containerStyle={styles.textField}
           autoCapitalize="none"
           autoComplete="name"
           autoCorrect={false}
           labelTx="common.firstname"
           placeholderTx="signupScreen.enterfirstname"
-          helper={error?.firstname}
-          status={error?.firstname ? "error" : undefined}
+          // helper={error?.firstname}
+          // status={error?.firstname ? "error" : undefined}
           onSubmitEditing={() => passwordInput.current?.focus()}
         />
         <TextField
-          value={lastname}
-          onChangeText={setLastName}
+          // value={lastname}
+          // onChangeText={setLastName}
           containerStyle={styles.textField}
           autoCapitalize="none"
           autoComplete="name"
           autoCorrect={false}
           labelTx="common.lastname"
           placeholderTx="signupScreen.enterlastname"
-          helper={error?.lastname}
-          status={error?.lastname ? "error" : undefined}
+          // helper={error?.lastname}
+          // status={error?.lastname ? "error" : undefined}
           onSubmitEditing={() => passwordInput.current?.focus()}
         />
         <TextField
-          value={email}
-          onChangeText={setEmail}
+          // value={email}
+          // onChangeText={setEmail}
           containerStyle={styles.textField}
           autoCapitalize="none"
           autoComplete="email"
@@ -115,14 +112,14 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(({ navigation }) => 
           keyboardType="email-address"
           labelTx="common.email"
           placeholderTx="signinScreen.enterEmail"
-          helper={error?.email}
-          status={error?.email ? "error" : undefined}
+          // helper={error?.email}
+          // status={error?.email ? "error" : undefined}
           onSubmitEditing={() => passwordInput.current?.focus()}
         />
         <TextField
           ref={passwordInput}
-          value={password}
-          onChangeText={setPassword}
+          // value={password}
+          // onChangeText={setPassword}
           containerStyle={styles.textField}
           autoCapitalize="none"
           autoComplete="password"
@@ -131,8 +128,8 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(({ navigation }) => 
           labelTx="common.password"
           placeholderTx="signinScreen.enterPass"
           RightAccessory={PasswordRightAccessory}
-          helper={error?.password}
-          status={error?.password ? "error" : undefined}
+          // helper={error?.password}
+          // status={error?.password ? "error" : undefined}
         />
 
         <Toggle
@@ -160,4 +157,4 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(({ navigation }) => 
       </ScrollView>
     </Screen>
   )
-})
+}

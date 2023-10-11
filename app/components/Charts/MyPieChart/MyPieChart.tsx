@@ -1,5 +1,5 @@
-import { colors } from "app/theme"
 import React from "react"
+import { colors } from "app/theme"
 import { View } from "react-native"
 import { PieChart } from "react-native-chart-kit"
 
