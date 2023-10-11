@@ -7,7 +7,7 @@
  */
 import { ApiResponse, ApisauceInstance, create } from "apisauce"
 import { GeneralApiProblem, ResponseKind, getGeneralApiProblem } from "./apiProblem" // @demo remove-current-line
-import { loadString } from "../../../utils/storage"
+import { STORAGE_KEYS, loadString } from "../../../utils/storage"
 import Config from "../../../config"
 import type { ApiConfig } from "./api.types"
 
@@ -49,8 +49,8 @@ export class Api {
    * @returns
    */
   async getApiConfig(isLoggedIn: boolean, contentType?: string) {
-    let accessToken = await loadString("user-jwt-token")
-    
+    let accessToken = await loadString(STORAGE_KEYS.USER_TOKEN)
+
     let headers = {}
     if (isLoggedIn) {
       headers = {

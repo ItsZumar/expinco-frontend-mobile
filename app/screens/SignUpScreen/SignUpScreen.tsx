@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useRef, useState } from "react"
-import { ScrollView, TextInput, TouchableOpacity, View, ViewStyle } from "react-native"
+import { ScrollView, TextInput, TouchableOpacity, View } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import {
@@ -14,35 +14,27 @@ import {
 } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
+import { useAppDispatch } from "app/store/store"
+import { signupService } from "app/store/slices/auth/authService"
+import { SignupPayloadI } from "app/store/slices/auth/types"
 import styles from "./styles"
 
 interface SignUpScreenProps
   extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.SIGNUP>> {}
 
 export const SignUpScreen: FC<SignUpScreenProps> = ({ navigation }) => {
-  // const {
-  //   authenticationStore: {
-  //     firstname,
-  //     lastname,
-  //     email,
-  //     password,
-  //     setFirstName,
-  //     setLastName,
-  //     setEmail,
-  //     setPassword,
-  //     validateSignupErrors,
-  //   },
-  // } = useStores()
+  const dispatch = useAppDispatch()
 
   const passwordInput = useRef<TextInput>()
-
   const [showPassword, setShowPassword] = useState<boolean>(false)
-
   const [agreeTandC, setAgreeTandC] = useState<boolean>(false)
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
 
-  // const { formHavingError } = useFieldErrorHandler(validateSignupErrors)
-  // const error = isSubmitted ? validateSignupErrors : null
+  const [userPayload, setUserPayload] = useState<SignupPayloadI>({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  })
 
   const PasswordRightAccessory = useMemo(
     () =>
@@ -60,14 +52,18 @@ export const SignUpScreen: FC<SignUpScreenProps> = ({ navigation }) => {
     [showPassword],
   )
 
-  const signupHandler = () => {
-    setIsSubmitted(true)
-
-    // if (formHavingError) return
-
-    // setIsSubmitted(false)
-    // setPassword("")
-    // setEmail("")
+  const signupHandler = async () => {
+    await dispatch(
+      signupService({
+        firstname: userPayload.firstname,
+        lastname: userPayload.lastname,
+        email: userPayload.email,
+        password: userPayload.password,
+      }),
+    )
+      .unwrap()
+      .then((response: SignupPayloadI) => navigation.navigate(ScreensEnum.OTP_VERIFICATION as any))
+      .catch((err: Error) => console.log("error", err))
   }
 
   return (
@@ -77,8 +73,8 @@ export const SignUpScreen: FC<SignUpScreenProps> = ({ navigation }) => {
       <ScrollView style={styles.spacingHorizonal} showsVerticalScrollIndicator={false}>
         <View style={styles.spacing2} />
         <TextField
-          // value={firstname}
-          // onChangeText={setFirstName}
+          value={userPayload.firstname}
+          onChangeText={(text) => setUserPayload({ ...userPayload, firstname: text })}
           containerStyle={styles.textField}
           autoCapitalize="none"
           autoComplete="name"
@@ -90,8 +86,8 @@ export const SignUpScreen: FC<SignUpScreenProps> = ({ navigation }) => {
           onSubmitEditing={() => passwordInput.current?.focus()}
         />
         <TextField
-          // value={lastname}
-          // onChangeText={setLastName}
+          value={userPayload.lastname}
+          onChangeText={(text) => setUserPayload({ ...userPayload, lastname: text })}
           containerStyle={styles.textField}
           autoCapitalize="none"
           autoComplete="name"
@@ -103,8 +99,8 @@ export const SignUpScreen: FC<SignUpScreenProps> = ({ navigation }) => {
           onSubmitEditing={() => passwordInput.current?.focus()}
         />
         <TextField
-          // value={email}
-          // onChangeText={setEmail}
+          value={userPayload.email}
+          onChangeText={(text) => setUserPayload({ ...userPayload, email: text })}
           containerStyle={styles.textField}
           autoCapitalize="none"
           autoComplete="email"
@@ -118,8 +114,8 @@ export const SignUpScreen: FC<SignUpScreenProps> = ({ navigation }) => {
         />
         <TextField
           ref={passwordInput}
-          // value={password}
-          // onChangeText={setPassword}
+          value={userPayload.password}
+          onChangeText={(text) => setUserPayload({ ...userPayload, password: text })}
           containerStyle={styles.textField}
           autoCapitalize="none"
           autoComplete="password"
@@ -144,8 +140,8 @@ export const SignUpScreen: FC<SignUpScreenProps> = ({ navigation }) => {
           style={styles.tapButton}
           disabled={!agreeTandC}
           preset={agreeTandC ? "filled" : "reversed"}
-          // onPress={signupHandler}
-          onPress={() => navigation.navigate(ScreensEnum.OTP_VERIFICATION as any)}
+          onPress={signupHandler}
+          // onPress={() => navigation.navigate(ScreensEnum.OTP_VERIFICATION as any)}
         />
 
         <View style={styles.bottomBlock}>

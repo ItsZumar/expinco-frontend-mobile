@@ -1,7 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { MMKV } from 'react-native-mmkv'
+import { MMKV } from "react-native-mmkv"
 
 export const mmkvStorage = new MMKV()
+
+export const STORAGE_KEYS = {
+  USER_ID: "userId",
+  USER_TOKEN: "user_token",
+  USER_EMAIL: "user_email",
+  FCM_TOKEN: "fcm_token",
+}
 
 /**
  * Loads a string from storage.

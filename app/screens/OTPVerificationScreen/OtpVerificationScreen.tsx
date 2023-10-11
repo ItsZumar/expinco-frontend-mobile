@@ -4,12 +4,18 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
 import { Button, Header, Screen, Text } from "app/components"
 import { ScreensEnum } from "app/enums"
+import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { verifyEmailService } from "app/store/slices/auth/authService"
+import { VerifyEmailResponseI } from "app/store/slices/auth/types"
 import styles from "./styles"
 
 interface OtpVerificationScreenProps
   extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.OTP_VERIFICATION>> {}
 
 export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigation }) => {
+  const dispatch = useAppDispatch()
+  const { data, loading, error } = useAppSelector((state: RootState) => state.auth)
+
   const input1 = useRef(null)
   const input2 = useRef(null)
   const input3 = useRef(null)
@@ -27,15 +33,12 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
   })
 
   const MAX_OTP_TRIES: number = 4
-  const OTP_TIMER: number = 30
+  const OTP_TIMER: number = 30000
 
   const [timer, setTimer] = useState<number>(OTP_TIMER)
   const [resendOtpTries, setresendOtpTries] = useState<number>(1)
   const [otpDisableBtn, setOptDisableBtn] = useState<boolean>(false)
 
-  /**
-   * Handler for getting new OTP code
-   */
   const resendOTPHandler = async () => {
     if (resendOtpTries < MAX_OTP_TRIES) {
       // if (params?.prevScreen === ScreenEnum.FORGOT_PASSWORD) {
@@ -55,13 +58,13 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
     }
   }
 
-  /**
-   * Handler for verifying OTP code with email
-   */
   const _verifyOTP = async () => {
     let authCode = Object.values(otp).join("")
 
-    navigation.navigate(ScreensEnum.SIGNIN as any)
+    dispatch(verifyEmailService({ email: data.user.email, authCode: authCode }))
+      .unwrap()
+      .then((response: VerifyEmailResponseI) => navigation.navigate(ScreensEnum.SIGNIN as any))
+      .catch((err: Error) => console.log("error", err))
 
     // let checkAuthCode = await authStore.verifyAuthCode(params.email, authCode)
     // authCode is valid

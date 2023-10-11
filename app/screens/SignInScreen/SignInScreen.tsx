@@ -13,23 +13,23 @@ import {
 } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
+import { useAppDispatch } from "app/store/store"
+import { signinService } from "app/store/slices/auth/authService"
+import { SigninPayloadI, SigninResponseI } from "app/store/slices/auth/types"
 import styles from "./styles"
 
 interface SignInScreenProps
   extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.SIGNIN>> {}
 
 export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
-  // const {
-  //   authenticationStore: { email, password, setEmail, setPassword, validationError },
-  // } = useStores()
-
+  const dispatch = useAppDispatch()
   const passwordInput = useRef<TextInput>()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
-
-  // const { formHavingError } = useFieldErrorHandler(validationError)
-  // const error = isSubmitted ? validationError : null
+  const [state, setState] = useState<SigninPayloadI>({
+    email: "",
+    password: "",
+  })
 
   const PasswordRightAccessory = useMemo(
     () =>
@@ -48,14 +48,17 @@ export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
   )
 
   const login = () => {
-    setIsSubmitted(true)
-
     // if (formHavingError) return
 
-    // setIsSubmitted(false)
-    // setPassword("")
-    // setEmail("")
-    navigation.navigate(ScreensEnum.MAIN as any)
+    dispatch(
+      signinService({
+        email: state.email,
+        password: state.password,
+      }),
+    )
+      .unwrap()
+      .then((response: SigninResponseI) => navigation.navigate(ScreensEnum.MAIN as any))
+      .catch((err: Error) => console.log("error", err))
   }
 
   return (
@@ -65,8 +68,8 @@ export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
       <View style={styles.spacingHorizonal}>
         <View style={styles.spacingTop}>
           <TextField
-            // value={email}
-            // onChangeText={setEmail}
+            value={state.email}
+            onChangeText={(text) => setState({ ...state, email: text })}
             containerStyle={styles.textField}
             autoCapitalize="none"
             autoComplete="email"
@@ -80,8 +83,8 @@ export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
           />
           <TextField
             ref={passwordInput}
-            // value={password}
-            // onChangeText={setPassword}
+            value={state.password}
+            onChangeText={(text) => setState({ ...state, password: text })}
             containerStyle={styles.textField}
             autoCapitalize="none"
             autoComplete="password"
