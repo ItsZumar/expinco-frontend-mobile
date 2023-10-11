@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect } from "react"
 import { FlatList, TouchableOpacity, View, ViewStyle } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
@@ -18,10 +18,15 @@ import { TransactionType } from "app/enums/transactions.enum"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import styles from "./styles"
+import { STORAGE_KEYS, loadString } from "app/utils/storage"
 
 interface HomeScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.HOME>> {}
 
 export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
+  useEffect(() => {
+    console.log("token === ", loadString(STORAGE_KEYS.USER_TOKEN))
+  }, [])
+
   return (
     <Screen
       style={$root}
@@ -116,7 +121,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
             renderItem={({ item }) => (
               <TransactionCard
                 {...item}
-                onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION)}
+                onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION as any)}
               />
             )}
           />

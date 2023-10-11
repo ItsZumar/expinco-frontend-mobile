@@ -85,7 +85,7 @@ const AppStack = () => {
         navigationBarColor: colors.background,
         animation: "slide_from_right",
       }}
-      initialRouteName={ScreensEnum.MAIN}
+      // initialRouteName={ScreensEnum.MAIN}
     >
       <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
       <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />

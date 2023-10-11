@@ -1,34 +1,35 @@
-import axios from "axios"
+import Config from "."
+import { STORAGE_KEYS, loadString } from "app/utils/storage"
+import axios, { AxiosError, AxiosInstance } from "axios"
 
-// Create an Axios instance
-const axiosInstance = axios.create({
-  // You can set custom configuration options here
-  // For example, you can set a base URL or default headers
-  baseURL: "https://jsonplaceholder.typicode.com/",
+const axiosInstance: AxiosInstance = axios.create({
+  baseURL: Config.API_URL,
 })
 
-// Add a request interceptor
+// Add an interceptor to include the Bearer token in the request headers
 axiosInstance.interceptors.request.use(
-  (config) => {
-    // Modify the request config here (if needed)
+  async (config) => {
+    const token = await loadString(STORAGE_KEYS.USER_TOKEN)
+
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`
+    }
+
     return config
   },
   (error) => {
-    // Handle request errors here
     return Promise.reject(error)
   },
 )
 
-// Add a response interceptor
 axiosInstance.interceptors.response.use(
-  (config) => {
-    // Modify the response data here (if needed)
-    // For example, you can transform the response data or handle errors
-    return config
-  },
+  (response) => response,
   (error) => {
-    // Handle response errors here
-    return Promise.reject(error)
+    const axiosError = error as AxiosError
+    return Promise.reject({
+      status: axiosError.response?.status,
+      data: axiosError.response?.data || axiosError.message,
+    })
   },
 )
 

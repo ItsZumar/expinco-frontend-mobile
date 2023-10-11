@@ -7,10 +7,13 @@ import { AppStackScreenProps } from "app/navigators"
 import { MY_ACHIEVEMENTS } from "./data"
 import { AutoImage, Icon, Text, AppHeader } from "app/components"
 import { myWalletsData } from "app/constants"
+import { RootState, useAppSelector } from "app/store/store"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
 export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = ({ navigation }) => {
+  const { data, loading, error } = useAppSelector((state: RootState) => state.auth)
+
   return (
     <View style={styles.root}>
       <View style={styles.headerBlock}>
@@ -36,7 +39,9 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = ({ na
 
         <View style={styles.alignSelfCenter}>
           <View style={styles.nameText}>
-            <Text text="Haseeb Ahmed" preset="subheading" />
+            {/* <Text text={user.firstname} preset="subheading" /> */}
+
+            <Text text={`${data.user.firstname} ${data.user.lastname}`} preset="subheading" />
             {true && <Icon icon="verifiedBadge" size={15} style={{ marginLeft: wp(1) }} />}
           </View>
         </View>
