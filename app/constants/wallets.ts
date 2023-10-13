@@ -1,5 +1,20 @@
 import { WalletI } from "app/interfaces"
 
+export const walletType = [
+  {
+    _id: "1",
+    name: "Cash",
+  },
+  {
+    _id: "2",
+    name: "Bank",
+  },
+  {
+    _id: "3",
+    name: "Credit Card",
+  },
+]
+
 export const myWalletsData: WalletI[] = [
   {
     id: "1",

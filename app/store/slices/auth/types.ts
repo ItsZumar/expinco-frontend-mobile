@@ -33,7 +33,7 @@ export interface SignupResponseI {
 
 export interface AuthI {
   loading: boolean
-  data: SignupResponseI["result"]
+  user: SignupResponseI["result"]
   error: string
   stack?: string
 }

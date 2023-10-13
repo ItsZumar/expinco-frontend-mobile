@@ -3,7 +3,7 @@ import { STORAGE_KEYS, loadString } from "app/utils/storage"
 import axios, { AxiosError, AxiosInstance } from "axios"
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: Config.API_URL,
+  baseURL: `${Config.API_URL}/v1`,
 })
 
 // Add an interceptor to include the Bearer token in the request headers

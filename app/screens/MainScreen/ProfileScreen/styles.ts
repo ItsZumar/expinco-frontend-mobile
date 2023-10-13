@@ -53,6 +53,45 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
   },
+  totalAmountContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    marginVertical: 30,
+    paddingHorizontal: wp(5),
+  },
+  subAmountContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  walletsContainer: {
+    marginVertical: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  wallet: {
+    marginRight: 10,
+    marginBottom: 10,
+    backgroundColor: colors.palette.primary100,
+    paddingVertical: 4,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+  },
+  walletText: {
+    fontSize: 12,
+    color: colors.text,
+  },
+  achievementsContainer: {
+    marginVertical: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 14,
+  },
+  achievement: {
+    backgroundColor: colors.palette.primary100,
+    padding: 10,
+    borderRadius: 20,
+  },
 })
 
 export default styles

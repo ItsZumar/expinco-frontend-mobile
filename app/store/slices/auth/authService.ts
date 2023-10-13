@@ -19,7 +19,7 @@ export const signupService: any = createAsyncThunk(
   async (payload: SignupPayloadI, { rejectWithValue }) => {
     try {
       const response: AxiosResponse<SignupResponseI> = await axiosInstance.post(
-        `/v1/user/auth/email-signup`,
+        `/user/auth/email-signup`,
         {
           firstname: payload.firstname,
           lastname: payload.lastname,
@@ -44,7 +44,7 @@ export const signinService: any = createAsyncThunk(
   async (payload: SigninPayloadI, { rejectWithValue }) => {
     try {
       const response: AxiosResponse<SigninResponseI> = await axiosInstance.post(
-        `/v1/user/auth/email-signin`,
+        `/user/auth/email-signin`,
         {
           email: payload.email,
           password: payload.password,
@@ -65,7 +65,7 @@ export const verifyEmailService: any = createAsyncThunk(
   async (payload: VerifyEmailPayloadI, { rejectWithValue }) => {
     try {
       const response: AxiosResponse<VerifyEmailResponseI> = await axiosInstance.post(
-        "/v1/user/auth/verify-email",
+        "/user/auth/verify-email",
         { email: payload.email, authCode: payload.authCode },
       )
       return response.data
@@ -81,7 +81,7 @@ export const updateUserService: any = createAsyncThunk(
     try {
       let apiConfig = await api.getApiConfig(true)
       const response: AxiosResponse<UpdateUserResponseI> = await axiosInstance.patch(
-        "/v1/user/auth/update-profile",
+        "/user/auth/update-profile",
         {
           firstname: payload.firstname,
           lastname: payload.lastname,

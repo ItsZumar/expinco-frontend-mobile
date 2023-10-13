@@ -5,13 +5,15 @@ import { ScreensEnum } from "app/enums"
 import { AppStackScreenProps } from "app/navigators"
 import { FilterModal, Text, TransactionCard } from "app/components"
 import { FilterByItems, SortByItems, TransactionData } from "app/constants"
+import { RootState, useAppSelector } from "app/store/store"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
 export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>> = ({
   navigation,
 }) => {
-  const [state] = useState(TransactionData)
+  const { transactions } = useAppSelector((state: RootState) => state.transaction)
+  // const [state] = useState(TransactionData)
   const [filterModal, setFilterModal] = useState<boolean>(false)
 
   const openFilterModal = () => {
@@ -50,13 +52,13 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
       </TouchableOpacity>
 
       <FlatList
-        data={state}
+        data={transactions.data}
         keyExtractor={(item) => String(item._id)}
         style={styles.listStyle}
         renderItem={({ item }) => (
           <TransactionCard
             {...item}
-            onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION)}
+            onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION, { item })}
           />
         )}
       />

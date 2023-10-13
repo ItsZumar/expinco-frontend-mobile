@@ -46,14 +46,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(5),
   },
   upperText: {
-    fontSize: 14,
-    color: colors.palette.neutral500,
-    fontFamily: typography.primary.medium,
+    color: colors.palette.neutral400,
+    textTransform: "capitalize",
   },
   lowerText: {
-    fontSize: 16,
-    color: colors.palette.neutral900,
-    fontFamily: typography.primary.semiBold,
     textTransform: "capitalize",
   },
   divider: {

@@ -1,11 +1,13 @@
 import React from "react"
 import { TouchableOpacity, View } from "react-native"
-import { TransactionI } from "app/interfaces"
 import { getTimeFromDateString } from "app/utils/formatDate"
 import { TransactionType } from "app/enums/transactions.enum"
 import { AutoImage } from "app/components/AutoImage/AutoImage"
 import { Text } from "app/components/Text/Text"
 import styles from "./styles"
+import { TransactionI } from "app/store/slices/transaction/types"
+import { colors } from "app/theme"
+import { Icon } from "app/components/Icon/Icon"
 
 export type TransactionCardI = TransactionI & {
   onPress: (_id: string) => void
@@ -24,7 +26,14 @@ export const TransactionCard = ({
     <View style={styles.card}>
       <TouchableOpacity onPress={() => onPress(_id)} style={styles.container}>
         <View style={styles.imageBlock}>
-          <AutoImage source={{ uri: category.icon }} style={styles.categoryImage} />
+          <AutoImage
+            source={
+              category?.icon?.secureURL
+                ? { uri: category?.icon?.secureURL }
+                : { uri: "https://picsum.photos/302" }
+            }
+            style={styles.categoryImage}
+          />
         </View>
 
         <View style={styles.textBlock}>
@@ -34,11 +43,13 @@ export const TransactionCard = ({
           </View>
           <View style={styles.lastTextBlock}>
             <Text
-              text={`$` + type === TransactionType.EXPENSE ? "- " : "+ " + amount.toString()}
+              text={(type === TransactionType.EXPENSE ? "-" : "+") + " " + amount.toString()}
               preset="subheading"
               style={[
                 styles.amountText,
-                type === TransactionType.EXPENSE ? { color: "#FD3C4A" } : { color: "#00A86B" },
+                type === TransactionType.EXPENSE
+                  ? { color: colors.palette.expense }
+                  : { color: colors.palette.income },
               ]}
             />
             <Text text={getTimeFromDateString(createdAt)} style={styles.timeText} />

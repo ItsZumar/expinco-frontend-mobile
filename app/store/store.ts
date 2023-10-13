@@ -4,6 +4,9 @@ import { persistReducer, persistStore } from "redux-persist"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import authReducer from "./slices/auth/authReducer"
 import thunk from "redux-thunk"
+import categoryReducer from "./slices/categoy/categoryReducer"
+import walletReducer from "./slices/wallet/walletReducer"
+import transactionReducer from "./slices/transaction/transactionReducer"
 
 const persistConfig = {
   key: "root",
@@ -12,6 +15,9 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  category: categoryReducer,
+  wallet: walletReducer,
+  transaction: transactionReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -12,6 +12,8 @@ import {
   NavigationContainer,
 } from "@react-navigation/native"
 import { ScreensEnum } from "app/enums"
+import { RootState, useAppSelector } from "app/store/store"
+import { verifyEmailService } from "app/store/slices/auth/authService"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -55,7 +57,7 @@ export type AppStackParamList = {
   ExportData: undefined
   About: undefined
   PrivacyPolicy: undefined
-  DetailTransactionScreen: undefined
+  DetailTransactionScreen: { item: any }
   NotificationScreen: undefined
   FinancialReportScreen: undefined
 }
@@ -74,9 +76,7 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = () => {
-  // const {
-  //   authenticationStore: { isAuthenticated },
-  // } = useStores()
+  // const { isEmailVerified } = useAppSelector((state: RootState) => state.auth.data.user)
 
   return (
     <Stack.Navigator
@@ -85,7 +85,7 @@ const AppStack = () => {
         navigationBarColor: colors.background,
         animation: "slide_from_right",
       }}
-      // initialRouteName={ScreensEnum.MAIN}
+      initialRouteName={ScreensEnum.MAIN}
     >
       <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
       <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
@@ -116,17 +116,25 @@ const AppStack = () => {
       <Stack.Screen name={ScreensEnum.NOTIFICATION_SCREEN} component={Screens.NotificationScreen} />
       <Stack.Screen name={ScreensEnum.FINANCIAL_REPORT} component={Screens.FinancialReportScreen} />
 
-      {/* {isAuthenticated ? (
+      {/* {isEmailVerified ? (
         <>
-          <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
-          <Stack.Screen name="Demo" component={DemoNavigator} />
+          <Stack.Screen
+            name={ScreensEnum.OTP_VERIFICATION}
+            component={Screens.OtpVerificationScreen}
+          />
         </>
       ) : (
         <>
           <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
           <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
-          <Stack.Screen name={ScreensEnum.OTP_VERIFICATION} component={Screens.OtpVerificationScreen} />
-          <Stack.Screen name={ScreensEnum.FORGOT_PASSWORD} component={Screens.ForgotPasswordScreen} />
+          <Stack.Screen
+            name={ScreensEnum.OTP_VERIFICATION}
+            component={Screens.OtpVerificationScreen}
+          />
+          <Stack.Screen
+            name={ScreensEnum.FORGOT_PASSWORD}
+            component={Screens.ForgotPasswordScreen}
+          />
         </>
       )} */}
     </Stack.Navigator>
