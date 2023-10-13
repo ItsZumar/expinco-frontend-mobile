@@ -1,11 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { RootState, AppThunk } from "../../store"
+import { createSlice } from "@reduxjs/toolkit"
 import { signinService, signupService, updateUserService, verifyEmailService } from "./authService"
-import { AuthI, UserI } from "./types"
+import { AuthI } from "./types"
 
 const initialState: AuthI = {
   loading: false,
-  data: null,
+  user: null,
   error: null,
 }
 
@@ -20,7 +19,7 @@ export const authSlice = createSlice({
     // },
     logoutUser: (state) => {
       state.loading = false
-      state.data = null
+      state.user = null
       state.error = null
     },
   },
@@ -34,7 +33,7 @@ export const authSlice = createSlice({
       })
       .addCase(signupService.fulfilled, (state, action) => {
         state.loading = false
-        state.data = action.payload.result
+        state.user = action.payload.result
       })
       .addCase(signupService.rejected, (state, action) => {
         state.loading = false
@@ -47,7 +46,7 @@ export const authSlice = createSlice({
       })
       .addCase(signinService.fulfilled, (state, action) => {
         state.loading = false
-        state.data = action.payload.result
+        state.user = action.payload.result
       })
       .addCase(signinService.rejected, (state, action) => {
         state.loading = false
@@ -60,7 +59,7 @@ export const authSlice = createSlice({
       })
       .addCase(verifyEmailService.fulfilled, (state, action) => {
         state.loading = false
-        state.data = action.payload.result
+        state.user = action.payload.result
       })
       .addCase(verifyEmailService.rejected, (state, action) => {
         state.loading = false
@@ -74,7 +73,7 @@ export const authSlice = createSlice({
       .addCase(updateUserService.fulfilled, (state, action) => {
         console.log("updateUserService === ", action.payload)
         state.loading = false
-        state.data = action.payload.result
+        state.user = action.payload.result
       })
       .addCase(updateUserService.rejected, (state, action) => {
         state.loading = false
@@ -83,6 +82,6 @@ export const authSlice = createSlice({
   },
 })
 
-export const {} = authSlice.actions
+export const { logoutUser } = authSlice.actions
 
 export default authSlice.reducer

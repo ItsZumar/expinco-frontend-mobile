@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { View } from "react-native"
 import { hp, wp } from "app/utils/responsive"
 import { ScreensEnum } from "app/enums"
@@ -15,7 +15,7 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
   navigation,
   route,
 }) => {
-  const [transaction] = useState<TransactionI>(TransactionData[0])
+  const { item } = route.params
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [alertModalVisible, setAlertModalVisible] = useState<boolean>(false)
 
@@ -40,6 +40,10 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
     setAlertModalVisible((prev) => !prev)
   }
 
+  useEffect(() => {
+    console.log("item === ", item)
+  }, [])
+
   return (
     <View style={styles.mainContainer}>
       <Header
@@ -57,28 +61,30 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
         <View
           style={[
             styles.topContainer,
-            transaction.type === "EXPENSE"
+            item.type === "EXPENSE"
               ? { backgroundColor: colors.palette.expense }
               : { backgroundColor: colors.palette.income },
           ]}
         >
-          <Text text={`$${transaction.amount}`} preset="heading" style={styles.amount} />
-          <Text text={`${transaction.name}`} preset="pageHeading" style={styles.transactionName} />
-          <Text
-            text={getFormattedDate(transaction.createdAt)}
-            preset="default"
-            style={styles.date}
-          />
+          <Text text={`$${item?.amount}`} preset="heading" style={styles.amount} />
+          <Text text={`${item?.name}`} preset="pageHeading" style={styles.transactionName} />
+          <Text text={getFormattedDate(item?.createdAt)} preset="default" style={styles.date} />
         </View>
 
         <View style={styles.bottomContainer}>
           <View style={styles.detailCard}>
-            {transactionTypes.map((transType: transactionTypesI) => (
-              <View style={{ alignItems: "center" }}>
-                <Text text={transType.type} style={styles.upperText} />
-                <Text text={transType.title} style={styles.lowerText} />
-              </View>
-            ))}
+            <View style={{ alignItems: "center" }}>
+              <Text text={"Type"} preset="subheading" style={styles.upperText} />
+              <Text text={item?.type} preset="subheading" style={styles.lowerText} />
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <Text text={"Category"} preset="subheading" style={styles.upperText} />
+              <Text text={item?.category?.name} preset="subheading" style={styles.lowerText} />
+            </View>
+            <View style={{ alignItems: "center" }}>
+              <Text text={"Wallet"} preset="subheading" style={styles.upperText} />
+              <Text text={item?.wallet?.name} preset="subheading" style={styles.lowerText} />
+            </View>
           </View>
 
           {/* divider */}
@@ -88,7 +94,7 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
           {/* descriptions */}
 
           <Text text="Description" preset="pageHeading" />
-          <Text text={transaction.description} preset="default" style={styles.description} />
+          <Text text={item?.description} preset="default" style={styles.description} />
 
           {/* attachments */}
 

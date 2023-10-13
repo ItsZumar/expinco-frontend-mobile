@@ -8,6 +8,8 @@ import { TxKeyPath } from "app/i18n"
 import { ListItemCard } from "app/components/Cards/ListItemCard/ListItemCard"
 import { TransactionCategoryI } from "app/interfaces"
 import styles from "./styles"
+import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { getCategoryList } from "app/store/slices/categoy/categoryService"
 
 interface Props {
   selectedItem?: TransactionCategoryI
@@ -30,10 +32,10 @@ export const CategoryModal = ({
   onPressClose,
   onPressDone,
 }: Props) => {
-  // const { transactionStore } = useStores()
-  // const { isLoading } = transactionStore
+  const dispatch = useAppDispatch()
 
   const [showDoneBtn, setShowDoneBtn] = useState<boolean>(false)
+  const { categories } = useAppSelector((state: RootState) => state.category)
 
   const [state, setState] = useState({
     list: [],
@@ -73,28 +75,27 @@ export const CategoryModal = ({
   }
 
   const getCategoriesFromServer = async () => {
-    // let response = await transactionStore.getCategories(state.page, 10)
-    // if (response?.data) {
-    //   let nList = response?.data.map((el) => {
-    //     if (el._id === selectedItem?._id) {
-    //       return {
-    //         ...el,
-    //         selected: true,
-    //       }
-    //     } else {
-    //       return {
-    //         ...el,
-    //         selected: false,
-    //       }
-    //     }
-    //   })
-    //   setState((prev) => ({
-    //     ...prev,
-    //     list: nList,
-    //     page: 1 + state.page,
-    //     hasNext: false,
-    //   }))
-    // }
+    dispatch(getCategoryList())
+
+    let nList = categories?.data.map((el) => {
+      if (el._id === selectedItem?._id) {
+        return {
+          ...el,
+          selected: true,
+        }
+      } else {
+        return {
+          ...el,
+          selected: false,
+        }
+      }
+    })
+    setState((prev) => ({
+      ...prev,
+      list: nList,
+      page: 1 + state.page,
+      hasNext: false,
+    }))
   }
 
   useEffect(() => {

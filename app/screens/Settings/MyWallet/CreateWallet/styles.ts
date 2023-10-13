@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   amountBlock: {
     marginHorizontal: wp(5),
-    marginTop: hp(37),
+    marginTop: hp(46),
   },
   subTitleText: {
     fontSize: hp(2.2),

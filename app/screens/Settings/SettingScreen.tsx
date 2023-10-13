@@ -6,14 +6,13 @@ import { wp } from "app/utils/responsive"
 import { Text, Header } from "app/components"
 import { AppStackScreenProps } from "app/navigators"
 import { SETTINGS_ITEMS } from "./data"
+import { useAppDispatch } from "app/store/store"
+import { logoutUser } from "../../store/slices/auth/authReducer"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
-// import { useStores } from "app/models"
 
 export const SettingScreen: FC<AppStackScreenProps<ScreensEnum.SETTING>> = ({ navigation }) => {
-  // const {
-  //   authenticationStore: { logout },
-  // } = useStores()
+  const dispatch = useAppDispatch()
 
   return (
     <View style={styles.root}>
@@ -27,8 +26,8 @@ export const SettingScreen: FC<AppStackScreenProps<ScreensEnum.SETTING>> = ({ na
           <TouchableOpacity
             onPress={
               item.name === "Logout"
-                ? () => {
-                    // logout()
+                ? async () => {
+                    // await dispatch(logoutUser())
                     navigation.navigate(ScreensEnum.SIGNUP)
                   }
                 : item.onPress

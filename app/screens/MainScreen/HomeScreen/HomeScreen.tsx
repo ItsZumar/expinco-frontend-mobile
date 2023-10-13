@@ -13,18 +13,21 @@ import {
 } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
-import { TransactionData } from "app/constants"
 import { TransactionType } from "app/enums/transactions.enum"
+import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { getAllTransactions } from "app/store/slices/transaction/transactionService"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import styles from "./styles"
-import { STORAGE_KEYS, loadString } from "app/utils/storage"
 
 interface HomeScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.HOME>> {}
 
 export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
+  const dispatch = useAppDispatch()
+  const { transactions } = useAppSelector((state: RootState) => state.transaction)
+
   useEffect(() => {
-    console.log("token === ", loadString(STORAGE_KEYS.USER_TOKEN))
+    dispatch(getAllTransactions())
   }, [])
 
   return (
@@ -116,12 +119,12 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
           />
 
           <FlatList
-            data={TransactionData}
+            data={transactions.data}
             keyExtractor={(item) => String(item._id)}
             renderItem={({ item }) => (
               <TransactionCard
                 {...item}
-                onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION as any)}
+                onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION as any, { item })}
               />
             )}
           />

@@ -1,20 +1,28 @@
-import React, { FC, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { TextInput, TouchableOpacity, View } from "react-native"
 import { hp } from "app/utils/responsive"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { TransactionType } from "app/enums/transactions.enum"
 import { AppStackScreenProps } from "app/navigators"
-import { TransactionCategoryI, WalletI } from "app/interfaces"
+import { TransactionCategoryI } from "app/interfaces"
 import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
+import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { getAllWallets } from "app/store/slices/wallet/walletService"
+import { WalletI } from "app/store/slices/wallet/types"
+import { createTransaction } from "app/store/slices/transaction/transactionService"
 
 export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSACTION>> = ({
   navigation,
   route,
 }) => {
+  const dispatch = useAppDispatch()
   const { type } = route.params
+  const {
+    wallets: { data: walletData },
+  } = useAppSelector((state: RootState) => state.wallet)
 
   const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
   const [showWalletModal, setShowWalletModal] = useState<boolean>(false)
@@ -22,7 +30,28 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
     TransactionCategoryI & { selected: boolean }
   >()
   const [selectedWallet, setSelectedWallet] = useState<WalletI & { selected: boolean }>()
+  const [amount, setAmount] = useState<string>("")
   const [description, setDescription] = useState<string>("")
+  const [attachments, setAttachments] = useState<string[]>([])
+
+  const onAddTransactionPress = async () => {
+    await dispatch(
+      createTransaction({
+        type: type,
+        amount: amount,
+        category: selectedCategory._id,
+        wallet: selectedWallet._id,
+        description: description,
+        attachments: attachments,
+      }),
+    )
+
+    navigation.goBack()
+  }
+
+  useEffect(() => {
+    dispatch(getAllWallets())
+  }, [])
 
   return (
     <Screen>
@@ -47,6 +76,8 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
             <View style={styles.rowFlexStartCenter}>
               <Text style={styles.amountText}>$</Text>
               <TextInput
+                value={amount}
+                onChangeText={setAmount}
                 style={[styles.amountText, { flex: 1 }]}
                 placeholder="0"
                 placeholderTextColor={colors.palette.neutral100}
@@ -74,6 +105,7 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
                 onChangeText={setDescription}
               />
             </View>
+
             <TouchableOpacity onPress={() => setShowWalletModal(true)} style={styles.itemContainer}>
               <Text style={styles.itemTextHeading}>
                 {selectedWallet?.name ? selectedWallet.name : `Select Wallet`}
@@ -88,7 +120,7 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
 
             <Button
               text={type === TransactionType.INCOME ? "Add Income" : "Add Expense"}
-              onPress={() => {}}
+              onPress={onAddTransactionPress}
               preset={type === TransactionType.INCOME ? "income" : "expense"}
               style={styles.spacingTop}
             />
@@ -117,6 +149,7 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
           setSelectedWallet(data[0])
           setShowWalletModal(false)
         }}
+        ownerWallets={walletData}
       />
     </Screen>
   )

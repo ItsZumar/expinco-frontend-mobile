@@ -6,6 +6,10 @@ import { TxKeyPath } from "app/i18n"
 import { TransactionCategoryI } from "app/interfaces"
 import { Text, Button, ListItemCard, ModalHoc } from "app/components"
 import styles from "./styles"
+import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { getCategoryList } from "app/store/slices/categoy/categoryService"
+import { walletType } from "app/constants"
+import { GetWalletListI } from "app/store/slices/wallet/types"
 
 interface Props {
   selectedItem?: TransactionCategoryI
@@ -14,6 +18,7 @@ interface Props {
   titleTx?: TxKeyPath
   subTitle: string
   subTitleTx?: TxKeyPath
+  ownerWallets?: any
   onPressClose?: () => void
   onPressDone?: (data: any) => void
 }
@@ -25,13 +30,15 @@ export const WalletModal = ({
   titleTx,
   subTitle,
   subTitleTx,
+  ownerWallets,
   onPressClose,
   onPressDone,
 }: Props) => {
-  // const { transactionStore } = useStores()
-  // const { isLoading } = transactionStore
+  const dispatch = useAppDispatch()
 
   const [showDoneBtn, setShowDoneBtn] = useState<boolean>(false)
+  //change to walletsTypes
+  const { categories } = useAppSelector((state: RootState) => state.category)
 
   const [state, setState] = useState({
     list: [],
@@ -71,28 +78,50 @@ export const WalletModal = ({
   }
 
   const getWalletsFromServer = async () => {
-    // let response = await transactionStore.getCategories(state.page, 10)
-    // if (response?.data) {
-    //   let nList = response?.data.map((el) => {
-    //     if (el._id === selectedItem?._id) {
-    //       return {
-    //         ...el,
-    //         selected: true,
-    //       }
-    //     } else {
-    //       return {
-    //         ...el,
-    //         selected: false,
-    //       }
-    //     }
-    //   })
-    //   setState((prev) => ({
-    //     ...prev,
-    //     list: nList,
-    //     page: 1 + state.page,
-    //     hasNext: false,
-    //   }))
-    // }
+    // dispatch(getCategoryList())
+    if (ownerWallets) {
+      let nList = ownerWallets?.map((el: any) => {
+        if (el._id === selectedItem?._id) {
+          return {
+            ...el,
+            selected: true,
+          }
+        } else {
+          return {
+            ...el,
+            selected: false,
+          }
+        }
+      })
+      setState((prev) => ({
+        ...prev,
+        list: nList,
+        page: 1 + state.page,
+        hasNext: false,
+      }))
+    } else {
+      dispatch(getCategoryList())
+
+      let nList = walletType.map((el: any) => {
+        if (el._id === selectedItem?._id) {
+          return {
+            ...el,
+            selected: true,
+          }
+        } else {
+          return {
+            ...el,
+            selected: false,
+          }
+        }
+      })
+      setState((prev) => ({
+        ...prev,
+        list: nList,
+        page: 1 + state.page,
+        hasNext: false,
+      }))
+    }
   }
 
   useEffect(() => {
