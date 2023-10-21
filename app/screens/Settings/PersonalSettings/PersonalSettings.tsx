@@ -15,8 +15,8 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
   navigation,
 }) => {
   const dispatch = useAppDispatch()
-  const { data, loading, error } = useAppSelector((state: RootState) => state.auth)
-  const [updateUser, setUpdateUser] = useState<UserI>(data.user)
+  const { user, loading, error } = useAppSelector((state: RootState) => state.auth)
+  const [updateUser, setUpdateUser] = useState<UserI>(user.user)
 
   const updateProfile = () => {
     console.log(updateUser)

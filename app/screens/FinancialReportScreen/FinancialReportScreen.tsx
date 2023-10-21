@@ -2,17 +2,17 @@ import React, { FC, useState } from "react"
 import { View } from "react-native"
 import { ScreensEnum } from "app/enums"
 import { AppStackScreenProps } from "app/navigators"
-import { TransactionData } from "app/constants"
 import { PieGraphReportScreen } from "./PieGraphReportScreen/PieGraphReportScreen"
 import { LineGraphReportScreen } from "./LineGraphReportScreen/LineGraphReportScreen"
 import { ArrowRoundButton, Header, Screen, ToggleButton } from "app/components"
+import { RootState, useAppSelector } from "app/store/store"
 import styles from "./styles"
 
 const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT>> = ({
   navigation,
   route,
 }) => {
-  const [transactions] = useState<any>(TransactionData)
+  const { transactions, loading } = useAppSelector((state: RootState) => state.transaction)
   const [activeToggle, setActiveToggle] = useState<"left" | "right">("left")
 
   const onToggleBtnPress = (toggle: "left" | "right") => {
@@ -50,13 +50,9 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
         </View>
 
         {activeToggle === "left" ? (
-          <LineGraphReportScreen
-            totalAmount={"332"}
-            transactions={transactions}
-            navigation={navigation}
-          />
+          <LineGraphReportScreen transactions={transactions} navigation={navigation} />
         ) : (
-          <PieGraphReportScreen totalAmount={"6000"} transactions={transactions} />
+          <PieGraphReportScreen transactions={transactions} />
         )}
       </Screen>
     </>

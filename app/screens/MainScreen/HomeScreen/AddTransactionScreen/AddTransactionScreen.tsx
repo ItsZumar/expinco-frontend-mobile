@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react"
-import { TextInput, TouchableOpacity, View } from "react-native"
-import { hp } from "app/utils/responsive"
+import { Image, TextInput, TouchableOpacity, View } from "react-native"
+import { hp, wp } from "app/utils/responsive"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { TransactionType } from "app/enums/transactions.enum"
@@ -13,6 +13,9 @@ import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import { getAllWallets } from "app/store/slices/wallet/walletService"
 import { WalletI } from "app/store/slices/wallet/types"
 import { createTransaction } from "app/store/slices/transaction/transactionService"
+import { launchImageLibrary } from "react-native-image-picker"
+import { uploadImageToCloudinary } from "app/utils/uploadImage"
+import axiosInstance from "app/config/axios"
 
 export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSACTION>> = ({
   navigation,
@@ -32,9 +35,16 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
   const [selectedWallet, setSelectedWallet] = useState<WalletI & { selected: boolean }>()
   const [amount, setAmount] = useState<string>("")
   const [description, setDescription] = useState<string>("")
-  const [attachments, setAttachments] = useState<string[]>([])
+  const [attachmentUpload, setAttachmentUpload] = useState<boolean>(false)
+  const [attachments, setAttachments] = useState<any>(null)
 
   const onAddTransactionPress = async () => {
+    if (attachmentUpload) {
+      // console.log("uri === ", attachments?.uri)
+      // const image = await uploadImageToCloudinary(attachments?.uri)
+      // console.log("image ===", image)
+    }
+
     await dispatch(
       createTransaction({
         type: type,
@@ -47,6 +57,18 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
     )
 
     navigation.goBack()
+  }
+
+  const uploadAttachment = async () => {
+    let result = await launchImageLibrary({
+      mediaType: "photo",
+    })
+
+    if (result?.assets) {
+      const selectedImageUri = result.assets[0].uri
+      setAttachmentUpload(true)
+      setAttachments({ uri: selectedImageUri })
+    }
   }
 
   useEffect(() => {
@@ -113,9 +135,20 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
               <Ionicons name="chevron-down" size={25} color="gray" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.attachmentBtn}>
-              <Ionicons name="attach" size={25} color="gray" style={styles.spacingRight} />
-              <Text style={styles.itemTextHeading}>Add attachment</Text>
+            <TouchableOpacity style={styles.attachmentBtn} onPress={uploadAttachment}>
+              {attachments ? (
+                <>
+                  <Image
+                    source={attachments}
+                    style={{ width: wp(13), height: hp(6), borderRadius: hp(1) }}
+                  />
+                </>
+              ) : (
+                <>
+                  <Ionicons name="attach" size={25} color="gray" style={styles.spacingRight} />
+                  <Text style={styles.itemTextHeading}>Add attachment</Text>
+                </>
+              )}
             </TouchableOpacity>
 
             <Button

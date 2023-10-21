@@ -53,8 +53,15 @@ export interface GetTransactionListI {
 export interface TransactionListI {
   loading: boolean
   transactions: GetTransactionListI["result"]
+  recentTransactions: GetTransactionListI["result"]
   error: string
   stack?: string
+}
+
+export interface GetTransactionsPayloadI {
+  type?: string
+  sortTransactionBy?: string
+  category?: string
 }
 
 export interface CreateTransactionI {

@@ -4,10 +4,9 @@ import { getTimeFromDateString } from "app/utils/formatDate"
 import { TransactionType } from "app/enums/transactions.enum"
 import { AutoImage } from "app/components/AutoImage/AutoImage"
 import { Text } from "app/components/Text/Text"
-import styles from "./styles"
 import { TransactionI } from "app/store/slices/transaction/types"
 import { colors } from "app/theme"
-import { Icon } from "app/components/Icon/Icon"
+import styles from "./styles"
 
 export type TransactionCardI = TransactionI & {
   onPress: (_id: string) => void
@@ -43,7 +42,7 @@ export const TransactionCard = ({
           </View>
           <View style={styles.lastTextBlock}>
             <Text
-              text={(type === TransactionType.EXPENSE ? "-" : "+") + " " + amount.toString()}
+              text={(type === TransactionType.EXPENSE ? "- " : "+ ") + "$" + amount.toString()}
               preset="subheading"
               style={[
                 styles.amountText,

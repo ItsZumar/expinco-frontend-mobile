@@ -7,6 +7,7 @@ import thunk from "redux-thunk"
 import categoryReducer from "./slices/categoy/categoryReducer"
 import walletReducer from "./slices/wallet/walletReducer"
 import transactionReducer from "./slices/transaction/transactionReducer"
+import analyticsReducer from "./slices/analytics/analyticsReducer"
 
 const persistConfig = {
   key: "root",
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   wallet: walletReducer,
   transaction: transactionReducer,
+  spendFrequency: analyticsReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

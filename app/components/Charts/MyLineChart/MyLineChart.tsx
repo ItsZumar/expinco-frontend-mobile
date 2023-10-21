@@ -2,35 +2,31 @@ import { colors } from "app/theme"
 import { wp } from "app/utils/responsive"
 import { LineChart } from "react-native-chart-kit"
 
-const MyLineChart = () => {
+interface ChartData {
+  data: number[]
+  labels: string[]
+}
+
+const MyLineChart = ({ data, labels }: ChartData) => {
   return (
     <LineChart
       data={{
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+        labels: labels,
         datasets: [
           {
-            data: [
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-            ],
+            data: data,
           },
         ],
       }}
-      width={wp(90)} // from react-native
+      width={wp(90)}
       height={220}
       yAxisLabel="$"
-      yAxisSuffix="k"
-      yAxisInterval={1} // optional, defaults to 1
+      // yAxisSuffix="k"
+      yAxisInterval={1}
       chartConfig={{
         backgroundGradientFrom: colors.background,
         backgroundGradientTo: colors.background,
-        decimalPlaces: 2, // optional, defaults to 2dp
+        decimalPlaces: 2,
         color: () => colors.palette.primary600,
         labelColor: () => colors.textDim,
         style: {

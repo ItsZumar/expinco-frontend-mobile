@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react"
 import { View, FlatList, ActivityIndicator } from "react-native"
 import { colors } from "app/theme"
 import { TxKeyPath } from "app/i18n"
-// import { useStores } from "app/models"
 import { TransactionCategoryI } from "app/interfaces"
 import { Text, Button, ListItemCard, ModalHoc } from "app/components"
-import styles from "./styles"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import { getCategoryList } from "app/store/slices/categoy/categoryService"
 import { walletType } from "app/constants"
-import { GetWalletListI } from "app/store/slices/wallet/types"
+import styles from "./styles"
 
 interface Props {
   selectedItem?: TransactionCategoryI
@@ -34,12 +32,7 @@ export const WalletModal = ({
   onPressClose,
   onPressDone,
 }: Props) => {
-  const dispatch = useAppDispatch()
-
   const [showDoneBtn, setShowDoneBtn] = useState<boolean>(false)
-  //change to walletsTypes
-  const { categories } = useAppSelector((state: RootState) => state.category)
-
   const [state, setState] = useState({
     list: [],
     page: 1,
@@ -78,8 +71,7 @@ export const WalletModal = ({
   }
 
   const getWalletsFromServer = async () => {
-    // dispatch(getCategoryList())
-    if (ownerWallets) {
+    if (ownerWallets && ownerWallets.length != 0) {
       let nList = ownerWallets?.map((el: any) => {
         if (el._id === selectedItem?._id) {
           return {
@@ -100,9 +92,7 @@ export const WalletModal = ({
         hasNext: false,
       }))
     } else {
-      dispatch(getCategoryList())
-
-      let nList = walletType.map((el: any) => {
+      let nList = walletType?.map((el: any) => {
         if (el._id === selectedItem?._id) {
           return {
             ...el,
@@ -125,15 +115,9 @@ export const WalletModal = ({
   }
 
   useEffect(() => {
-    /**
-     * If modal is visible, then only we will call api and load data
-     */
     if (isVisible) {
       getWalletsFromServer()
 
-      /**
-       * This will show the done button if user a wallet
-       */
       if (selectedItem?._id) {
         setShowDoneBtn(true)
       } else {

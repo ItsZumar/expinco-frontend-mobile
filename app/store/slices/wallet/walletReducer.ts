@@ -33,7 +33,16 @@ export const walletSlice = createSlice({
       .addCase(createWallet.fulfilled, (state, action) => {
         console.log("action.payload.result === ", action.payload.result)
         state.loading = false
-        state.wallets = action.payload.result
+        state.wallets = {
+          ...state.wallets,
+          data: state.wallets.data.map((item) => {
+            if (item._id === action.payload.result._id) {
+              return action.payload.result
+            } else {
+              return item
+            }
+          }),
+        }
       })
       .addCase(createWallet.rejected, (state, action) => {
         state.loading = false

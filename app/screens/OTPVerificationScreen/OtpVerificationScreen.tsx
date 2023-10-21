@@ -14,7 +14,7 @@ interface OtpVerificationScreenProps
 
 export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigation }) => {
   const dispatch = useAppDispatch()
-  const { data, loading, error } = useAppSelector((state: RootState) => state.auth)
+  const { user, loading, error } = useAppSelector((state: RootState) => state.auth)
 
   const input1 = useRef(null)
   const input2 = useRef(null)
@@ -61,7 +61,7 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
   const _verifyOTP = async () => {
     let authCode = Object.values(otp).join("")
 
-    dispatch(verifyEmailService({ email: data.user.email, authCode: authCode }))
+    dispatch(verifyEmailService({ email: user.user.email, authCode: authCode }))
       .unwrap()
       .then((response: VerifyEmailResponseI) => navigation.navigate(ScreensEnum.SIGNIN as any))
       .catch((err: Error) => console.log("error", err))

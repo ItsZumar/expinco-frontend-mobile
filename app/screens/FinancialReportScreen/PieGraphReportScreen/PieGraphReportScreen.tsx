@@ -1,57 +1,60 @@
 import React, { useState } from "react"
 import { FlatList, TouchableOpacity, View } from "react-native"
 import { colors } from "app/theme"
-import { TransactionI } from "app/interfaces"
 import { AppHeader, MyPieChart, ReportCards, Text } from "app/components"
+import { GetTransactionListI } from "app/store/slices/transaction/types"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
 interface PieGraphReportScreenI {
-  totalAmount: string | number
-  transactions: TransactionI[]
+  transactions: GetTransactionListI["result"]
 }
 
-const PieGraphReportScreen: React.FC<PieGraphReportScreenI> = ({ totalAmount, transactions }) => {
-  const [activeToggle, setActiveToggle] = useState<"expense" | "income">("expense")
+const PieGraphReportScreen: React.FC<PieGraphReportScreenI> = ({ transactions }) => {
+  const [activeToggle, setActiveToggle] = useState<"expense" | "income" | string>("expense")
 
-  const onToggleBtnPress = (toggle: "expense" | "income") => {
+  const onToggleBtnPress = (toggle: "expense" | "income" | string) => {
     setActiveToggle(toggle)
   }
 
-  const filteredTransactions = transactions.filter(
-    (transaction) =>
-      (activeToggle === "expense" && transaction.type.toLowerCase() === "expense") ||
-      (activeToggle === "income" && transaction.type.toLowerCase() === "income"),
-  )
+  const getFilteredTransactions = (toggle: "expense" | "income" | string) => {
+    return transactions.data.filter(
+      (transaction: { type: string }) =>
+        (toggle === "expense" && transaction.type.toLowerCase() === "expense") ||
+        (toggle === "income" && transaction.type.toLowerCase() === "income"),
+    )
+  }
+
+  const getTotalAmount = (toggle: "expense" | "income" | string) => {
+    const filteredTransactions = getFilteredTransactions(toggle)
+    const totalAmount = filteredTransactions.reduce(
+      (total, transaction) => total + transaction.amount,
+      0,
+    )
+    return totalAmount
+  }
+
+  const filteredTransactions = getFilteredTransactions(activeToggle)
 
   return (
     <View style={styles.mainContainer}>
-      <Text text={`$${totalAmount}`} preset="heading" style={styles.amount} />
+      <Text text={`$${getTotalAmount(activeToggle)}`} preset="heading" style={styles.amount} />
+      <MyPieChart transactions={transactions} />
 
-      <MyPieChart />
-
-      {/* Income Expense Toggle Button */}
       <View style={styles.btnContainer}>
-        <TouchableOpacity
-          style={[styles.btn, activeToggle === "expense" && styles.activeBtn]}
-          onPress={() => onToggleBtnPress("expense")}
-        >
-          <Text
-            preset="subheading"
-            text="Expense"
-            style={activeToggle === "expense" && styles.activeBtnTxt}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.btn, activeToggle === "income" && styles.activeBtn]}
-          onPress={() => onToggleBtnPress("income")}
-        >
-          <Text
-            preset="subheading"
-            text="Income"
-            style={activeToggle === "income" && styles.activeBtnTxt}
-          />
-        </TouchableOpacity>
+        {["expense", "income"].map((type) => (
+          <TouchableOpacity
+            key={type}
+            style={[styles.btn, activeToggle === type && styles.activeBtn]}
+            onPress={() => onToggleBtnPress(type)}
+          >
+            <Text
+              preset="subheading"
+              text={type === "expense" ? "Expense" : "Income"}
+              style={activeToggle === type && styles.activeBtnTxt}
+            />
+          </TouchableOpacity>
+        ))}
       </View>
 
       <View style={styles.transactionHeader}>
