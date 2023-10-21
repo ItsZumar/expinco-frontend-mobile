@@ -6,7 +6,7 @@ import { api } from "app/services/api"
 
 export const getAllWallets: any = createAsyncThunk(
   "wallet/getAllWallets",
-  async (payload: any, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       let apiConfig = await api.getApiConfig(true)
 
@@ -26,7 +26,6 @@ export const createWallet: any = createAsyncThunk(
   "wallet/createWallet",
   async (payload: PayloadCreateWalletI, { rejectWithValue }) => {
     try {
-      console.log("payload ", payload)
       let apiConfig = await api.getApiConfig(true)
       const response: AxiosResponse<CreateWalletI> = await axiosInstance.post(
         `/wallet/add-wallet`,

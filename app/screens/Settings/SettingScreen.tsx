@@ -27,7 +27,7 @@ export const SettingScreen: FC<AppStackScreenProps<ScreensEnum.SETTING>> = ({ na
             onPress={
               item.name === "Logout"
                 ? async () => {
-                    // await dispatch(logoutUser())
+                    await dispatch(logoutUser())
                     navigation.navigate(ScreensEnum.SIGNUP)
                   }
                 : item.onPress

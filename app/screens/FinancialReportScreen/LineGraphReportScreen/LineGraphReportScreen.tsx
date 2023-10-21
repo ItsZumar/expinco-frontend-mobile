@@ -1,44 +1,63 @@
-import React, { useState } from "react"
-import { FlatList, TouchableOpacity, View } from "react-native"
+import React, { useEffect, useState } from "react"
+import { ActivityIndicator, FlatList, TouchableOpacity, View } from "react-native"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
-import { TransactionI } from "app/interfaces"
 import { AppHeader, MyLineChart, Text, TransactionCard } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
+import { GetTransactionListI } from "app/store/slices/transaction/types"
+import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { getSpendFrequencyService } from "app/store/slices/analytics/analyticsService"
 
 interface LineGraphReportScreenI {
-  totalAmount: string | number
-  transactions: TransactionI[]
+  transactions: GetTransactionListI["result"]
   navigation: any
 }
 
-export const LineGraphReportScreen = ({
-  totalAmount,
-  transactions,
-  navigation,
-}: LineGraphReportScreenI) => {
+export const LineGraphReportScreen = ({ transactions, navigation }: LineGraphReportScreenI) => {
+  const dispatch = useAppDispatch()
+  const { spendFrequency, loading: spendFrequencyLoading } = useAppSelector(
+    (state: RootState) => state.spendFrequency,
+  )
   const [activeToggle, setActiveToggle] = useState<"expense" | "income" | string>("expense")
+
+  const getFilteredTransactions = (toggle: "expense" | "income" | string) => {
+    return transactions.data.filter(
+      (transaction: { type: string }) =>
+        (toggle === "expense" && transaction.type.toLowerCase() === "expense") ||
+        (toggle === "income" && transaction.type.toLowerCase() === "income"),
+    )
+  }
+
+  const getTotalAmount = (toggle: "expense" | "income" | string) => {
+    const filteredTransactions = getFilteredTransactions(toggle)
+    const totalAmount = filteredTransactions.reduce(
+      (total, transaction) => total + transaction.amount,
+      0,
+    )
+    return totalAmount
+  }
 
   const onToggleBtnPress = (toggle: "expense" | "income" | string) => {
     setActiveToggle(toggle)
   }
 
-  const filteredTransactions = transactions.filter(
-    (transaction) =>
-      (activeToggle === "expense" && transaction.type.toLowerCase() === "expense") ||
-      (activeToggle === "income" && transaction.type.toLowerCase() === "income"),
-  )
+  useEffect(() => {
+    dispatch(getSpendFrequencyService({ orderBy: "MONTH" }))
+  }, [])
 
   return (
     <View style={styles.mainContainer}>
-      {/* Amount */}
-      <Text text={`$${totalAmount}`} preset="heading" style={styles.amount} />
+      <Text text={`$${getTotalAmount(activeToggle)}`} preset="heading" style={styles.amount} />
 
-      {/* Line Chart */}
-      <MyLineChart />
+      {spendFrequencyLoading ? (
+        <View style={{ marginTop: 20 }}>
+          <ActivityIndicator color="red" />
+        </View>
+      ) : (
+        <MyLineChart data={spendFrequency.data} labels={spendFrequency.label} />
+      )}
 
-      {/* Income Expense Toggle Button */}
       <View style={styles.btnContainer}>
         {["expense", "income"].map((type) => (
           <TouchableOpacity
@@ -68,7 +87,7 @@ export const LineGraphReportScreen = ({
       </View>
 
       <FlatList
-        data={filteredTransactions}
+        data={getFilteredTransactions(activeToggle)}
         keyExtractor={(item) => String(item._id)}
         renderItem={({ item }) => (
           <TransactionCard

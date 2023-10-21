@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
   },
   description: {
-    marginTop: hp(1),
     marginBottom: hp(2),
   },
   attachmentsContainer: {

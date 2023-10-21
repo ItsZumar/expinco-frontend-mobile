@@ -2,22 +2,57 @@ import React, { FC, useEffect, useState } from "react"
 import { ScrollView, TouchableOpacity, View } from "react-native"
 import { wp } from "app/utils/responsive"
 import { colors } from "app/theme"
+import { formatName } from "app/utils/formatName"
 import { ScreensEnum } from "app/enums"
-import { AppStackScreenProps } from "app/navigators"
+import { getAllWallets } from "app/store/slices/wallet/walletService"
 import { MY_ACHIEVEMENTS } from "./data"
+import { TransactionType } from "app/enums/transactions.enum"
+import { AppStackScreenProps } from "app/navigators"
 import { AutoImage, Icon, Text, AppHeader } from "app/components"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
-import { getAllWallets } from "app/store/slices/wallet/walletService"
-import { formatName } from "app/utils/formatName"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
 export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = ({ navigation }) => {
   const dispatch = useAppDispatch()
   const { user } = useAppSelector((state: RootState) => state.auth)
+  const { transactions } = useAppSelector((state: RootState) => state.transaction)
   const {
     wallets: { data: walletData },
   } = useAppSelector((state: RootState) => state.wallet)
+
+  const [totalIncome, setTotalIncome] = useState<Number>(0)
+  const [totalExpense, setTotalExpense] = useState<Number>(0)
+
+  console.log("tra === ", transactions)
+
+  const getTotalIncome = () => {
+    //   const income = transactions.data.reduce((total, transaction) => {
+    //     if (transaction.type === TransactionType.INCOME) {
+    //       return total + transaction.amount
+    //     }
+    //     return total
+    //   }, 0)
+    //   setTotalIncome(income)
+  }
+
+  const getTotalExpense = () => {
+    // const expense = transactions.data.reduce((total, transaction) => {
+    //   if (transaction.type === TransactionType.EXPENSE) {
+    //     return total + transaction.amount
+    //   }
+    //   return total
+    // }, 0)
+    // setTotalExpense(expense)
+  }
+
+  useEffect(() => {
+    getTotalExpense()
+  }, [])
+
+  useEffect(() => {
+    getTotalIncome()
+  }, [])
 
   useEffect(() => {
     dispatch(getAllWallets())
@@ -48,7 +83,6 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = ({ na
                   ? { uri: user?.user?.displayPicture }
                   : { uri: "https://picsum.photos/302" }
               }
-              // source={{ uri: "https://picsum.photos/302" }}
               style={styles.profilePic}
             />
           </View>
@@ -68,7 +102,7 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = ({ na
           <View style={styles.subAmountContainer}>
             <Text text="TOTAL INCOME" style={{ color: colors.textDim }} />
             <Text
-              text="$34K"
+              text={`$${totalIncome}`}
               preset="heading"
               style={{
                 color: colors.palette.primary500,
@@ -78,7 +112,7 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = ({ na
           <View style={styles.subAmountContainer}>
             <Text text="TOTAL EXPENSE" style={{ color: colors.textDim }} />
             <Text
-              text="$102K"
+              text={`$${totalExpense}`}
               preset="heading"
               style={{
                 color: colors.palette.primary500,

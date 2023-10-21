@@ -1,15 +1,26 @@
-import React, { FC, useState } from "react"
-import { FlatList, View } from "react-native"
+import React, { FC, useEffect, useState } from "react"
+import { ActivityIndicator, FlatList, View } from "react-native"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { Header, AutoImage, Button, Text, WalletListCard, Screen } from "app/components"
 import { AppStackScreenProps } from "app/navigators"
-import { myWalletsData } from "app/constants"
-import { WalletI } from "app/interfaces"
+import { RootState, useAppSelector } from "app/store/store"
 import styles from "./styles"
 
 export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = ({ navigation }) => {
-  const [state] = useState<WalletI[]>(myWalletsData)
+  const { wallets, loading } = useAppSelector((state: RootState) => state.wallet)
+  const [availableBalance, setAvailableBalance] = useState<Number>(0)
+
+  const getTotalAvailableBalance = () => {
+    const totalAmount = wallets.data.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue.amount
+    }, 0)
+    setAvailableBalance(totalAmount)
+  }
+
+  useEffect(() => {
+    getTotalAvailableBalance()
+  }, [])
 
   return (
     <>
@@ -26,19 +37,26 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
             style={styles.totalBalanceImage}
           />
           <Text text="Available Balance" style={{ color: colors.textDim }} />
-          <Text text="$21,350" preset="heading" />
+
+          <Text text={`$${availableBalance.toLocaleString()}`} preset="heading" />
         </View>
 
-        <FlatList
-          data={[...state]}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }: any) => (
-            <WalletListCard
-              walletData={item}
-              onPress={(id) => navigation.navigate("WalletDetail", { id })}
-            />
-          )}
-        />
+        {loading ? (
+          <View style={{ marginTop: 20 }}>
+            <ActivityIndicator color="red" />
+          </View>
+        ) : (
+          <FlatList
+            data={wallets.data}
+            keyExtractor={(item) => item._id}
+            renderItem={({ item }: any) => (
+              <WalletListCard
+                walletData={item}
+                onPress={(id) => navigation.navigate("WalletDetail", { item })}
+              />
+            )}
+          />
+        )}
 
         <View style={styles.addWalletBtnContainer}>
           <Button

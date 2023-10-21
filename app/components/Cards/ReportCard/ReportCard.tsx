@@ -2,8 +2,8 @@ import { useState } from "react"
 import { View } from "react-native"
 import { Text } from "app/components/Text/Text"
 import { colors } from "app/theme"
-import { TransactionI } from "app/interfaces"
 import { TouchableOpacity } from "react-native"
+import { TransactionI } from "app/store/slices/transaction/types"
 import styles from "./styles"
 
 export const ReportCards = ({ ...item }: TransactionI) => {

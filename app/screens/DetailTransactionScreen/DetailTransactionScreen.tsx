@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react"
-import { View } from "react-native"
+import { TouchableOpacity, View } from "react-native"
 import { hp, wp } from "app/utils/responsive"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
@@ -8,7 +8,8 @@ import { TransactionData } from "app/constants"
 import { getFormattedDate } from "app/utils/formatDate"
 import { transactionAttachments, transactionTypes } from "app/constants"
 import { Button, Header, Text, AlertBox, AlertBottomModal, Screen } from "app/components"
-import { TransactionAttachmentTypesI, TransactionI, transactionTypesI } from "app/interfaces"
+import { TransactionAttachmentTypesI } from "app/interfaces"
+import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
 export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_TRANSACTION>> = ({
@@ -39,10 +40,6 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
   const onCloseAlertBoxPress = () => {
     setAlertModalVisible((prev) => !prev)
   }
-
-  useEffect(() => {
-    console.log("item === ", item)
-  }, [])
 
   return (
     <View style={styles.mainContainer}>
@@ -98,7 +95,23 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
 
           {/* attachments */}
 
-          <Text text="Attachment" preset="pageHeading" />
+          <View
+            style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}
+          >
+            <Text text="Attachment" preset="pageHeading" />
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+              onPress={() => {}}
+            >
+              <Text text="Add" />
+              <Ionicons name="add" size={21} color={colors.palette.neutral900} />
+            </TouchableOpacity>
+          </View>
+
           <View style={styles.attachmentsContainer}>
             {transactionAttachments.map((transactionAttach: TransactionAttachmentTypesI) => (
               <View

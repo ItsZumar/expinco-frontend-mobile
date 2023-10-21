@@ -14,8 +14,6 @@ interface PropsI {
   sortByItems: any
   onModalClose: () => void
   primaryBtnText?: string
-  onPressFilterByItems?: (data: any) => void
-  onPressSortByItems?: (data: any) => void
   onPressApply?: (data: any) => void
 }
 

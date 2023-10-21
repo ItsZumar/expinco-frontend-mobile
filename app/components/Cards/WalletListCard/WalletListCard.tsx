@@ -19,11 +19,11 @@ const WalletListCard = ({ walletData, onPress }: WalletListCardI) => {
     >
       <View style={styles.innerLeftContainer}>
         <View style={styles.iconContainer}>
-          <Icon icon={walletData.icon} size={25} />
+          <Icon icon={walletData?.icon ? walletData?.icon : "heart"} size={25} />
         </View>
         <Text text={walletData.name} preset="subheading" />
       </View>
-      <Text text={`$${walletData.amount}`} preset="subheading" />
+      <Text text={`$${walletData.amount.toLocaleString()}`} preset="subheading" />
     </TouchableOpacity>
   )
 }
