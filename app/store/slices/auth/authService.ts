@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import axios, { AxiosResponse } from "axios"
+import { AxiosResponse } from "axios"
 import axiosInstance from "../../../config/axios"
 import {
   SignupResponseI,
@@ -10,9 +10,11 @@ import {
   VerifyEmailResponseI,
   UpdateUserPayloadI,
   UpdateUserResponseI,
+  ResendAuthCodePayloadI,
 } from "./types"
 import { STORAGE_KEYS, saveString } from "app/utils/storage"
 import { api } from "app/services/api"
+import { showMessage } from "react-native-flash-message"
 
 export const signupService: any = createAsyncThunk(
   "auth/signup",
@@ -32,8 +34,17 @@ export const signupService: any = createAsyncThunk(
         saveString(STORAGE_KEYS.USER_TOKEN, response.data.result.token)
       }
 
+      showMessage({
+        type: "success",
+        message: "Signup Successfully now Verify!",
+      })
+
       return response.data
     } catch (response: any) {
+      showMessage({
+        type: "success",
+        message: "error occured in signup!",
+      })
       return rejectWithValue(response.data.error || "Something went wrong!")
     }
   },
@@ -53,8 +64,20 @@ export const signinService: any = createAsyncThunk(
 
       const { result } = response.data
       await saveString(STORAGE_KEYS.USER_TOKEN, result.token)
+
+      showMessage({
+        type: "success",
+        message: "Login Successfully!",
+      })
+
       return response.data
     } catch (response: any) {
+      showMessage({
+        type: "danger",
+        message: "error occured in logging in!",
+        style: { marginBottom: 20 },
+      })
+
       return rejectWithValue(response.data.error || "Something went wrong!")
     }
   },
@@ -68,8 +91,45 @@ export const verifyEmailService: any = createAsyncThunk(
         "/user/auth/verify-email",
         { email: payload.email, authCode: payload.authCode },
       )
+
+      showMessage({
+        type: "success",
+        message: "Successfully Verified!",
+      })
+
       return response.data
     } catch (response: any) {
+      showMessage({
+        type: "danger",
+        message: "error occur in Verification",
+      })
+      return rejectWithValue(response.data.error || "Something went wrong!")
+    }
+  },
+)
+
+export const resendOtpCode: any = createAsyncThunk(
+  "auth/resendOtpCode",
+  async (payload: ResendAuthCodePayloadI, { rejectWithValue }) => {
+    try {
+      const response: AxiosResponse<VerifyEmailResponseI> = await axiosInstance.post(
+        "/user/auth/resend-verify-email",
+        {
+          email: payload.email,
+        },
+      )
+
+      showMessage({
+        type: "success",
+        message: "Successfully send OTP!",
+      })
+
+      return response.data
+    } catch (response: any) {
+      showMessage({
+        type: "danger",
+        message: "error occur in sending OTP",
+      })
       return rejectWithValue(response.data.error || "Something went wrong!")
     }
   },
@@ -92,7 +152,6 @@ export const updateUserService: any = createAsyncThunk(
         apiConfig,
       )
 
-      console.log("response === ", response.data.result.user)
       return response.data
     } catch (response: any) {
       return rejectWithValue(response.data.error || "Something went wrong!")

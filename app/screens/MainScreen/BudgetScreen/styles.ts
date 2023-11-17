@@ -54,6 +54,10 @@ const styles = StyleSheet.create({
     marginTop: hp(0.4),
     color: colors.palette.neutral600,
   },
+  btnContainer: {
+    backgroundColor: colors.palette.neutral100,
+    paddingTop: hp(1.5),
+  },
 })
 
 export default styles

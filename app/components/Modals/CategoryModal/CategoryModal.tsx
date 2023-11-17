@@ -35,7 +35,9 @@ export const CategoryModal = ({
   const dispatch = useAppDispatch()
 
   const [showDoneBtn, setShowDoneBtn] = useState<boolean>(false)
-  const { categories } = useAppSelector((state: RootState) => state.category)
+  const { categories, loading: categoryLoading } = useAppSelector(
+    (state: RootState) => state.category,
+  )
 
   const [state, setState] = useState({
     list: [],
@@ -127,9 +129,9 @@ export const CategoryModal = ({
   }, [isVisible])
 
   const FooterComponent = () => {
-    // if (!isLoading) {
-    //   return null
-    // }
+    if (!categoryLoading) {
+      return null
+    }
 
     return (
       <View style={{ paddingVertical: 20 }}>

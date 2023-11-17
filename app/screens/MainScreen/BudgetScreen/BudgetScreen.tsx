@@ -35,14 +35,14 @@ export const BudgetScreen: FC<AppStackScreenProps<ScreensEnum.BUDGET>> = ({ navi
             />
           )}
           keyExtractor={(item) => item.id.toString()}
-          ListFooterComponent={
-            <Button
-              tx="budgetScreen.createBudget"
-              preset="filled"
-              onPress={() => navigation.navigate(ScreensEnum.CREATE_BUDGET as any)}
-            />
-          }
         />
+        <View style={styles.btnContainer}>
+          <Button
+            tx="budgetScreen.createBudget"
+            preset="filled"
+            onPress={() => navigation.navigate(ScreensEnum.CREATE_BUDGET as any)}
+          />
+        </View>
       </View>
     </View>
   )

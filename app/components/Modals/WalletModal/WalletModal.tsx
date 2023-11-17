@@ -140,17 +140,19 @@ export const WalletModal = ({
     // if (!isLoading) {
     //   return null
     // }
+    // return (
+    //   <View style={{ paddingVertical: 20 }}>
+    //     <ActivityIndicator animating size="small" color={colors.palette.primary500} />
+    //   </View>
+    // )
 
-    return (
-      <View style={{ paddingVertical: 20 }}>
-        <ActivityIndicator animating size="small" color={colors.palette.primary500} />
-      </View>
-    )
+    return <></>
   }
 
   return (
     <ModalHoc title={title} titleTx={titleTx} isVisible={isVisible} onPressClose={onPressClose}>
       <Text text={subTitle} tx={subTitleTx} style={styles.subTitleText} />
+
       <FlatList
         data={state.list}
         showsVerticalScrollIndicator={false}
@@ -161,8 +163,9 @@ export const WalletModal = ({
         style={styles.flatlistStyles}
         contentContainerStyle={styles.containerStyle}
         ListFooterComponent={FooterComponent}
-        // ListEmptyComponent={() => !isLoading && <Text text="No wallets found!" />}
+        ListEmptyComponent={() => <Text text="No wallets found!" />}
       />
+
       {showDoneBtn && (
         <Button
           tx="common.ok"

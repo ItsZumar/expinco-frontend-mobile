@@ -5,11 +5,11 @@ import { hp } from "app/utils/responsive"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionCategoryI } from "app/interfaces"
 import { TextInput, TouchableOpacity, View } from "react-native"
-import { Button, Header, Screen, Text, WalletModal } from "app/components"
-import Ionicons from "react-native-vector-icons/Ionicons"
-import styles from "./styles"
+import { AlertBox, Button, Header, Screen, Text, WalletModal } from "app/components"
 import { useAppDispatch } from "app/store/store"
 import { createWallet } from "app/store/slices/wallet/walletService"
+import Ionicons from "react-native-vector-icons/Ionicons"
+import styles from "./styles"
 
 export const CreateWallet: FC<AppStackScreenProps<ScreensEnum.CREATE_WALLET>> = ({
   navigation,
@@ -19,13 +19,16 @@ export const CreateWallet: FC<AppStackScreenProps<ScreensEnum.CREATE_WALLET>> = 
   const [selectedCategory, setSelectedCategory] = useState<
     TransactionCategoryI & { selected: boolean }
   >()
-
+  // const [alertModalVisible, setAlertModalVisible] = useState<boolean>(false)
   const [state, setState] = useState<{ name: string; amount: string }>({
     name: "",
     amount: "",
   })
 
-  const [isEnabled, setIsEnabled] = useState(false)
+  // const onCloseAlertBoxPress = () => {
+  //   setAlertModalVisible((prev) => !prev)
+  //   navigation.goBack()
+  // }
 
   const submitBtn = async () => {
     try {
@@ -33,10 +36,13 @@ export const CreateWallet: FC<AppStackScreenProps<ScreensEnum.CREATE_WALLET>> = 
         createWallet({
           name: state.name,
           amount: parseInt(state.amount),
+          icon: selectedCategory.icon._id,
         }),
       )
 
+      // setAlertModalVisible((prev) => !prev)
       navigation.goBack()
+      setState({ name: "", amount: "" })
     } catch (error) {
       console.error("Error creating wallet:", error)
     }
@@ -92,6 +98,15 @@ export const CreateWallet: FC<AppStackScreenProps<ScreensEnum.CREATE_WALLET>> = 
           </View>
         </View>
       </View>
+
+      {/* <AlertBox
+        checkIcon={true}
+        open={alertModalVisible}
+        type="success"
+        description="Wallet Successfully Created"
+        onClose={onCloseAlertBoxPress}
+        title={""}
+      /> */}
 
       <WalletModal
         isVisible={showCategoryModal}

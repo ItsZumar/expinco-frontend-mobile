@@ -1,10 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { signinService, signupService, updateUserService, verifyEmailService } from "./authService"
+import {
+  resendOtpCode,
+  signinService,
+  signupService,
+  updateUserService,
+  verifyEmailService,
+} from "./authService"
 import { AuthI } from "./types"
 
 const initialState: AuthI = {
   loading: false,
-  user: null,
+  user: {
+    token: "",
+    user: {
+      displayPicture: "" || null,
+      firstname: "",
+      lastname: "",
+      email: "",
+      isEmailVerified: false,
+      _id: "",
+      createdAt: "",
+      updatedAt: "",
+    },
+  },
   error: null,
 }
 
@@ -45,6 +63,8 @@ export const authSlice = createSlice({
         state.loading = true
       })
       .addCase(signinService.fulfilled, (state, action) => {
+        console.log("ok")
+        console.log("action.payload.result === ", action.payload.result)
         state.loading = false
         state.user = action.payload.result
       })
@@ -71,11 +91,22 @@ export const authSlice = createSlice({
         state.loading = true
       })
       .addCase(updateUserService.fulfilled, (state, action) => {
-        console.log("updateUserService === ", action.payload)
         state.loading = false
         state.user = action.payload.result
       })
       .addCase(updateUserService.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
+      .addCase(resendOtpCode.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(resendOtpCode.fulfilled, (state, action) => {
+        state.loading = false
+        // state.user = action.payload.result
+      })
+      .addCase(resendOtpCode.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

@@ -23,7 +23,7 @@ export const ReportCards = ({ ...item }: TransactionI) => {
         </View>
         <Text
           text={item.type.toLowerCase() === "expense" ? `-$${item.amount}` : `+$${item.amount}`}
-          preset="largeHeading"
+          preset="subheading"
           style={
             item.type.toLowerCase() === "expense"
               ? { color: colors.error }

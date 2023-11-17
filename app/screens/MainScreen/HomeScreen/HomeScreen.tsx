@@ -2,26 +2,19 @@ import React, { FC, useEffect, useState } from "react"
 import { ActivityIndicator, FlatList, TouchableOpacity, View, ViewStyle } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import {
-  Screen,
-  AutoImage,
-  Text,
-  AppHeader,
-  TransactionCard,
-  MyLineChart,
-  ArrowRoundButton,
-} from "app/components"
+import { Screen, AutoImage, Text, AppHeader, TransactionCard, MyLineChart } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import { TransactionType } from "app/enums/transactions.enum"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import { hp, wp } from "app/utils/responsive"
 import { getAllRecentTransactions } from "app/store/slices/transaction/transactionService"
+import { getSpendFrequencyService } from "app/store/slices/analytics/analyticsService"
 import { getAllWallets } from "app/store/slices/wallet/walletService"
+import imagePrev from "../../../../images/no-image.jpg"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Feather from "react-native-vector-icons/Feather"
 import styles from "./styles"
-import { getSpendFrequencyService } from "app/store/slices/analytics/analyticsService"
 
 interface HomeScreenProps extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.HOME>> {}
 
@@ -29,7 +22,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const dispatch = useAppDispatch()
   const { user } = useAppSelector((state: RootState) => state.auth)
   const { loading, recentTransactions } = useAppSelector((state: RootState) => state.transaction)
-  const { wallets } = useAppSelector((state: RootState) => state.wallet)
+  const { wallets, loading: walletsLoading } = useAppSelector((state: RootState) => state.wallet)
   const { spendFrequency, loading: spendFrequencyLoading } = useAppSelector(
     (state: RootState) => state.spendFrequency,
   )
@@ -38,52 +31,68 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const [availableBalance, setAvailableBalance] = useState<Number>(0)
   const [totalIncome, setTotalIncome] = useState<Number>(0)
   const [totalExpense, setTotalExpense] = useState<Number>(0)
+  const [transactionsByMonth, setTransactionsByMonth] = useState<any>([])
 
-  const handleButtonClick = (buttonTitle: string) => {
-    dispatch(getSpendFrequencyService({ orderBy: buttonTitle.toUpperCase() }))
+  const handleButtonClick = async (buttonTitle: string) => {
+    await dispatch(getSpendFrequencyService({ orderBy: buttonTitle.toUpperCase() }))
   }
 
   const getTotalIncome = () => {
-    const income = recentTransactions.data.reduce((total, transaction) => {
-      if (transaction.type === TransactionType.INCOME) {
-        return total + transaction.amount
-      }
-      return total
-    }, 0)
-    setTotalIncome(income)
+    if (transactionsByMonth != null && loading !== true) {
+      const income = transactionsByMonth.reduce(
+        (total: number, transaction: { type: TransactionType; amount: number }) => {
+          if (transaction.type === TransactionType.INCOME) {
+            return total + transaction.amount
+          }
+          return total
+        },
+        0,
+      )
+      setTotalIncome(income)
+    }
   }
 
   const getTotalExpense = () => {
-    const expense = recentTransactions.data.reduce((total, transaction) => {
-      if (transaction.type === TransactionType.EXPENSE) {
-        return total + transaction.amount
-      }
-      return total
-    }, 0)
-    setTotalExpense(expense)
+    if (transactionsByMonth != null && loading !== true) {
+      const expense = transactionsByMonth.reduce(
+        (total: number, transaction: { type: TransactionType; amount: number }) => {
+          if (transaction.type === TransactionType.EXPENSE) {
+            return total + transaction.amount
+          }
+          return total
+        },
+        0,
+      )
+      setTotalExpense(expense)
+    }
   }
 
   const getTotalAvailableBalance = () => {
-    const totalAmount = wallets.data.reduce((total, transaction) => {
+    const totalAmount = wallets?.data.reduce((total, transaction) => {
       return total + transaction.amount
     }, 0)
     setAvailableBalance(totalAmount)
   }
 
-  useEffect(() => {
-    getTotalExpense()
-  }, [])
+  const getCurrentMonth = () => {
+    const currentDate = new Date()
+    const currentMonth = currentDate.toLocaleString("en-US", { month: "long" })
+    return currentMonth
+  }
 
-  useEffect(() => {
-    getTotalIncome()
-  }, [])
+  const filterTransactionByCurrentMonth = async () => {
+    const currentMonth = getCurrentMonth()
+    const filteredTransactions = recentTransactions?.data.filter((transaction) => {
+      const createdDate = new Date(transaction.createdAt)
+      const transactionMonth = createdDate.toLocaleString("en-US", { month: "long" })
+      return transactionMonth === currentMonth
+    })
+
+    await setTransactionsByMonth(filteredTransactions)
+  }
 
   useEffect(() => {
     getTotalAvailableBalance()
-  }, [])
-
-  useEffect(() => {
-    dispatch(getAllRecentTransactions())
   }, [])
 
   useEffect(() => {
@@ -91,8 +100,22 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   }, [])
 
   useEffect(() => {
+    dispatch(getAllRecentTransactions())
+  }, [])
+
+  useEffect(() => {
     dispatch(getSpendFrequencyService({ orderBy: "YEAR" }))
   }, [])
+
+  useEffect(() => {
+    filterTransactionByCurrentMonth()
+  }, [recentTransactions, loading])
+
+  useEffect(() => {
+    getTotalIncome()
+    getTotalExpense()
+    getTotalAvailableBalance()
+  }, [transactionsByMonth])
 
   return (
     <Screen
@@ -101,17 +124,12 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
       ScrollViewProps={{ showsVerticalScrollIndicator: false }}
       StatusBarProps={{ backgroundColor: colors.palette.neutral100 }}
     >
+      {/* <MonthSelector setDesiredMonth={setDesiredMonth} /> */}
       <View style={styles.mainHeader}>
         <AutoImage
-          source={
-            user?.user?.displayPicture
-              ? { uri: user?.user?.displayPicture }
-              : { uri: "https://picsum.photos/200" }
-          }
+          source={user?.user?.displayPicture ? { uri: user?.user?.displayPicture } : imagePrev}
           style={styles.profileImage}
         />
-
-        <ArrowRoundButton title="July" onPress={() => {}} />
 
         <TouchableOpacity
           style={styles.bellContainer}
@@ -124,11 +142,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
       {/* Balance */}
       <View style={styles.topBlock}>
         <Text text="Account Balance" preset="default" style={styles.accountBalanceText} />
-        <Text
-          text={`$${availableBalance.toLocaleString()}`}
-          preset="heading"
-          style={styles.amountText}
-        />
+        <Text text={`$${availableBalance}`} preset="heading" style={styles.amountText} />
       </View>
 
       <View style={styles.transBtnBlock}>
@@ -161,6 +175,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
           <View style={styles.arrowBlock}>
             <Feather name="arrow-up" size={25} color={colors.palette.expense} />
           </View>
+
           <View>
             <Text text="Expense" preset="default" style={styles.topLightText} />
             <Text text={`$${totalExpense.toLocaleString()}`} style={styles.actualAmountText} />
@@ -171,15 +186,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
       <View style={styles.bottomBlock}>
         <AppHeader text="Spend Frequency" />
 
-        <View>
-          {spendFrequencyLoading ? (
-            <View style={{ marginTop: 20 }}>
-              <ActivityIndicator color="red" />
-            </View>
-          ) : (
-            <MyLineChart data={spendFrequency.data} labels={spendFrequency.label} />
-          )}
-        </View>
+        <MyLineChart data={spendFrequency.data} labels={spendFrequency.label} />
 
         <View style={styles.graphSortBlock}>
           {["Today", "Week", "Month", "Year"].map((el) => (
@@ -197,7 +204,10 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
           <AppHeader
             text="Recent Transactions"
             rightComponent={() => (
-              <TouchableOpacity style={styles.seeAllbtnBlock}>
+              <TouchableOpacity
+                style={styles.seeAllbtnBlock}
+                onPress={() => navigation.navigate(ScreensEnum.TRANSACTION as any)}
+              >
                 <Text text="See All" style={styles.seeAllText} />
               </TouchableOpacity>
             )}
@@ -209,7 +219,10 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
             </View>
           ) : (
             <FlatList
-              data={recentTransactions.data}
+              data={
+                transactionsByMonth
+                // .length > 4 ? transactionsByMonth.splice(0, 4) : []
+              }
               keyExtractor={(item) => String(item._id)}
               renderItem={({ item }) => (
                 <TransactionCard

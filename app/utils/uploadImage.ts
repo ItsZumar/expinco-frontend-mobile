@@ -1,24 +1,23 @@
 import axiosInstance from "app/config/axios"
-import RNFetchBlob from "rn-fetch-blob"
 
-export const uploadImageToCloudinary = async (imageUri: string) => {
+export const uploadImageToCloudinary = async (selectedImage: any): Promise<any> => {
   try {
-    const imageData = await RNFetchBlob.fs.readFile(imageUri, "base64")
-
     const formData = new FormData()
-    formData.append("file", imageData)
+    formData.append("file", {
+      uri: selectedImage.uri,
+      type: selectedImage.type,
+      name: "file",
+    } as unknown as Blob)
 
-    const response = await axiosInstance.post(`/file/upload-file`, formData, {
+    const uploadResponse = await axiosInstance.post("/file/upload-file", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     })
-
-    console.log("res === ", response.data)
-
-    return response.data.secure_url || null
+    console.log("File upload response:", uploadResponse.data.result.newFileStorage)
+    return uploadResponse.data.result.newFileStorage
   } catch (error) {
-    console.error("Error uploading the image to Cloudinary:", error.message)
-    return null
+    console.error("File upload error:", error)
+    throw error
   }
 }

@@ -3,6 +3,7 @@ import { AxiosResponse } from "axios"
 import { CreateWalletI, GetWalletListI, PayloadCreateWalletI } from "./types"
 import axiosInstance from "../../../config/axios"
 import { api } from "app/services/api"
+import { showMessage } from "react-native-flash-message"
 
 export const getAllWallets: any = createAsyncThunk(
   "wallet/getAllWallets",
@@ -32,12 +33,22 @@ export const createWallet: any = createAsyncThunk(
         {
           name: payload.name,
           amount: payload.amount,
+          icon: payload.icon,
         },
         apiConfig,
       )
 
+      showMessage({
+        type: "success",
+        message: "Wallet has been created Successfully!",
+      })
+
       return response.data
     } catch (response: any) {
+      showMessage({
+        type: "danger",
+        message: "Error occur in creating wallet!",
+      })
       return rejectWithValue(response.data.error || "Something went wrong!")
     }
   },

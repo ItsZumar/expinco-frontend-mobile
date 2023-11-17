@@ -7,14 +7,14 @@ import { TransactionType } from "app/enums/transactions.enum"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionCategoryI } from "app/interfaces"
 import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
-import Ionicons from "react-native-vector-icons/Ionicons"
-import styles from "./styles"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import { getAllWallets } from "app/store/slices/wallet/walletService"
 import { WalletI } from "app/store/slices/wallet/types"
 import { createTransaction } from "app/store/slices/transaction/transactionService"
 import { launchImageLibrary } from "react-native-image-picker"
 import { uploadImageToCloudinary } from "app/utils/uploadImage"
+import Ionicons from "react-native-vector-icons/Ionicons"
+import styles from "./styles"
 import axiosInstance from "app/config/axios"
 
 export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSACTION>> = ({
@@ -35,26 +35,26 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
   const [selectedWallet, setSelectedWallet] = useState<WalletI & { selected: boolean }>()
   const [amount, setAmount] = useState<string>("")
   const [description, setDescription] = useState<string>("")
+  const [selectedAttachment, setSelectedAttachment] = useState(null)
   const [attachmentUpload, setAttachmentUpload] = useState<boolean>(false)
   const [attachments, setAttachments] = useState<any>(null)
 
   const onAddTransactionPress = async () => {
     if (attachmentUpload) {
-      // console.log("uri === ", attachments?.uri)
-      // const image = await uploadImageToCloudinary(attachments?.uri)
-      // console.log("image ===", image)
-    }
+      await uploadImageToCloudinary(selectedAttachment)
+      const file = await uploadImageToCloudinary(selectedAttachment)
 
-    await dispatch(
-      createTransaction({
-        type: type,
-        amount: amount,
-        category: selectedCategory._id,
-        wallet: selectedWallet._id,
-        description: description,
-        attachments: attachments,
-      }),
-    )
+      await dispatch(
+        createTransaction({
+          type: type,
+          amount: amount,
+          category: selectedCategory._id,
+          wallet: selectedWallet._id,
+          description: description,
+          attachments: [file._id],
+        }),
+      )
+    }
 
     navigation.goBack()
   }
@@ -66,8 +66,9 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
 
     if (result?.assets) {
       const selectedImageUri = result.assets[0].uri
+      setSelectedAttachment(result.assets[0])
       setAttachmentUpload(true)
-      setAttachments({ uri: selectedImageUri })
+      setAttachments({ ...attachments, uri: selectedImageUri })
     }
   }
 

@@ -4,19 +4,19 @@ import { hp, wp } from "app/utils/responsive"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import { AppStackScreenProps } from "app/navigators"
-import { TransactionData } from "app/constants"
 import { getFormattedDate } from "app/utils/formatDate"
-import { transactionAttachments, transactionTypes } from "app/constants"
-import { Button, Header, Text, AlertBox, AlertBottomModal, Screen } from "app/components"
-import { TransactionAttachmentTypesI } from "app/interfaces"
+import { Button, Header, Text, AlertBox, AlertBottomModal, Screen, AutoImage } from "app/components"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
+import { useAppDispatch } from "app/store/store"
+import { deleteTransaction } from "app/store/slices/transaction/transactionService"
 
 export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_TRANSACTION>> = ({
   navigation,
   route,
 }) => {
   const { item } = route.params
+  const dispatch = useAppDispatch()
   const [modalVisible, setModalVisible] = useState<boolean>(false)
   const [alertModalVisible, setAlertModalVisible] = useState<boolean>(false)
 
@@ -32,13 +32,15 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
     closeModal()
   }
 
-  const removeTransaction = () => {
+  const removeTransaction = async () => {
     setModalVisible((prev) => !prev)
+    await dispatch(deleteTransaction({ transactionId: item._id }))
     setAlertModalVisible((prev) => !prev)
   }
 
   const onCloseAlertBoxPress = () => {
     setAlertModalVisible((prev) => !prev)
+    navigation.goBack()
   }
 
   return (
@@ -64,7 +66,11 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
           ]}
         >
           <Text text={`$${item?.amount}`} preset="heading" style={styles.amount} />
-          <Text text={`${item?.name}`} preset="pageHeading" style={styles.transactionName} />
+          <Text
+            text={`${item?.category?.name}`}
+            preset="pageHeading"
+            style={styles.transactionName}
+          />
           <Text text={getFormattedDate(item?.createdAt)} preset="default" style={styles.date} />
         </View>
 
@@ -113,16 +119,18 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
           </View>
 
           <View style={styles.attachmentsContainer}>
-            {transactionAttachments.map((transactionAttach: TransactionAttachmentTypesI) => (
-              <View
-                key={transactionAttach.id}
-                style={{
-                  width: wp(20.6),
-                  backgroundColor: "red",
-                  height: hp(10),
-                  borderRadius: 10,
-                }}
-              ></View>
+            {item.attachments.map((transactionAttach: any) => (
+              <View key={transactionAttach.id}>
+                <AutoImage
+                  source={{ uri: transactionAttach.secureURL }}
+                  style={{
+                    width: wp(20.6),
+                    backgroundColor: "red",
+                    height: hp(10),
+                    borderRadius: 8,
+                  }}
+                />
+              </View>
             ))}
           </View>
           <Button
@@ -152,7 +160,6 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
         type="success"
         description="Transaction has been successfully removed"
         onClose={onCloseAlertBoxPress}
-        title={""}
       />
     </View>
   )

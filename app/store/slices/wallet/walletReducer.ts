@@ -4,7 +4,32 @@ import { WalletListI } from "./types"
 
 const initialState: WalletListI = {
   loading: false,
-  wallets: null,
+  wallets: {
+    data: [
+      {
+        _id: "",
+        amount: 0,
+        name: "",
+        icon: {
+          type: "",
+          secureURL: "",
+          _id: "",
+          createdAt: "",
+          updatedAt: "",
+        },
+        createdAt: "",
+        updatedAt: "",
+      },
+    ],
+    pagination: {
+      page: 0,
+      perPage: 0,
+      startIndex: 0,
+      endIndex: 0,
+      hasPrevious: false,
+      hasNext: false,
+    },
+  },
   error: null,
 }
 
@@ -30,20 +55,49 @@ export const walletSlice = createSlice({
       .addCase(createWallet.pending, (state) => {
         state.loading = true
       })
+      // .addCase(createWallet.fulfilled, (state, action) => {
+      //   console.log("action.payload.result === ", action.payload.result)
+      //   state.loading = false
+      //   state.wallets = {
+      //     ...state.wallets,
+      //     data: state.wallets.data.map((item) => {
+      //       if (item._id === action.payload.result._id) {
+      //         return action.payload.result
+      //       } else {
+      //         return item
+      //       }
+      //     }),
+      //   }
+      // })
       .addCase(createWallet.fulfilled, (state, action) => {
-        console.log("action.payload.result === ", action.payload.result)
-        state.loading = false
-        state.wallets = {
-          ...state.wallets,
-          data: state.wallets.data.map((item) => {
-            if (item._id === action.payload.result._id) {
-              return action.payload.result
-            } else {
-              return item
-            }
-          }),
+        const existingWallet = state.wallets.data.find(
+          (item) => item._id === action.payload.result._id,
+        )
+
+        if (existingWallet) {
+          state.wallets = {
+            ...state.wallets,
+            data: state.wallets.data.map((item) => {
+              if (item._id === action.payload.result._id) {
+                return {
+                  ...item,
+                  amount: item.amount + action.payload.result.amount,
+                }
+              } else {
+                return item
+              }
+            }),
+          }
+        } else {
+          state.wallets = {
+            ...state.wallets,
+            data: [...state.wallets.data, action.payload.result],
+          }
         }
+
+        state.loading = false
       })
+
       .addCase(createWallet.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload

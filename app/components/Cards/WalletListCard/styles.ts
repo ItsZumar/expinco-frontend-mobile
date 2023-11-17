@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  renderCardImage: {
+    width: wp(10),
+    height: hp(5),
+    borderRadius: 50,
+  },
 })
 
 export default styles

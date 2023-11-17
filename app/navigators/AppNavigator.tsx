@@ -60,7 +60,7 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 const AppStack = () => {
   const { user } = useAppSelector((state: RootState) => state.auth)
 
-  if (user != null && !user.user.isEmailVerified) {
+  if (user?.user?.isEmailVerified === false) {
     return (
       <Stack.Navigator
         screenOptions={{
@@ -74,11 +74,13 @@ const AppStack = () => {
           name={ScreensEnum.OTP_VERIFICATION}
           component={Screens.OtpVerificationScreen}
         />
+        <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
+        <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
       </Stack.Navigator>
     )
   }
 
-  if (user != null && user.user.isEmailVerified) {
+  if (user?.user?.isEmailVerified) {
     return (
       <Stack.Navigator
         screenOptions={{

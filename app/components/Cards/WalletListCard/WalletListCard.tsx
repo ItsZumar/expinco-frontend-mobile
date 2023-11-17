@@ -4,6 +4,7 @@ import { TouchableOpacity, View } from "react-native"
 import { Icon } from "app/components/Icon/Icon"
 import { WalletI } from "app/interfaces"
 import styles from "./styles"
+import { AutoImage } from "app/components/AutoImage/AutoImage"
 
 interface WalletListCardI {
   walletData: WalletI
@@ -19,7 +20,12 @@ const WalletListCard = ({ walletData, onPress }: WalletListCardI) => {
     >
       <View style={styles.innerLeftContainer}>
         <View style={styles.iconContainer}>
-          <Icon icon={walletData?.icon ? walletData?.icon : "heart"} size={25} />
+          {walletData?.icon?.secureURL && (
+            <AutoImage
+              source={walletData?.icon?.secureURL ? { uri: walletData?.icon?.secureURL } : null}
+              style={styles.renderCardImage}
+            />
+          )}
         </View>
         <Text text={walletData.name} preset="subheading" />
       </View>

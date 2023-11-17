@@ -22,6 +22,7 @@ import { customFontsToLoad } from "./theme"
 import { Provider } from "react-redux"
 import { persistor, store } from "./store/store"
 import { PersistGate } from "redux-persist/integration/react"
+import FlashMessage from "react-native-flash-message"
 import Config from "./config"
 
 // Web linking configuration
@@ -61,13 +62,13 @@ function App({ hideSplashScreen }: AppProps) {
     config,
   }
 
-  // otherwise, we're ready to render the app
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <AppNavigator linking={linking} />
+            <FlashMessage position="top" style={{ marginTop: 20 }} />
           </PersistGate>
         </Provider>
       </ErrorBoundary>

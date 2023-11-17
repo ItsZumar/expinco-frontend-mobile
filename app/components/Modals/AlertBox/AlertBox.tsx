@@ -11,7 +11,7 @@ interface PropsI {
   onClose: () => void
   autoClose?: boolean
   type: "error" | "success"
-  title: string
+  title?: string
   description: string
   hideButtons?: boolean
   buttonJSX?: any

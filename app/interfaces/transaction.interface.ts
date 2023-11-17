@@ -3,7 +3,13 @@ import { WalletI } from "./wallet.interface"
 export interface TransactionCategoryI {
   _id: string
   name: string
-  icon: string
+  icon: {
+    _id: string
+    createdAt: string
+    format: string
+    secureURL: string
+    updatedAt: string
+  }
   createdAt: string
   updatedAt: string
 }

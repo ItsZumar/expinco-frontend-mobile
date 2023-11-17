@@ -59,14 +59,14 @@ const PieGraphReportScreen: React.FC<PieGraphReportScreenI> = ({ transactions })
 
       <View style={styles.transactionHeader}>
         <AppHeader text="Category" />
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Ionicons
             name="filter-outline"
             size={25}
             color={colors.palette.neutral900}
             style={{ padding: 5 }}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <FlatList

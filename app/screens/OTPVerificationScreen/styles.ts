@@ -6,16 +6,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  otpForm: { flexDirection: "row", justifyContent: "space-evenly", marginTop: hp(5) },
+  otpForm: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: hp(5),
+  },
   codeExpireText: {
     flexDirection: "row",
     justifyContent: "center",
     marginTop: hp(1),
     alignItems: "center",
   },
-  verifyBtn: { backgroundColor: colors.palette.primary500, marginTop: hp(5) },
-  bottomBlock: { alignItems: "center", marginBottom: hp(2) },
-  dontReceiveOtpText: { fontSize: hp(2), lineHeight: hp(2.2) },
+  verifyBtn: {
+    backgroundColor: colors.palette.primary500,
+    marginTop: hp(5),
+  },
+  disableVerifyBtn: {
+    backgroundColor: colors.palette.neutral400,
+    marginTop: hp(5),
+  },
+  resendCodeBtn: {
+    backgroundColor: colors.palette.primary500,
+    marginTop: hp(1),
+  },
+  bottomBlock: {
+    alignItems: "center",
+    marginBottom: hp(2),
+  },
+  dontReceiveOtpText: {
+    fontSize: hp(2),
+    lineHeight: hp(2.2),
+  },
   resendOTPBtn: {
     color: colors.palette.secondary500,
     fontWeight: "bold",
@@ -31,7 +52,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: hp(3),
     color: colors.palette.primary500,
-    fontFamily: typography.primary.semiBold
+    fontFamily: typography.primary.semiBold,
   },
   conjoinImage: {
     width: wp(80),

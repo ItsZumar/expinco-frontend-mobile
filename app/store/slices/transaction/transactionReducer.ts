@@ -1,15 +1,57 @@
 import { createSlice } from "@reduxjs/toolkit"
 import {
   createTransaction,
+  deleteTransaction,
   getAllRecentTransactions,
   getAllTransactions,
 } from "./transactionService"
 import { TransactionListI } from "./types"
+import { TransactionType } from "app/enums/transactions.enum"
 
 const initialState: TransactionListI = {
   loading: false,
-  transactions: null,
+  transactions: {
+    data: [
+      {
+        _id: "",
+        amount: 0,
+        attachments: [],
+        category: {
+          _id: "",
+          name: "",
+          icon: {
+            type: "",
+            secureURL: "",
+            _id: "",
+            createdAt: "",
+            updatedAt: "",
+          },
+          createdAt: "",
+          updatedAt: "",
+        },
+        type: "",
+        description: "",
+        wallet: {
+          _id: "",
+          amount: 0,
+          name: "",
+        },
+        createdAt: "",
+        updatedAt: "",
+      },
+    ],
+    pagination: {
+      page: 0,
+      perPage: 0,
+      startIndex: 0,
+      endIndex: 0,
+      hasPrevious: false,
+      hasNext: false,
+    },
+  },
   recentTransactions: null,
+  totalIncome: 0,
+  totalExpense: 0,
   error: null,
 }
 
@@ -24,8 +66,28 @@ export const transactionSlice = createSlice({
         state.loading = true
       })
       .addCase(getAllTransactions.fulfilled, (state, action) => {
-        state.loading = false
         state.transactions = action.payload.result
+
+        state.totalIncome = action.payload.result.data.reduce(
+          (total: number, transaction: { type: any; amount: number }) => {
+            if (transaction.type === TransactionType.INCOME) {
+              return total + transaction.amount
+            }
+            return total
+          },
+          0,
+        )
+
+        state.totalExpense = action.payload.result.data.reduce(
+          (total: number, transaction: { type: any; amount: number }) => {
+            if (transaction.type === TransactionType.EXPENSE) {
+              return total + transaction.amount
+            }
+            return total
+          },
+          0,
+        )
+        state.loading = false
       })
       .addCase(getAllTransactions.rejected, (state, action) => {
         state.loading = false
@@ -48,10 +110,30 @@ export const transactionSlice = createSlice({
         state.loading = true
       })
       .addCase(createTransaction.fulfilled, (state, action) => {
+        state.transactions.data = [...state.transactions.data, action.payload.result]
+
+        if (action.payload.result.type === TransactionType.INCOME) {
+          state.totalIncome += action.payload.result.amount
+        } else if (action.payload.result.type === TransactionType.EXPENSE) {
+          state.totalExpense += action.payload.result.amount
+        }
+
+        state.recentTransactions.data = [...state.recentTransactions.data, action.payload.result]
         state.loading = false
-        state.transactions.data.push(action.payload.result)
       })
       .addCase(createTransaction.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
+      .addCase(deleteTransaction.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(deleteTransaction.fulfilled, (state, action) => {
+        state.loading = false
+        // state.recentTransactions = action.payload.result
+      })
+      .addCase(deleteTransaction.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

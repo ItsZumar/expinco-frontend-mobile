@@ -20,13 +20,13 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
 
   useEffect(() => {
     getTotalAvailableBalance()
-  }, [])
+  }, [wallets])
 
   return (
     <>
       <Header title="My Wallets" leftIcon="back" onLeftPress={() => navigation.goBack()} />
       <Screen
-        // preset="scroll"
+        preset="scroll"
         safeAreaEdges={["bottom"]}
         ScrollViewProps={{ showsVerticalScrollIndicator: false }}
         style={styles.root}
@@ -57,8 +57,7 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
             )}
           />
         )}
-
-        <View style={styles.addWalletBtnContainer}>
+        <View style={styles.btnContainer}>
           <Button
             text="Add Wallet"
             preset="filled"

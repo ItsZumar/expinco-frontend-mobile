@@ -2,19 +2,22 @@ import React, { FC, useEffect, useState } from "react"
 import { FlatList, View } from "react-native"
 import { ScreensEnum } from "app/enums"
 import { AppStackScreenProps } from "app/navigators"
-import { RootState, useAppSelector } from "app/store/store"
-import { AppHeader, Header, Screen, Text, TransactionCard } from "app/components"
+import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { AppHeader, AutoImage, Header, Screen, Text, TransactionCard } from "app/components"
 import styles from "./styles"
+import { getAllTransactions } from "app/store/slices/transaction/transactionService"
 
 export const WalletDetailScreen: FC<AppStackScreenProps<ScreensEnum.WALLET_DETAIL>> = ({
   navigation,
   route,
 }) => {
+  const dispatch = useAppDispatch()
+
   const { item } = route.params
   const { transactions } = useAppSelector((state: RootState) => state.transaction)
   const [transactionsByWallet, setTransactionsByWallet] = useState<any>(null)
 
-  const getTransactionsByWalletName = () => {
+  const getTransactionsByWalletName = async () => {
     const transactionss = transactions.data.filter((el) => el.wallet.name == item.name)
     setTransactionsByWallet(transactionss)
   }
@@ -41,7 +44,10 @@ export const WalletDetailScreen: FC<AppStackScreenProps<ScreensEnum.WALLET_DETAI
       >
         <View style={styles.detailWalletContainer}>
           <View style={styles.iconContainer}>
-            {/* <Icon icon={filteredWalletData[0].icon} size={22} /> */}
+            <AutoImage
+              source={item?.icon?.secureURL ? { uri: item?.icon?.secureURL } : null}
+              style={styles.renderCardImage}
+            />
           </View>
           <Text text={item.name} preset="largeHeading" />
           <Text text={`$${item.amount.toString()}`} preset="heading" />

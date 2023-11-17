@@ -1,7 +1,16 @@
+export interface IconI {
+  type: string
+  secureURL: string
+  _id: string
+  createdAt: string
+  updatedAt: string
+}
+
 export interface WalletI {
   _id: string
   amount: number
   name: string
+  icon: IconI
   createdAt: string
   updatedAt: string
 }
@@ -40,4 +49,5 @@ export interface CreateWalletI {
 export interface PayloadCreateWalletI {
   name: string
   amount: string
+  icon: string
 }

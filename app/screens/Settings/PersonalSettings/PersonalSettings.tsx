@@ -1,13 +1,17 @@
 import React, { FC, useState } from "react"
 import { ScrollView, TouchableOpacity, View } from "react-native"
+import { wp } from "app/utils/responsive"
+import { UserI } from "app/store/slices/auth/types"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
-import { wp } from "app/utils/responsive"
-import { Header, TextField, AutoImage, Button } from "app/components"
 import { AppStackScreenProps } from "app/navigators"
+import { Header, TextField, AutoImage, Button, AlertBox } from "app/components"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
-import { UserI } from "app/store/slices/auth/types"
 import { updateUserService } from "app/store/slices/auth/authService"
+import { launchImageLibrary } from "react-native-image-picker"
+import { uploadImageToCloudinary } from "app/utils/uploadImage"
+import { validateEditProfileData } from "../../../validations/editProfileSchema"
+import imagePrev from "../../../../images/no-image.jpg"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
@@ -15,16 +19,60 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
   navigation,
 }) => {
   const dispatch = useAppDispatch()
-  const { user, loading, error } = useAppSelector((state: RootState) => state.auth)
+  const { user } = useAppSelector((state: RootState) => state.auth)
   const [updateUser, setUpdateUser] = useState<UserI>(user.user)
+  const [profileImage, setProfileImage] = useState<any>({ uri: user?.user?.displayPicture })
+  const [imageUpload, setImageUpload] = useState<boolean>(false)
+  const [alertModalVisible, setAlertModalVisible] = useState<boolean>(false)
+  const [selectedImage, setSelectedImage] = useState(null)
 
-  const updateProfile = () => {
-    console.log(updateUser)
-    updateUser.displayPicture = ""
-    dispatch(updateUserService(updateUser))
-      .unwrap()
-      .then((response: any) => navigation.goBack())
-      .catch((err: Error) => console.log("error", err))
+  const [validationErrors, setValidationErrors] = useState<any>({
+    firstname: "",
+    lastname: "",
+    email: "",
+  })
+
+  const handleValidation = () => {
+    const dataToValidate = {
+      firstname: updateUser.firstname,
+      lastname: updateUser.lastname,
+      email: updateUser.email,
+    }
+
+    const errors = validateEditProfileData(dataToValidate)
+
+    setValidationErrors(errors)
+  }
+
+  const updateProfile = async () => {
+    handleValidation()
+
+    if (Object.values(validationErrors).every((error) => !error)) {
+      if (imageUpload) {
+        await uploadImageToCloudinary(selectedImage)
+        updateUser.displayPicture = profileImage.uri
+      }
+      await dispatch(updateUserService(updateUser))
+    }
+    setAlertModalVisible((prev) => !prev)
+  }
+
+  const uploadProfileImage = async () => {
+    let result = await launchImageLibrary({
+      mediaType: "photo",
+    })
+
+    if (result?.assets) {
+      const selectedImageUri = result.assets[0].uri
+      setSelectedImage(result.assets[0])
+      setImageUpload(true)
+      setProfileImage({ uri: selectedImageUri })
+    }
+  }
+
+  const onCloseAlertBoxPress = () => {
+    setAlertModalVisible((prev) => !prev)
+    navigation.navigate(ScreensEnum.PROFILE)
   }
 
   return (
@@ -34,9 +82,12 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
       <ScrollView style={{ paddingHorizontal: wp(5), paddingTop: 20 }}>
         <View style={styles.profilePicContainer}>
           <View style={styles.profilePicBlock}>
-            <AutoImage source={{ uri: "https://picsum.photos/302" }} style={styles.profilePic} />
+            <AutoImage
+              source={profileImage?.uri != null ? profileImage : imagePrev}
+              style={styles.profilePic}
+            />
           </View>
-          <TouchableOpacity style={styles.uploadPicBtn}>
+          <TouchableOpacity style={styles.uploadPicBtn} onPress={uploadProfileImage}>
             <Ionicons name="cloud-upload-outline" color={colors.palette.neutral100} size={15} />
           </TouchableOpacity>
         </View>
@@ -50,9 +101,8 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
           autoCorrect={false}
           labelTx="common.firstname"
           placeholderTx="signupScreen.enterfirstname"
-          // helper={error?.firstname}
-          // status={error?.firstname ? "error" : undefined}
-          // onSubmitEditing={() => passwordInput.current?.focus()}
+          helper={validationErrors?.firstname}
+          status={validationErrors?.firstname ? "error" : undefined}
         />
         <TextField
           value={updateUser.lastname}
@@ -63,9 +113,8 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
           autoCorrect={false}
           labelTx="common.lastname"
           placeholderTx="signupScreen.enterlastname"
-          // helper={error?.firstname}
-          // status={error?.firstname ? "error" : undefined}
-          // onSubmitEditing={() => passwordInput.current?.focus()}
+          helper={validationErrors?.lastname}
+          status={validationErrors?.lastname ? "error" : undefined}
         />
         <TextField
           value={updateUser.email}
@@ -75,10 +124,9 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
           autoComplete="name"
           autoCorrect={false}
           labelTx="common.email"
-          placeholder=""
-          // helper={error?.firstname}
-          // status={error?.firstname ? "error" : undefined}
-          // onSubmitEditing={() => passwordInput.current?.focus()}
+          placeholder="Email"
+          helper={validationErrors?.email}
+          status={validationErrors?.email ? "error" : undefined}
         />
       </ScrollView>
 
@@ -90,6 +138,15 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
           onPress={updateProfile}
         />
       </View>
+
+      <AlertBox
+        checkIcon={true}
+        open={alertModalVisible}
+        type="success"
+        description="User has been successfully updated"
+        onClose={onCloseAlertBoxPress}
+        title={""}
+      />
     </View>
   )
 }

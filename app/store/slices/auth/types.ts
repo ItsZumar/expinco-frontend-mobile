@@ -64,6 +64,10 @@ export interface VerifyEmailPayloadI {
   authCode: string
 }
 
+export interface ResendAuthCodePayloadI {
+  email: string
+}
+
 export interface VerifyEmailResponseI {
   result: {
     message: string

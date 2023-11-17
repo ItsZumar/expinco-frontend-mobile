@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { View } from "react-native"
 import { ScreensEnum } from "app/enums"
 import { AppStackScreenProps } from "app/navigators"
@@ -7,6 +7,7 @@ import { LineGraphReportScreen } from "./LineGraphReportScreen/LineGraphReportSc
 import { ArrowRoundButton, Header, Screen, ToggleButton } from "app/components"
 import { RootState, useAppSelector } from "app/store/store"
 import styles from "./styles"
+import { MonthSelector } from "app/components/MonthSelector/MonthSelector"
 
 const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT>> = ({
   navigation,
@@ -14,10 +15,43 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
 }) => {
   const { transactions, loading } = useAppSelector((state: RootState) => state.transaction)
   const [activeToggle, setActiveToggle] = useState<"left" | "right">("left")
+  const [transactionsByMonth, setTransactionsByMonth] = useState<any>([])
 
   const onToggleBtnPress = (toggle: "left" | "right") => {
     setActiveToggle(toggle)
   }
+
+  const [monthSelectorVisible, setMonthSelectorVisible] = useState(false)
+  const [selectedMonth, setSelectedMonth] = useState(null)
+
+  const handleMonthPress = () => {
+    setMonthSelectorVisible(true)
+  }
+
+  const filterTransactionByCurrentMonth = async () => {
+    const filteredTransactions = transactions?.data.filter((transaction) => {
+      const createdDate = new Date(transaction.createdAt)
+      const transactionMonth = createdDate.toLocaleString("en-US", { month: "long" })
+      return transactionMonth === selectedMonth
+    })
+    await setTransactionsByMonth(filteredTransactions)
+  }
+
+  const handleMonthSelect = (month: any) => {
+    setSelectedMonth(month)
+    filterTransactionByCurrentMonth()
+    setMonthSelectorVisible(false)
+  }
+
+  const handleMonthSelectorClose = () => {
+    setMonthSelectorVisible(false)
+  }
+
+  useEffect(() => {
+    const currentDate = new Date()
+    const currentMonth = currentDate.toLocaleString("en-US", { month: "long" })
+    setSelectedMonth(currentMonth)
+  }, [])
 
   return (
     <>
@@ -33,7 +67,7 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
         style={styles.screenStyle}
       >
         <View style={styles.topContainer}>
-          <ArrowRoundButton title="July" onPress={() => {}} />
+          <ArrowRoundButton title={selectedMonth} onPress={handleMonthPress} />
 
           <View style={styles.toggleScreenBtns}>
             <ToggleButton
@@ -55,6 +89,12 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
           <PieGraphReportScreen transactions={transactions} />
         )}
       </Screen>
+
+      <MonthSelector
+        visible={monthSelectorVisible}
+        onClose={handleMonthSelectorClose}
+        onSelect={handleMonthSelect}
+      />
     </>
   )
 }

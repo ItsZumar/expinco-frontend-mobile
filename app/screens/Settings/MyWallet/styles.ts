@@ -4,11 +4,9 @@ import { hp, wp } from "app/utils/responsive"
 
 const styles = StyleSheet.create({
   root: {
-    flex: 1,
     backgroundColor: colors.palette.neutral100,
   },
   walletList: {
-    paddingHorizontal: wp(5),
     paddingTop: hp(5),
   },
   totalBalanceContainer: {
@@ -21,8 +19,10 @@ const styles = StyleSheet.create({
     height: hp(20),
     position: "absolute",
   },
-  addWalletBtnContainer: {
+  btnContainer: {
     paddingHorizontal: wp(5),
+    backgroundColor: colors.palette.neutral100,
+    paddingTop: hp(1.5),
   },
 })
 

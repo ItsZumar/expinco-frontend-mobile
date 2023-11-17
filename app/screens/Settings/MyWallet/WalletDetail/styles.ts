@@ -26,6 +26,11 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: "bold",
   },
+  renderCardImage: {
+    width: wp(12),
+    height: hp(5),
+    borderRadius: 10,
+  },
 })
 
 export default styles

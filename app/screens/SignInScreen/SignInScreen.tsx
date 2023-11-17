@@ -16,6 +16,7 @@ import { colors } from "app/theme"
 import { useAppDispatch } from "app/store/store"
 import { signinService } from "app/store/slices/auth/authService"
 import { SigninPayloadI, SigninResponseI } from "app/store/slices/auth/types"
+import { validateData } from "app/validations/loginSchema"
 import styles from "./styles"
 
 interface SignInScreenProps
@@ -30,6 +31,22 @@ export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
     email: "",
     password: "",
   })
+
+  const [validationErrors, setValidationErrors] = useState<any>({
+    email: "",
+    password: "",
+  })
+
+  const handleValidation = () => {
+    const dataToValidate = {
+      email: state.email,
+      password: state.password,
+    }
+
+    const errors = validateData(dataToValidate)
+
+    setValidationErrors(errors)
+  }
 
   const PasswordRightAccessory = useMemo(
     () =>
@@ -50,6 +67,8 @@ export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
   const login = () => {
     // if (formHavingError) return
 
+    handleValidation()
+
     dispatch(
       signinService({
         email: state.email,
@@ -63,7 +82,7 @@ export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
 
   return (
     <Screen style={styles.root} preset="auto">
-      <Header titleTx="common.signin" leftIcon="back" />
+      <Header titleTx="common.signin" />
 
       <View style={styles.spacingHorizonal}>
         <View style={styles.spacingTop}>
@@ -80,6 +99,8 @@ export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
             // helper={error?.email}
             // status={error?.email ? "error" : undefined}
             onSubmitEditing={() => passwordInput.current?.focus()}
+            helper={validationErrors?.email}
+            status={validationErrors?.email ? "error" : undefined}
           />
           <TextField
             ref={passwordInput}
@@ -94,8 +115,8 @@ export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
             placeholderTx="signinScreen.enterPass"
             onSubmitEditing={login}
             RightAccessory={PasswordRightAccessory}
-            // helper={error?.password}
-            // status={error?.password ? "error" : undefined}
+            helper={validationErrors?.password}
+            status={validationErrors?.password ? "error" : undefined}
           />
           <Button tx="common.login" style={styles.tapButton} preset="filled" onPress={login} />
         </View>

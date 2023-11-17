@@ -5,14 +5,15 @@ import { AppStackScreenProps } from "app/navigators"
 import { Button, Header, Screen, Text } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
-import { verifyEmailService } from "app/store/slices/auth/authService"
+import { resendOtpCode, verifyEmailService } from "app/store/slices/auth/authService"
 import { VerifyEmailResponseI } from "app/store/slices/auth/types"
 import styles from "./styles"
+import { showMessage } from "react-native-flash-message"
 
 interface OtpVerificationScreenProps
   extends NativeStackScreenProps<AppStackScreenProps<ScreensEnum.OTP_VERIFICATION>> {}
 
-export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigation }) => {
+export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigation, route }) => {
   const dispatch = useAppDispatch()
   const { user, loading, error } = useAppSelector((state: RootState) => state.auth)
 
@@ -32,36 +33,17 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
     6: "",
   })
 
-  const MAX_OTP_TRIES: number = 4
-  const OTP_TIMER: number = 30000
+  const MAX_OTP_TRIES: number = 10
+  const OTP_TIMER: number = 30
 
   const [timer, setTimer] = useState<number>(OTP_TIMER)
   const [resendOtpTries, setresendOtpTries] = useState<number>(1)
   const [otpDisableBtn, setOptDisableBtn] = useState<boolean>(false)
 
-  const resendOTPHandler = async () => {
-    if (resendOtpTries < MAX_OTP_TRIES) {
-      // if (params?.prevScreen === ScreenEnum.FORGOT_PASSWORD) {
-      //   await authStore.resendOTPForgotPass(params?.email)
-      // } else {
-      //   await authStore.resendVerification(params?.email)
-      // }
-      setresendOtpTries((prev) => prev + 1)
-      setTimer(OTP_TIMER)
-    } else {
-      // showMessage({
-      //   icon: "warning",
-      //   type: "warning",
-      //   message: "Resend OTP has reached max limit. Try later!",
-      // })
-      setOptDisableBtn(true)
-    }
-  }
-
   const _verifyOTP = async () => {
     let authCode = Object.values(otp).join("")
 
-    dispatch(verifyEmailService({ email: user.user.email, authCode: authCode }))
+    await dispatch(verifyEmailService({ email: user?.user?.email, authCode: authCode }))
       .unwrap()
       .then((response: VerifyEmailResponseI) => navigation.navigate(ScreensEnum.SIGNIN as any))
       .catch((err: Error) => console.log("error", err))
@@ -91,14 +73,29 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
     // }
   }
 
+  const resendOTPHandler = async () => {
+    if (resendOtpTries < MAX_OTP_TRIES) {
+      dispatch(resendOtpCode({ email: user?.user?.email }))
+      setresendOtpTries((prev) => prev + 1)
+      setTimer(OTP_TIMER)
+    } else {
+      showMessage({
+        icon: "warning",
+        type: "warning",
+        message: "Resend OTP has reached max limit. Try later!",
+      })
+      setOptDisableBtn(true)
+    }
+  }
+
   useEffect(() => {
     let counter: NodeJS.Timer
     if (timer == 0) {
       clearInterval(timer)
-      setOptDisableBtn(false)
+      setOptDisableBtn(true)
     } else {
       counter = setInterval(() => setTimer((prev) => prev - 1), 1000)
-      setOptDisableBtn(true)
+      setOptDisableBtn(false)
     }
     return () => clearInterval(counter)
   }, [timer])
@@ -108,7 +105,7 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
       <Header
         titleTx="common.verification"
         leftIcon="back"
-        onLeftPress={() => navigation.goBack()}
+        onLeftPress={() => navigation.navigate(ScreensEnum.SIGNIN as any)}
       />
 
       <ScrollView style={{ paddingHorizontal: 20 }}>
@@ -229,7 +226,19 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
           <Text text={"00 : " + timer} style={styles.timerText} />
         </View>
 
-        <Button tx="common.verify" preset="filled" onPress={_verifyOTP} style={styles.verifyBtn} />
+        <Button
+          tx="common.verify"
+          preset="filled"
+          onPress={_verifyOTP}
+          style={otpDisableBtn ? styles.disableVerifyBtn : styles.verifyBtn}
+          disabled={otpDisableBtn}
+        />
+        <Button
+          tx="common.resend"
+          preset="filled"
+          onPress={resendOTPHandler}
+          style={styles.resendCodeBtn}
+        />
       </ScrollView>
     </Screen>
   )

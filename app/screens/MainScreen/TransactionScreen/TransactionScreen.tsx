@@ -1,15 +1,15 @@
 import React, { FC, useEffect, useState } from "react"
-import { ActivityIndicator, FlatList, SectionList, TouchableOpacity, View } from "react-native"
+import { ActivityIndicator, FlatList, TouchableOpacity, View } from "react-native"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { AppStackScreenProps } from "app/navigators"
-import { FilterModal, Text, TransactionCard } from "app/components"
-import { FilterByItems, SortByItems, TransactionData } from "app/constants"
+import { FilterModal, Text } from "app/components"
+import { FilterByItems, SortByItems } from "app/constants"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
-import { hp, wp } from "app/utils/responsive"
 import { getAllTransactions } from "app/store/slices/transaction/transactionService"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
+import MySectionList from "app/components/List/MySectionList"
 
 export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>> = ({
   navigation,
@@ -89,25 +89,10 @@ export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>>
           <ActivityIndicator color="red" />
         </View>
       ) : (
-        <FlatList
-          style={{ marginHorizontal: wp(5), marginTop: hp(1.5) }}
-          data={transactions.data}
-          keyExtractor={(item) => String(item._id)}
-          renderItem={({ item }) => (
-            <TransactionCard
-              {...item}
-              onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION as any, { item })}
-            />
-          )}
-          ListEmptyComponent={() =>
-            !refreshing && (
-              <Text
-                text="You don't have any transactions yet!"
-                preset="subheading"
-                style={{ marginVertical: hp(2), marginHorizontal: wp(5) }}
-              />
-            )
-          }
+        <MySectionList
+          transactions={transactions.data}
+          refreshing={refreshing}
+          navigation={navigation}
         />
       )}
 

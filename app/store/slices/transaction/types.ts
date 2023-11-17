@@ -54,6 +54,8 @@ export interface TransactionListI {
   loading: boolean
   transactions: GetTransactionListI["result"]
   recentTransactions: GetTransactionListI["result"]
+  totalIncome: number
+  totalExpense: number
   error: string
   stack?: string
 }
@@ -89,4 +91,8 @@ export interface CreateTransactionPayloadI {
   description: string
   wallet: string
   attachments?: string | string[]
+}
+
+export interface DeleteTransactionPayloadI {
+  transactionId: string
 }

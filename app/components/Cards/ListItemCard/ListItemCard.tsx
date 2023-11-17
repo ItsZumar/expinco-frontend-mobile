@@ -20,7 +20,12 @@ const ListItemCard = ({ item, onPress }: ListItemCardI) => {
       style={[styles.renderCardBlock, item.selected && { borderColor: colors.palette.neutral600 }]}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        {/* <AutoImage source={{ uri: item.icon }} style={styles.renderCardImage} /> */}
+        {item?.icon?.secureURL && (
+          <AutoImage
+            source={item?.icon?.secureURL ? { uri: item?.icon?.secureURL } : null}
+            style={styles.renderCardImage}
+          />
+        )}
         <Text text={item.name} style={styles.renderCardText} />
       </View>
 

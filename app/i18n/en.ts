@@ -13,6 +13,7 @@ const en = {
     lastname: "Last Name",
     verification: "Verification",
     verify: "Verify",
+    resend: "Resend",
     continue: "Continue",
     submit: "Submit",
     income: "Income",
