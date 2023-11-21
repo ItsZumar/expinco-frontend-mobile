@@ -25,27 +25,27 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
   return (
     <>
       <Header title="My Wallets" leftIcon="back" onLeftPress={() => navigation.goBack()} />
-      <Screen
-        preset="scroll"
-        safeAreaEdges={["bottom"]}
-        ScrollViewProps={{ showsVerticalScrollIndicator: false }}
-        style={styles.root}
-      >
-        <View style={styles.totalBalanceContainer}>
-          <AutoImage
-            source={require("../../../../assets/images/wallets-bg.png")}
-            style={styles.totalBalanceImage}
-          />
-          <Text text="Available Balance" style={{ color: colors.textDim }} />
 
-          <Text text={`$${availableBalance.toLocaleString()}`} preset="heading" />
+      {loading ? (
+        <View style={{ marginTop: 20 }}>
+          <ActivityIndicator color="red" />
         </View>
+      ) : (
+        <Screen
+          preset="scroll"
+          safeAreaEdges={["bottom"]}
+          ScrollViewProps={{ showsVerticalScrollIndicator: false }}
+          style={styles.root}
+        >
+          <View style={styles.totalBalanceContainer}>
+            <AutoImage
+              source={require("../../../../assets/images/wallets-bg.png")}
+              style={styles.totalBalanceImage}
+            />
+            <Text text="Available Balance" style={{ color: colors.textDim }} />
 
-        {loading ? (
-          <View style={{ marginTop: 20 }}>
-            <ActivityIndicator color="red" />
+            <Text text={`$${availableBalance.toLocaleString()}`} preset="heading" />
           </View>
-        ) : (
           <FlatList
             data={wallets.data}
             keyExtractor={(item) => item._id}
@@ -56,15 +56,15 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
               />
             )}
           />
-        )}
-        <View style={styles.btnContainer}>
-          <Button
-            text="Add Wallet"
-            preset="filled"
-            onPress={() => navigation.navigate(ScreensEnum.CREATE_WALLET as any)}
-          />
-        </View>
-      </Screen>
+        </Screen>
+      )}
+      <View style={styles.btnContainer}>
+        <Button
+          text="Add Wallet"
+          preset="filled"
+          onPress={() => navigation.navigate(ScreensEnum.CREATE_WALLET as any)}
+        />
+      </View>
     </>
   )
 }

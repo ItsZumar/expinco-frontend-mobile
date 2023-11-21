@@ -54,6 +54,7 @@ export interface TransactionListI {
   loading: boolean
   transactions: GetTransactionListI["result"]
   recentTransactions: GetTransactionListI["result"]
+  monthlyTransactions: GetTransactionListI["result"]
   totalIncome: number
   totalExpense: number
   error: string
@@ -85,6 +86,34 @@ export interface CreateTransactionI {
 }
 
 export interface CreateTransactionPayloadI {
+  type: string
+  amount: number
+  category: string
+  description: string
+  wallet: string
+  attachments?: string | string[]
+}
+
+export interface UpdateTransactionI {
+  result: {
+    type: string
+    name: string
+    amount: number
+    category: string
+    description: string
+    wallet: string
+    owner: string
+    attachments: string[] | any
+    _id: string
+    createdAt: string
+    updatedAt: string
+  }
+  error: string
+  stack: string
+}
+
+export interface UpdateTransactionPayloadI {
+  id: string
   type: string
   amount: number
   category: string

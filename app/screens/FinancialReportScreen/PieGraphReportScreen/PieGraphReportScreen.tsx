@@ -1,16 +1,18 @@
 import React, { useState } from "react"
 import { FlatList, TouchableOpacity, View } from "react-native"
-import { colors } from "app/theme"
+import { hp } from "app/utils/responsive"
+import { ScreensEnum } from "app/enums"
+import { RootState, useAppSelector } from "app/store/store"
 import { AppHeader, MyPieChart, ReportCards, Text } from "app/components"
-import { GetTransactionListI } from "app/store/slices/transaction/types"
-import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
 interface PieGraphReportScreenI {
-  transactions: GetTransactionListI["result"]
+  navigation: any
 }
 
-const PieGraphReportScreen: React.FC<PieGraphReportScreenI> = ({ transactions }) => {
+const PieGraphReportScreen: React.FC<PieGraphReportScreenI> = ({ navigation }) => {
+  const { monthlyTransactions } = useAppSelector((state: RootState) => state.transaction)
+
   const [activeToggle, setActiveToggle] = useState<"expense" | "income" | string>("expense")
 
   const onToggleBtnPress = (toggle: "expense" | "income" | string) => {
@@ -18,7 +20,7 @@ const PieGraphReportScreen: React.FC<PieGraphReportScreenI> = ({ transactions })
   }
 
   const getFilteredTransactions = (toggle: "expense" | "income" | string) => {
-    return transactions.data.filter(
+    return monthlyTransactions.data.filter(
       (transaction: { type: string }) =>
         (toggle === "expense" && transaction.type.toLowerCase() === "expense") ||
         (toggle === "income" && transaction.type.toLowerCase() === "income"),
@@ -39,7 +41,7 @@ const PieGraphReportScreen: React.FC<PieGraphReportScreenI> = ({ transactions })
   return (
     <View style={styles.mainContainer}>
       <Text text={`$${getTotalAmount(activeToggle)}`} preset="heading" style={styles.amount} />
-      <MyPieChart transactions={transactions} />
+      <MyPieChart transactions={monthlyTransactions} />
 
       <View style={styles.btnContainer}>
         {["expense", "income"].map((type) => (
@@ -72,7 +74,19 @@ const PieGraphReportScreen: React.FC<PieGraphReportScreenI> = ({ transactions })
       <FlatList
         data={filteredTransactions}
         keyExtractor={(item) => String(item._id)}
-        renderItem={({ item }) => <ReportCards {...item} />}
+        renderItem={({ item }) => (
+          <ReportCards
+            item={item}
+            onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION, { item })}
+          />
+        )}
+        ListEmptyComponent={() => (
+          <Text
+            text="You don't have any transaction!"
+            preset="subheading"
+            style={{ marginVertical: hp(2) }}
+          />
+        )}
       />
     </View>
   )

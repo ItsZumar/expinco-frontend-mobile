@@ -5,17 +5,17 @@ import { AppStackScreenProps } from "app/navigators"
 import { PieGraphReportScreen } from "./PieGraphReportScreen/PieGraphReportScreen"
 import { LineGraphReportScreen } from "./LineGraphReportScreen/LineGraphReportScreen"
 import { ArrowRoundButton, Header, Screen, ToggleButton } from "app/components"
-import { RootState, useAppSelector } from "app/store/store"
+import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import styles from "./styles"
 import { MonthSelector } from "app/components/MonthSelector/MonthSelector"
+import { getTransactionsByMonth } from "app/store/slices/transaction/transactionService"
 
 const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT>> = ({
   navigation,
   route,
 }) => {
-  const { transactions, loading } = useAppSelector((state: RootState) => state.transaction)
+  const dispatch = useAppDispatch()
   const [activeToggle, setActiveToggle] = useState<"left" | "right">("left")
-  const [transactionsByMonth, setTransactionsByMonth] = useState<any>([])
 
   const onToggleBtnPress = (toggle: "left" | "right") => {
     setActiveToggle(toggle)
@@ -28,18 +28,9 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
     setMonthSelectorVisible(true)
   }
 
-  const filterTransactionByCurrentMonth = async () => {
-    const filteredTransactions = transactions?.data.filter((transaction) => {
-      const createdDate = new Date(transaction.createdAt)
-      const transactionMonth = createdDate.toLocaleString("en-US", { month: "long" })
-      return transactionMonth === selectedMonth
-    })
-    await setTransactionsByMonth(filteredTransactions)
-  }
-
-  const handleMonthSelect = (month: any) => {
+  const handleMonthSelect = async (month: any) => {
     setSelectedMonth(month)
-    filterTransactionByCurrentMonth()
+    await dispatch(getTransactionsByMonth({ month: month }))
     setMonthSelectorVisible(false)
   }
 
@@ -51,6 +42,10 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
     const currentDate = new Date()
     const currentMonth = currentDate.toLocaleString("en-US", { month: "long" })
     setSelectedMonth(currentMonth)
+  }, [])
+
+  useEffect(() => {
+    dispatch(getTransactionsByMonth({ month: selectedMonth }))
   }, [])
 
   return (
@@ -84,9 +79,9 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
         </View>
 
         {activeToggle === "left" ? (
-          <LineGraphReportScreen transactions={transactions} navigation={navigation} />
+          <LineGraphReportScreen navigation={navigation} />
         ) : (
-          <PieGraphReportScreen transactions={transactions} />
+          <PieGraphReportScreen navigation={navigation} />
         )}
       </Screen>
 

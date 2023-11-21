@@ -22,6 +22,7 @@ export * from "./MainScreen/HomeScreen/NotificationScreen/NotificationScreen"
 // Transaction Screens
 export * from "./MainScreen/HomeScreen/AddTransactionScreen/AddTransactionScreen"
 export * from "./DetailTransactionScreen/DetailTransactionScreen"
+export * from "./DetailTransactionScreen/EditTransactionScreen/EditTransactionScreen"
 
 // Setting Screens
 export * from "./Settings/SettingScreen"

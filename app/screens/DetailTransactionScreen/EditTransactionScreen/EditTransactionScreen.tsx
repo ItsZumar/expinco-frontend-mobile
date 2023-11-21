@@ -10,18 +10,23 @@ import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/co
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import { getAllWallets } from "app/store/slices/wallet/walletService"
 import { WalletI } from "app/store/slices/wallet/types"
-import { createTransaction } from "app/store/slices/transaction/transactionService"
+import {
+  createTransaction,
+  updateTransaction,
+} from "app/store/slices/transaction/transactionService"
 import { launchImageLibrary } from "react-native-image-picker"
 import { uploadImageToCloudinary } from "app/utils/uploadImage"
+import imagePrev from "../../../../images/no-image.jpg"
 import Ionicons from "react-native-vector-icons/Ionicons"
+import Icon from "react-native-vector-icons/Entypo"
 import styles from "./styles"
 
-export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSACTION>> = ({
+export const EditTransactionScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_TRANSACTION>> = ({
   navigation,
   route,
 }) => {
+  const { item } = route.params
   const dispatch = useAppDispatch()
-  const { type } = route.params
   const {
     wallets: { data: walletData },
   } = useAppSelector((state: RootState) => state.wallet)
@@ -29,33 +34,50 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
   const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
   const [showWalletModal, setShowWalletModal] = useState<boolean>(false)
   const [selectedCategory, setSelectedCategory] = useState<
-    TransactionCategoryI & { selected: boolean }
-  >()
-  const [selectedWallet, setSelectedWallet] = useState<WalletI & { selected: boolean }>()
-  const [amount, setAmount] = useState<string>("")
-  const [description, setDescription] = useState<string>("")
-  const [selectedAttachment, setSelectedAttachment] = useState(null)
+    (TransactionCategoryI & { selected: boolean }) | any
+  >({ name: item?.category?.name })
+  const [selectedWallet, setSelectedWallet] = useState<(WalletI & { selected: boolean }) | any>({
+    name: item?.wallet.name,
+  })
+  const [amount, setAmount] = useState<string>(String(item?.amount))
+  const [description, setDescription] = useState<string>(item?.description)
+  const [selectedAttachment, setSelectedAttachment] = useState<any>(item?.attachments)
   const [attachmentUpload, setAttachmentUpload] = useState<boolean>(false)
-  const [attachments, setAttachments] = useState<any>(null)
+  const [attachments, setAttachments] = useState<any>(item?.attachments)
 
-  const onAddTransactionPress = async () => {
+  const onUpdateTransactionPress = async () => {
     if (attachmentUpload) {
       await uploadImageToCloudinary(selectedAttachment)
       const file = await uploadImageToCloudinary(selectedAttachment)
 
+      if (file) {
+        await dispatch(
+          updateTransaction({
+            id: item?._id,
+            type: item?.type,
+            amount: amount,
+            category: selectedCategory._id,
+            wallet: selectedWallet._id,
+            description: description,
+            attachments: [file._id],
+          }),
+        )
+      }
+    } else {
       await dispatch(
-        createTransaction({
-          type: type,
+        updateTransaction({
+          id: item?._id,
+          type: item?.type,
           amount: amount,
           category: selectedCategory._id,
           wallet: selectedWallet._id,
           description: description,
-          attachments: [file._id],
+          attachments: attachments,
         }),
       )
     }
 
-    navigation.goBack()
+    navigation.navigate(ScreensEnum.HOME)
   }
 
   const uploadAttachment = async () => {
@@ -71,6 +93,8 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
     }
   }
 
+  const removeAttachment = async () => {}
+
   useEffect(() => {
     dispatch(getAllWallets())
   }, [])
@@ -80,14 +104,13 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
       <View
         style={{
           height: hp(100),
-          backgroundColor: type.match(TransactionType.INCOME)
+          backgroundColor: item?.type.match(TransactionType.INCOME)
             ? colors.palette.income
             : colors.palette.expense,
         }}
       >
-        {/* type === TransactionType.INCOME ? "Add Income" : "Add Expense" */}
         <Header
-          titleTx={type === TransactionType.INCOME ? "common.income" : "common.expense"}
+          title={item?.type === TransactionType.INCOME ? "Edit Income" : "Edit Expense"}
           leftIcon="back"
           onLeftPress={() => navigation.goBack()}
         />
@@ -136,10 +159,15 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.attachmentBtn} onPress={uploadAttachment}>
-              {attachments ? (
+              {attachments.length > 0 ? (
                 <>
+                  <TouchableOpacity onPress={removeAttachment} style={styles.closeBtn}>
+                    <Icon name="cross" size={20} color="white" />
+                  </TouchableOpacity>
                   <Image
-                    source={attachments}
+                    source={
+                      attachments[0].secureURL ? { uri: attachments[0].secureURL } : imagePrev
+                    }
                     style={{ width: wp(13), height: hp(6), borderRadius: hp(1) }}
                   />
                 </>
@@ -152,9 +180,9 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
             </TouchableOpacity>
 
             <Button
-              text={type === TransactionType.INCOME ? "Add Income" : "Add Expense"}
-              onPress={onAddTransactionPress}
-              preset={type === TransactionType.INCOME ? "income" : "expense"}
+              text={item?.type === TransactionType.INCOME ? "Edit Income" : "Edit Expense"}
+              onPress={onUpdateTransactionPress}
+              preset={item?.type === TransactionType.INCOME ? "income" : "expense"}
               style={styles.spacingTop}
             />
           </View>

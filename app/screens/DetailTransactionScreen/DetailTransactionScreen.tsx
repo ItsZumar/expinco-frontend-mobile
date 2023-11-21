@@ -1,15 +1,14 @@
-import React, { FC, useEffect, useState } from "react"
-import { TouchableOpacity, View } from "react-native"
+import React, { FC, useState } from "react"
+import { View } from "react-native"
 import { hp, wp } from "app/utils/responsive"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import { AppStackScreenProps } from "app/navigators"
 import { getFormattedDate } from "app/utils/formatDate"
 import { Button, Header, Text, AlertBox, AlertBottomModal, Screen, AutoImage } from "app/components"
-import Ionicons from "react-native-vector-icons/Ionicons"
-import styles from "./styles"
-import { useAppDispatch } from "app/store/store"
 import { deleteTransaction } from "app/store/slices/transaction/transactionService"
+import { useAppDispatch } from "app/store/store"
+import styles from "./styles"
 
 export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_TRANSACTION>> = ({
   navigation,
@@ -101,22 +100,7 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
 
           {/* attachments */}
 
-          <View
-            style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}
-          >
-            <Text text="Attachment" preset="pageHeading" />
-            <TouchableOpacity
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-              onPress={() => {}}
-            >
-              <Text text="Add" />
-              <Ionicons name="add" size={21} color={colors.palette.neutral900} />
-            </TouchableOpacity>
-          </View>
+          <Text text="Attachment" preset="pageHeading" />
 
           <View style={styles.attachmentsContainer}>
             {item.attachments.map((transactionAttach: any) => (
@@ -133,14 +117,17 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
               </View>
             ))}
           </View>
-          <Button
-            text="Edit"
-            preset="filled"
-            onPress={() => navigation.navigate(ScreensEnum.EDIT_BUDGET as any)}
-            style={{ marginTop: hp(2) }}
-          />
         </View>
       </Screen>
+
+      <View style={{ paddingHorizontal: wp(2), marginBottom: hp(3.5) }}>
+        <Button
+          text="Edit"
+          preset="filled"
+          onPress={() => navigation.navigate(ScreensEnum.EDIT_TRANSACTION as any, { item })}
+          style={{ marginTop: 0, padding: 0 }}
+        />
+      </View>
 
       {/* MODALS */}
       <AlertBottomModal

@@ -21,3 +21,14 @@ export const uploadImageToCloudinary = async (selectedImage: any): Promise<any> 
     throw error
   }
 }
+
+export const removeImageToCloudinary = async (publicId: any): Promise<any> => {
+  try {
+    const removeImageResponse = await axiosInstance.post(`/file/delete-file/${publicId}`)
+    console.log("delete File response:", removeImageResponse.data.result.newFileStorage)
+    return removeImageResponse.data.result.newFileStorage
+  } catch (error) {
+    console.error("File upload error:", error)
+    throw error
+  }
+}

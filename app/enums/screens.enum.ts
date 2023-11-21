@@ -30,6 +30,7 @@ export enum ScreensEnum {
   CREATE_WALLET = "CreateWallet",
 
   DETAIL_TRANSACTION = "DetailTransactionScreen",
+  EDIT_TRANSACTION = "EditTransactionScreen",
   NOTIFICATION_SCREEN = "NotificationScreen",
   FINANCIAL_REPORT = "FinancialReportScreen",
 }

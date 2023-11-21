@@ -75,6 +75,14 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
 
   const resendOTPHandler = async () => {
     if (resendOtpTries < MAX_OTP_TRIES) {
+      setOtp({
+        1: "",
+        2: "",
+        3: "",
+        4: "",
+        5: "",
+        6: "",
+      })
       dispatch(resendOtpCode({ email: user?.user?.email }))
       setresendOtpTries((prev) => prev + 1)
       setTimer(OTP_TIMER)
@@ -90,8 +98,8 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
 
   useEffect(() => {
     let counter: NodeJS.Timer
-    if (timer == 0) {
-      clearInterval(timer)
+    if (timer === 0) {
+      clearInterval(counter)
       setOptDisableBtn(true)
     } else {
       counter = setInterval(() => setTimer((prev) => prev - 1), 1000)
@@ -238,6 +246,7 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
           preset="filled"
           onPress={resendOTPHandler}
           style={styles.resendCodeBtn}
+          disabled={!otpDisableBtn}
         />
       </ScrollView>
     </Screen>

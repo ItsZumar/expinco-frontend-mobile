@@ -33,6 +33,8 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const [totalExpense, setTotalExpense] = useState<Number>(0)
   const [transactionsByMonth, setTransactionsByMonth] = useState<any>([])
 
+  const [allEffectsCompleted, setAllEffectsCompleted] = useState<boolean>(false)
+
   const handleButtonClick = async (buttonTitle: string) => {
     await dispatch(getSpendFrequencyService({ orderBy: buttonTitle.toUpperCase() }))
   }
@@ -124,7 +126,6 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
       ScrollViewProps={{ showsVerticalScrollIndicator: false }}
       StatusBarProps={{ backgroundColor: colors.palette.neutral100 }}
     >
-      {/* <MonthSelector setDesiredMonth={setDesiredMonth} /> */}
       <View style={styles.mainHeader}>
         <AutoImage
           source={user?.user?.displayPicture ? { uri: user?.user?.displayPicture } : imagePrev}
@@ -139,112 +140,121 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Balance */}
-      <View style={styles.topBlock}>
-        <Text text="Account Balance" preset="default" style={styles.accountBalanceText} />
-        <Text text={`$${availableBalance}`} preset="heading" style={styles.amountText} />
-      </View>
-
-      <View style={styles.transBtnBlock}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(ScreensEnum.ADD_TRANSACTION as any, {
-              type: String(TransactionType.INCOME),
-            })
-          }
-          style={[styles.incBtnBlock, styles.incBg]}
-        >
-          <View style={styles.arrowBlock}>
-            <Feather name="arrow-down" size={25} color={colors.palette.income} />
-          </View>
-
-          <View>
-            <Text text="Income" preset="default" style={styles.topLightText} />
-            <Text text={`$${totalIncome.toLocaleString()}`} style={styles.actualAmountText} />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate(ScreensEnum.ADD_TRANSACTION as any, {
-              type: String(TransactionType.EXPENSE),
-            })
-          }
-          style={[styles.incBtnBlock, styles.expBg]}
-        >
-          <View style={styles.arrowBlock}>
-            <Feather name="arrow-up" size={25} color={colors.palette.expense} />
-          </View>
-
-          <View>
-            <Text text="Expense" preset="default" style={styles.topLightText} />
-            <Text text={`$${totalExpense.toLocaleString()}`} style={styles.actualAmountText} />
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.bottomBlock}>
-        <AppHeader text="Spend Frequency" />
-
-        <MyLineChart data={spendFrequency.data} labels={spendFrequency.label} />
-
-        <View style={styles.graphSortBlock}>
-          {["Today", "Week", "Month", "Year"].map((el) => (
-            <TouchableOpacity
-              style={styles.timeStampBtn}
-              key={el}
-              onPress={() => handleButtonClick(el)}
-            >
-              <Text text={el} preset="bold" style={styles.timeStampText} />
-            </TouchableOpacity>
-          ))}
+      {spendFrequencyLoading ? (
+        <View style={{ marginTop: 20 }}>
+          <ActivityIndicator color="red" />
         </View>
+      ) : (
+        <View>
+          {/* Balance */}
 
-        <View style={styles.spacingTop}>
-          <AppHeader
-            text="Recent Transactions"
-            rightComponent={() => (
-              <TouchableOpacity
-                style={styles.seeAllbtnBlock}
-                onPress={() => navigation.navigate(ScreensEnum.TRANSACTION as any)}
-              >
-                <Text text="See All" style={styles.seeAllText} />
-              </TouchableOpacity>
-            )}
-          />
+          <View style={styles.topBlock}>
+            <Text text="Account Balance" preset="default" style={styles.accountBalanceText} />
+            <Text text={`$${availableBalance}`} preset="heading" style={styles.amountText} />
+          </View>
 
-          {loading ? (
-            <View style={{ marginTop: 20 }}>
-              <ActivityIndicator color="red" />
-            </View>
-          ) : (
-            <FlatList
-              data={
-                transactionsByMonth
-                // .length > 4 ? transactionsByMonth.splice(0, 4) : []
+          <View style={styles.transBtnBlock}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(ScreensEnum.ADD_TRANSACTION as any, {
+                  type: String(TransactionType.INCOME),
+                })
               }
-              keyExtractor={(item) => String(item._id)}
-              renderItem={({ item }) => (
-                <TransactionCard
-                  {...item}
-                  onPress={() =>
-                    navigation.navigate(ScreensEnum.DETAIL_TRANSACTION as any, { item })
+              style={[styles.incBtnBlock, styles.incBg]}
+            >
+              <View style={styles.arrowBlock}>
+                <Feather name="arrow-down" size={25} color={colors.palette.income} />
+              </View>
+
+              <View>
+                <Text text="Income" preset="default" style={styles.topLightText} />
+                <Text text={`$${totalIncome.toLocaleString()}`} style={styles.actualAmountText} />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate(ScreensEnum.ADD_TRANSACTION as any, {
+                  type: String(TransactionType.EXPENSE),
+                })
+              }
+              style={[styles.incBtnBlock, styles.expBg]}
+            >
+              <View style={styles.arrowBlock}>
+                <Feather name="arrow-up" size={25} color={colors.palette.expense} />
+              </View>
+
+              <View>
+                <Text text="Expense" preset="default" style={styles.topLightText} />
+                <Text text={`$${totalExpense.toLocaleString()}`} style={styles.actualAmountText} />
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.bottomBlock}>
+            <AppHeader text="Spend Frequency" />
+
+            <MyLineChart data={spendFrequency.data} labels={spendFrequency.label} />
+
+            <View style={styles.graphSortBlock}>
+              {["Today", "Week", "Month", "Year"].map((el) => (
+                <TouchableOpacity
+                  style={styles.timeStampBtn}
+                  key={el}
+                  onPress={() => handleButtonClick(el)}
+                >
+                  <Text text={el} preset="bold" style={styles.timeStampText} />
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            <View style={styles.spacingTop}>
+              <AppHeader
+                text="Recent Transactions"
+                rightComponent={() => (
+                  <TouchableOpacity
+                    style={styles.seeAllbtnBlock}
+                    onPress={() => navigation.navigate(ScreensEnum.TRANSACTION as any)}
+                  >
+                    <Text text="See All" style={styles.seeAllText} />
+                  </TouchableOpacity>
+                )}
+              />
+
+              {loading ? (
+                <View style={{ marginTop: 20 }}>
+                  <ActivityIndicator color="red" />
+                </View>
+              ) : (
+                <FlatList
+                  data={
+                    transactionsByMonth
+                    // .length > 4 ? transactionsByMonth.splice(0, 4) : []
+                  }
+                  keyExtractor={(item) => String(item._id)}
+                  renderItem={({ item }) => (
+                    <TransactionCard
+                      {...item}
+                      onPress={() =>
+                        navigation.navigate(ScreensEnum.DETAIL_TRANSACTION as any, { item })
+                      }
+                    />
+                  )}
+                  ListEmptyComponent={() =>
+                    !refreshing && (
+                      <Text
+                        text="You don't have any transactions yet!"
+                        preset="subheading"
+                        style={{ marginVertical: hp(2), marginHorizontal: wp(5) }}
+                      />
+                    )
                   }
                 />
               )}
-              ListEmptyComponent={() =>
-                !refreshing && (
-                  <Text
-                    text="You don't have any transactions yet!"
-                    preset="subheading"
-                    style={{ marginVertical: hp(2), marginHorizontal: wp(5) }}
-                  />
-                )
-              }
-            />
-          )}
+            </View>
+          </View>
         </View>
-      </View>
+      )}
     </Screen>
   )
 }

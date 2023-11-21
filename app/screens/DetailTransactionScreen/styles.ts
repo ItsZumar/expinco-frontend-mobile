@@ -5,6 +5,7 @@ import { hp, wp } from "app/utils/responsive"
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    backgroundColor: colors.palette.neutral100,
   },
   scrollViewStyle: {
     flex: 1,

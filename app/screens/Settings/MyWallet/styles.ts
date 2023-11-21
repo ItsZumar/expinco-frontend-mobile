@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
   btnContainer: {
     paddingHorizontal: wp(5),
     backgroundColor: colors.palette.neutral100,
-    paddingTop: hp(1.5),
+    // paddingTop: hp(1.5),
+    marginBottom: hp(4),
   },
 })
 

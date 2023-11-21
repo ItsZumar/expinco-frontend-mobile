@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FlatList, TouchableOpacity, View } from "react-native"
+import { hp } from "app/utils/responsive"
 import { ScreensEnum } from "app/enums"
-import { GetTransactionListI } from "app/store/slices/transaction/types"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import { getSpendFrequencyService } from "app/store/slices/analytics/analyticsService"
 import { AppHeader, MyLineChart, Text, TransactionCard } from "app/components"
@@ -9,17 +9,17 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
 interface LineGraphReportScreenI {
-  transactions: GetTransactionListI["result"]
   navigation: any
 }
 
-export const LineGraphReportScreen = ({ transactions, navigation }: LineGraphReportScreenI) => {
+export const LineGraphReportScreen = ({ navigation }: LineGraphReportScreenI) => {
   const dispatch = useAppDispatch()
+  const { monthlyTransactions } = useAppSelector((state: RootState) => state.transaction)
   const { spendFrequency } = useAppSelector((state: RootState) => state.spendFrequency)
   const [transactionType, setTransactionType] = useState<"expense" | "income" | string>("expense")
 
   const getFilteredTransactions = (type: "expense" | "income" | string) => {
-    return transactions.data.filter(
+    return monthlyTransactions.data.filter(
       (transaction: { type: string }) =>
         (type === "expense" && transaction.type.toLowerCase() === "expense") ||
         (type === "income" && transaction.type.toLowerCase() === "income"),
@@ -84,6 +84,13 @@ export const LineGraphReportScreen = ({ transactions, navigation }: LineGraphRep
           <TransactionCard
             {...item}
             onPress={() => navigation.navigate(ScreensEnum.DETAIL_TRANSACTION, { item })}
+          />
+        )}
+        ListEmptyComponent={() => (
+          <Text
+            text="You don't have any transaction!"
+            preset="subheading"
+            style={{ marginVertical: hp(1) }}
           />
         )}
       />

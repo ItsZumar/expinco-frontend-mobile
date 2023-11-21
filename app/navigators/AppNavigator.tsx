@@ -46,6 +46,7 @@ export type AppStackParamList = {
   DetailTransactionScreen: { item: any }
   NotificationScreen: undefined
   FinancialReportScreen: undefined
+  EditTransactionScreen: { item: any }
 }
 
 const exitRoutes = Config.exitRoutes
@@ -118,6 +119,10 @@ const AppStack = () => {
         <Stack.Screen
           name={ScreensEnum.DETAIL_TRANSACTION}
           component={Screens.DetailTransactionScreen}
+        />
+        <Stack.Screen
+          name={ScreensEnum.EDIT_TRANSACTION}
+          component={Screens.EditTransactionScreen}
         />
         <Stack.Screen
           name={ScreensEnum.NOTIFICATION_SCREEN}

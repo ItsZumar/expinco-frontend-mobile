@@ -6,7 +6,12 @@ import { TouchableOpacity } from "react-native"
 import { TransactionI } from "app/store/slices/transaction/types"
 import styles from "./styles"
 
-export const ReportCards = ({ ...item }: TransactionI) => {
+interface ReportCardsI {
+  item: TransactionI
+  onPress: (_id: string) => void
+}
+
+export const ReportCards = ({ item, onPress }: ReportCardsI) => {
   const [categoryColor] = useState<string>(
     item.category.name === "Shopping"
       ? colors.palette.accent400
@@ -15,7 +20,7 @@ export const ReportCards = ({ ...item }: TransactionI) => {
       : colors.palette.primary600,
   )
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => onPress(item._id)}>
       <View style={styles.topPortion}>
         <View style={styles.budgetType}>
           <View style={[styles.budgetCircle, { backgroundColor: categoryColor }]}></View>
