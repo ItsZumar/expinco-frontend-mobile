@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react"
-import { ActivityIndicator, FlatList, TouchableOpacity, View } from "react-native"
+import { ActivityIndicator, TouchableOpacity, View } from "react-native"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { AppStackScreenProps } from "app/navigators"
@@ -8,8 +8,8 @@ import { FilterByItems, SortByItems } from "app/constants"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import { getAllTransactions } from "app/store/slices/transaction/transactionService"
 import Ionicons from "react-native-vector-icons/Ionicons"
-import styles from "./styles"
 import MySectionList from "app/components/List/MySectionList"
+import styles from "./styles"
 
 export const TransactionScreen: FC<AppStackScreenProps<ScreensEnum.TRANSACTION>> = ({
   navigation,

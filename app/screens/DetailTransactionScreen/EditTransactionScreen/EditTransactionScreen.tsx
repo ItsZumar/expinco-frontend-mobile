@@ -26,6 +26,7 @@ export const EditTransactionScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_TRAN
   route,
 }) => {
   const { item } = route.params
+  console.log("item === ", item)
   const dispatch = useAppDispatch()
   const {
     wallets: { data: walletData },

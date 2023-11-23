@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createWallet, getAllWallets } from "./walletService"
+import { createWallet, getAllWallets, updateWallet } from "./walletService"
 import { WalletListI } from "./types"
 
 const initialState: WalletListI = {
@@ -70,10 +70,10 @@ export const walletSlice = createSlice({
       //   }
       // })
       .addCase(createWallet.fulfilled, (state, action) => {
+        state.loading = false
         const existingWallet = state.wallets.data.find(
           (item) => item._id === action.payload.result._id,
         )
-
         if (existingWallet) {
           state.wallets = {
             ...state.wallets,
@@ -94,11 +94,32 @@ export const walletSlice = createSlice({
             data: [...state.wallets.data, action.payload.result],
           }
         }
-
-        state.loading = false
       })
 
       .addCase(createWallet.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
+      .addCase(updateWallet.pending, (state) => {
+        state.loading = true
+      })
+
+      .addCase(updateWallet.fulfilled, (state, action) => {
+        state.loading = false
+        state.wallets = {
+          ...state.wallets,
+          data: state.wallets.data.map((item) => {
+            if (item._id === action.payload.result._id) {
+              return action.payload.result
+            } else {
+              return item
+            }
+          }),
+        }
+      })
+
+      .addCase(updateWallet.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

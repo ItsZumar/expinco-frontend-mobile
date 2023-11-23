@@ -33,7 +33,9 @@ export const WalletDetailScreen: FC<AppStackScreenProps<ScreensEnum.WALLET_DETAI
         leftIcon="back"
         onLeftPress={() => navigation.goBack()}
         rightIcon="edit"
-        onRightPress={() => {}}
+        onRightPress={() => {
+          navigation.navigate(ScreensEnum.EDIT_WALLET, { item })
+        }}
       />
 
       <Screen

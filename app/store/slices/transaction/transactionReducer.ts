@@ -202,6 +202,7 @@ export const transactionSlice = createSlice({
       })
       .addCase(createTransaction.fulfilled, (state, action) => {
         state.transactions.data = [...state.transactions.data, action.payload.result]
+        state.recentTransactions.data = [...state.recentTransactions.data, action.payload.result]
 
         if (action.payload.result.type === TransactionType.INCOME) {
           state.totalIncome += action.payload.result.amount
@@ -209,7 +210,6 @@ export const transactionSlice = createSlice({
           state.totalExpense += action.payload.result.amount
         }
 
-        state.recentTransactions.data = [...state.recentTransactions.data, action.payload.result]
         state.loading = false
       })
       .addCase(createTransaction.rejected, (state, action) => {

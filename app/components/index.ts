@@ -35,3 +35,6 @@ export * from "./Modals/WalletModal/WalletModal"
 export * from "./Modals/AlertBox/AlertBox"
 export * from "./Modals/AlertBottomModal/AlertBottomModal"
 export * from "./Modals/FilterModal/FilterModal"
+
+//Month Selector
+export * from "./MonthSelector/MonthSelector"

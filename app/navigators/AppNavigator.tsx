@@ -39,6 +39,7 @@ export type AppStackParamList = {
     item: any
   }
   CreateWallet: undefined
+  EditWallet: { item: any }
   AppSettings: undefined
   ExportData: undefined
   About: undefined
@@ -112,6 +113,8 @@ const AppStack = () => {
         <Stack.Screen name={ScreensEnum.EDIT_BUDGET} component={Screens.EditBudgetScreen} />
         <Stack.Screen name={ScreensEnum.WALLET_DETAIL} component={Screens.WalletDetailScreen} />
         <Stack.Screen name={ScreensEnum.CREATE_WALLET} component={Screens.CreateWallet} />
+        <Stack.Screen name={ScreensEnum.EDIT_WALLET} component={Screens.EditWallet} />
+
         <Stack.Screen name={ScreensEnum.APP_SETTINGS} component={Screens.AppSettingsScreen} />
         <Stack.Screen name={ScreensEnum.EXPORT_DATA} component={Screens.ExportDataScreen} />
         <Stack.Screen name={ScreensEnum.ABOUT} component={Screens.AboutScreen} />

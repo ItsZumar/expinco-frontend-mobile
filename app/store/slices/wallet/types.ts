@@ -46,8 +46,35 @@ export interface CreateWalletI {
   stack: string
 }
 
+export interface UpdateWalletI {
+  result: {
+    _id: string
+    amount: number
+    name: string
+    icon: {
+      format: string
+      secureURL: string
+      _id: string
+      createdAt: string
+      updatedAt: string
+    }
+    owner: string
+    createdAt: string
+    updatedAt: string
+  }
+  error: string
+  stack: string
+}
+
 export interface PayloadCreateWalletI {
   name: string
   amount: string
   icon: string
+}
+
+export interface PayloadEditWalletI {
+  id: string
+  name: string
+  amount: string
+  icon?: string
 }

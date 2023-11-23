@@ -105,7 +105,7 @@ export const ProfileScreen: FC<AppStackScreenProps<ScreensEnum.PROFILE>> = ({ na
               {walletData != null && walletData.length !== 0 ? (
                 <>
                   {walletData.map((el: any) => (
-                    <View key={el.id} style={styles.wallet}>
+                    <View key={el._id} style={styles.wallet}>
                       <Text text={el.name.toUpperCase()} style={styles.walletText} />
                     </View>
                   ))}

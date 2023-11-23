@@ -52,7 +52,7 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
             renderItem={({ item }: any) => (
               <WalletListCard
                 walletData={item}
-                onPress={(id) => navigation.navigate("WalletDetail", { item })}
+                onPress={() => navigation.navigate("WalletDetail", { item })}
               />
             )}
           />

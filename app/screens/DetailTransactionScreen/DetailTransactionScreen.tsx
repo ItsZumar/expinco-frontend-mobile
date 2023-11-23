@@ -49,6 +49,7 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
         leftIcon="back"
         onLeftPress={() => navigation.goBack()}
         rightIcon="delete"
+        rightIconColor={colors.palette.neutral800}
         onRightPress={openModal}
       />
       <Screen

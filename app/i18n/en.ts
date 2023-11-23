@@ -162,6 +162,7 @@ const en = {
   },
   walletScreen: {
     createWallet: "Add new Wallet",
+    editWallet: "Edit Wallet",
   },
   transactionScreen: {
     detailTransaction: "Detail Transaction",

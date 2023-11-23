@@ -2,13 +2,13 @@ import React, { FC, useEffect, useState } from "react"
 import { View } from "react-native"
 import { ScreensEnum } from "app/enums"
 import { AppStackScreenProps } from "app/navigators"
+import { useAppDispatch } from "app/store/store"
+import { MonthSelector } from "app/components"
 import { PieGraphReportScreen } from "./PieGraphReportScreen/PieGraphReportScreen"
 import { LineGraphReportScreen } from "./LineGraphReportScreen/LineGraphReportScreen"
 import { ArrowRoundButton, Header, Screen, ToggleButton } from "app/components"
-import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
-import styles from "./styles"
-import { MonthSelector } from "app/components/MonthSelector/MonthSelector"
 import { getTransactionsByMonth } from "app/store/slices/transaction/transactionService"
+import styles from "./styles"
 
 const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT>> = ({
   navigation,
