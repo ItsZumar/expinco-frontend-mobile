@@ -6,6 +6,11 @@ export interface IconI {
   updatedAt: string
 }
 
+export interface EditWalletI {
+  name: string
+  amount: string
+}
+
 export interface WalletI {
   _id: string
   amount: number
@@ -77,4 +82,8 @@ export interface PayloadEditWalletI {
   name: string
   amount: string
   icon?: string
+}
+
+export interface PayloadDeleteWalletI {
+  id: string
 }

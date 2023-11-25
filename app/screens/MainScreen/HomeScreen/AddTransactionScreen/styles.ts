@@ -71,7 +71,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   spacingRight: { marginRight: wp(3) },
-  spacingTop: { marginTop: hp(4) },
+  spacingTop: {
+    position: "absolute",
+    bottom: hp(11),
+    paddingHorizontal: wp(5),
+    flexDirection: "row",
+  },
 })
 
 export default styles

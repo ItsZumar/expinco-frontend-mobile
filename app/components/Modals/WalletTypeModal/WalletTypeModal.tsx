@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { View, FlatList, ActivityIndicator } from "react-native"
-import { Text } from "app/components/Text/Text"
-import { Button } from "app/components/Buttons/Button/Button"
-import { colors } from "app/theme"
-import { ModalHoc } from "app/components/HOC/ModalScreen/ModalScreen"
+import { FlatList, ActivityIndicator } from "react-native"
 import { TxKeyPath } from "app/i18n"
-import { ListItemCard } from "app/components/Cards/ListItemCard/ListItemCard"
-import { getCategoryList } from "app/store/slices/categoy/categoryService"
 import { TransactionCategoryI } from "app/interfaces"
-import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { Text, Button, ListItemCard, ModalHoc } from "app/components"
+import { walletType } from "app/constants"
 import styles from "./styles"
 
 interface Props {
@@ -20,7 +15,7 @@ interface Props {
   onPressDone?: (data: any) => void
 }
 
-export const CategoryModal = ({
+export const WalletTypeModal = ({
   selectedItem = null,
   isVisible = false,
   title,
@@ -28,13 +23,7 @@ export const CategoryModal = ({
   onPressClose,
   onPressDone,
 }: Props) => {
-  const dispatch = useAppDispatch()
-
   const [showDoneBtn, setShowDoneBtn] = useState<boolean>(false)
-  const { categories, loading: categoryLoading } = useAppSelector(
-    (state: RootState) => state.category,
-  )
-
   const [state, setState] = useState({
     list: [],
     page: 1,
@@ -42,7 +31,6 @@ export const CategoryModal = ({
     listRefreshing: false,
   })
 
-  // Function that selects/unselects a category
   const toggleSelected = (id: string) => {
     let newItems = state.list.map((el) => {
       if (el._id === id) {
@@ -72,10 +60,8 @@ export const CategoryModal = ({
     onPressDone(itemSelected)
   }
 
-  const getCategoriesFromServer = async () => {
-    dispatch(getCategoryList())
-
-    let nList = categories?.data.map((el) => {
+  const getWalletsFromServer = async () => {
+    let nList = walletType?.map((el: any) => {
       if (el._id === selectedItem?._id) {
         return {
           ...el,
@@ -97,15 +83,9 @@ export const CategoryModal = ({
   }
 
   useEffect(() => {
-    /**
-     * If modal is visible, then only we will call api and load data
-     */
     if (isVisible) {
-      getCategoriesFromServer()
+      getWalletsFromServer()
 
-      /**
-       * This will show the done button if user selects more than 2 categories
-       */
       if (selectedItem?._id) {
         setShowDoneBtn(true)
       } else {
@@ -125,15 +105,16 @@ export const CategoryModal = ({
   }, [isVisible])
 
   const FooterComponent = () => {
-    if (!categoryLoading) {
-      return <></>
-    }
+    // if (!isLoading) {
+    //   return null
+    // }
+    // return (
+    //   <View style={{ paddingVertical: 20 }}>
+    //     <ActivityIndicator animating size="small" color={colors.palette.primary500} />
+    //   </View>
+    // )
 
-    return (
-      <View style={{ paddingVertical: 20 }}>
-        <ActivityIndicator animating size="small" color={colors.palette.primary500} />
-      </View>
-    )
+    return <></>
   }
 
   return (
@@ -148,8 +129,9 @@ export const CategoryModal = ({
         style={styles.flatlistStyles}
         contentContainerStyle={styles.containerStyle}
         ListFooterComponent={FooterComponent}
-        // ListEmptyComponent={() => !isLoading && <Text text="No categories found!" />}
+        ListEmptyComponent={() => <Text text="No wallets found!" />}
       />
+
       {showDoneBtn && (
         <Button
           tx="common.ok"

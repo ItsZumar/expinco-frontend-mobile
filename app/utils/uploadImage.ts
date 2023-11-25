@@ -14,7 +14,6 @@ export const uploadImageToCloudinary = async (selectedImage: any): Promise<any> 
         "Content-Type": "multipart/form-data",
       },
     })
-    console.log("File upload response:", uploadResponse.data.result.newFileStorage)
     return uploadResponse.data.result.newFileStorage
   } catch (error) {
     console.error("File upload error:", error)

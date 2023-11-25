@@ -7,12 +7,17 @@ interface ChartData {
   labels: string[]
 }
 
-const truncateLabelsToThreeLetters = (labels: string[]) => {
-  return labels.map((label) => label.substring(0, 3))
+const truncateLabelsToThreeLetters = (labels: string[], count: number) => {
+  return labels.slice(-count).map((label) => label.substring(0, 3))
+}
+
+const truncateData = (data: number[], count: number) => {
+  return data.slice(-count)
 }
 
 const MyLineChart = ({ data, labels }: ChartData) => {
-  const truncatedLabels = truncateLabelsToThreeLetters(labels)
+  const truncatedLabels = truncateLabelsToThreeLetters(labels, 5)
+  const truncatedData = truncateData(data, 5)
 
   return (
     <LineChart
@@ -20,7 +25,7 @@ const MyLineChart = ({ data, labels }: ChartData) => {
         labels: truncatedLabels,
         datasets: [
           {
-            data: data,
+            data: truncatedData,
           },
         ],
       }}

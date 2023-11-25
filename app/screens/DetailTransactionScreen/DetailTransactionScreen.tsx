@@ -44,19 +44,15 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
 
   return (
     <View style={styles.mainContainer}>
-      <Header
-        titleTx="transactionScreen.detailTransaction"
-        leftIcon="back"
-        onLeftPress={() => navigation.goBack()}
-        rightIcon="delete"
-        rightIconColor={colors.palette.neutral800}
-        onRightPress={openModal}
-      />
-      <Screen
-        preset="scroll"
-        safeAreaEdges={["bottom"]}
-        ScrollViewProps={{ showsVerticalScrollIndicator: false }}
-      >
+      <View style={{ flex: 1 }}>
+        <Header
+          titleTx="transactionScreen.detailTransaction"
+          leftIcon="back"
+          onLeftPress={() => navigation.goBack()}
+          rightIcon="delete"
+          rightIconColor={colors.palette.neutral800}
+          onRightPress={openModal}
+        />
         <View
           style={[
             styles.topContainer,
@@ -119,7 +115,7 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
             ))}
           </View>
         </View>
-      </Screen>
+      </View>
 
       <View style={{ paddingHorizontal: wp(2), marginBottom: hp(3.5) }}>
         <Button
@@ -136,8 +132,8 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
         message="Are you sure do you wanna remove this transaction?"
         isVisible={modalVisible}
         onModalClose={closeModal}
-        primaryBtnText="Done"
-        secondaryBtnText="Cancel"
+        primaryBtnText="Yes"
+        secondaryBtnText="No"
         onBtnPress={removeTransaction}
         onBackdropPress={handleBackdropPress}
       />

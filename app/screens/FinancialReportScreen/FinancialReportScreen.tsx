@@ -41,11 +41,8 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
   useEffect(() => {
     const currentDate = new Date()
     const currentMonth = currentDate.toLocaleString("en-US", { month: "long" })
+    dispatch(getTransactionsByMonth({ month: currentMonth }))
     setSelectedMonth(currentMonth)
-  }, [])
-
-  useEffect(() => {
-    dispatch(getTransactionsByMonth({ month: selectedMonth }))
   }, [])
 
   return (

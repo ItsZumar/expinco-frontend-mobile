@@ -11,11 +11,13 @@ const styles = StyleSheet.create({
   flatlistStyles: {
     flex: 1,
   },
+  containerStyle: {
+    paddingBottom: hp(10),
+  },
   spacingBottom: {
     position: "absolute",
-    bottom: hp(2),
+    bottom: hp(5),
   },
-  containerStyle: { paddingBottom: hp(10) },
 })
 
 export default styles

@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
     height: hp(5),
     borderRadius: 10,
   },
+  headerIcons: {
+    flexDirection: "row",
+    paddingHorizontal: wp(4),
+  },
 })
 
 export default styles

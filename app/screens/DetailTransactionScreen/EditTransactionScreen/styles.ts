@@ -74,7 +74,10 @@ const styles = StyleSheet.create({
     marginRight: wp(3),
   },
   spacingTop: {
-    marginTop: hp(4),
+    position: "absolute",
+    bottom: hp(11),
+    paddingHorizontal: wp(5),
+    flexDirection: "row",
   },
   closeBtn: {
     position: "absolute",

@@ -6,16 +6,13 @@ import { ScreensEnum } from "app/enums"
 import { TransactionType } from "app/enums/transactions.enum"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionCategoryI } from "app/interfaces"
-import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
-import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { useAppDispatch } from "app/store/store"
 import { getAllWallets } from "app/store/slices/wallet/walletService"
 import { WalletI } from "app/store/slices/wallet/types"
-import {
-  createTransaction,
-  updateTransaction,
-} from "app/store/slices/transaction/transactionService"
 import { launchImageLibrary } from "react-native-image-picker"
 import { uploadImageToCloudinary } from "app/utils/uploadImage"
+import { Button, Header, Text, CategoryModal, WalletModal } from "app/components"
+import { updateTransaction } from "app/store/slices/transaction/transactionService"
 import imagePrev from "../../../../images/no-image.jpg"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import Icon from "react-native-vector-icons/Entypo"
@@ -26,11 +23,7 @@ export const EditTransactionScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_TRAN
   route,
 }) => {
   const { item } = route.params
-  console.log("item === ", item)
   const dispatch = useAppDispatch()
-  const {
-    wallets: { data: walletData },
-  } = useAppSelector((state: RootState) => state.wallet)
 
   const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
   const [showWalletModal, setShowWalletModal] = useState<boolean>(false)
@@ -48,9 +41,8 @@ export const EditTransactionScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_TRAN
 
   const onUpdateTransactionPress = async () => {
     if (attachmentUpload) {
-      await uploadImageToCloudinary(selectedAttachment)
+      // await uploadImageToCloudinary(selectedAttachment)
       const file = await uploadImageToCloudinary(selectedAttachment)
-
       if (file) {
         await dispatch(
           updateTransaction({
@@ -73,7 +65,7 @@ export const EditTransactionScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_TRAN
           category: selectedCategory._id,
           wallet: selectedWallet._id,
           description: description,
-          attachments: attachments,
+          attachments: [selectedAttachment[0]._id],
         }),
       )
     }
@@ -87,35 +79,37 @@ export const EditTransactionScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_TRAN
     })
 
     if (result?.assets) {
-      const selectedImageUri = result.assets[0].uri
       setSelectedAttachment(result.assets[0])
       setAttachmentUpload(true)
-      setAttachments({ ...attachments, uri: selectedImageUri })
+      setAttachments({ ...attachments, uri: result.assets[0].uri })
     }
   }
 
-  const removeAttachment = async () => {}
+  const removeAttachment = async () => {
+    setAttachmentUpload(false)
+    setAttachments({ ...attachments, uri: "" })
+  }
 
   useEffect(() => {
     dispatch(getAllWallets())
   }, [])
 
   return (
-    <Screen>
+    <View>
+      <Header
+        title={item?.type === TransactionType.INCOME ? "Edit Income" : "Edit Expense"}
+        leftIcon="back"
+        onLeftPress={() => navigation.goBack()}
+      />
       <View
         style={{
+          // flex: 1,
           height: hp(100),
           backgroundColor: item?.type.match(TransactionType.INCOME)
             ? colors.palette.income
             : colors.palette.expense,
         }}
       >
-        <Header
-          title={item?.type === TransactionType.INCOME ? "Edit Income" : "Edit Expense"}
-          leftIcon="back"
-          onLeftPress={() => navigation.goBack()}
-        />
-
         <View style={styles.underHeaderBlock}>
           <View style={styles.amountBlock}>
             <Text style={styles.subTitleText}>How much?</Text>
@@ -166,9 +160,7 @@ export const EditTransactionScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_TRAN
                     <Icon name="cross" size={20} color="white" />
                   </TouchableOpacity>
                   <Image
-                    source={
-                      attachments[0].secureURL ? { uri: attachments[0].secureURL } : imagePrev
-                    }
+                    source={attachments[0].secureURL && { uri: attachments[0].secureURL }}
                     style={{ width: wp(13), height: hp(6), borderRadius: hp(1) }}
                   />
                 </>
@@ -179,22 +171,21 @@ export const EditTransactionScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_TRAN
                 </>
               )}
             </TouchableOpacity>
-
-            <Button
-              text={item?.type === TransactionType.INCOME ? "Edit Income" : "Edit Expense"}
-              onPress={onUpdateTransactionPress}
-              preset={item?.type === TransactionType.INCOME ? "income" : "expense"}
-              style={styles.spacingTop}
-            />
           </View>
         </View>
+      </View>
+      <View style={styles.spacingTop}>
+        <Button
+          text={item?.type === TransactionType.INCOME ? "Edit Income" : "Edit Expense"}
+          onPress={onUpdateTransactionPress}
+          preset={item?.type === TransactionType.INCOME ? "income" : "expense"}
+        />
       </View>
 
       <CategoryModal
         isVisible={showCategoryModal}
         selectedItem={selectedCategory}
         title="Choose Category"
-        subTitle="Select the category of your transaction"
         onPressClose={() => setShowCategoryModal(false)}
         onPressDone={(data) => {
           setSelectedCategory(data[0])
@@ -205,14 +196,12 @@ export const EditTransactionScreen: FC<AppStackScreenProps<ScreensEnum.EDIT_TRAN
       <WalletModal
         isVisible={showWalletModal}
         title="Choose Wallet"
-        subTitle="Select the wallet for your transaction"
         onPressClose={() => setShowWalletModal(false)}
         onPressDone={(data) => {
           setSelectedWallet(data[0])
           setShowWalletModal(false)
         }}
-        ownerWallets={walletData}
       />
-    </Screen>
+    </View>
   )
 }

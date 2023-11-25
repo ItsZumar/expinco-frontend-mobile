@@ -1,8 +1,16 @@
 import React, { FC, useEffect, useState } from "react"
-import { ActivityIndicator, FlatList, TouchableOpacity, View, ViewStyle } from "react-native"
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AppStackScreenProps } from "app/navigators"
-import { Screen, AutoImage, Text, AppHeader, TransactionCard, MyLineChart } from "app/components"
+import { AutoImage, Text, AppHeader, TransactionCard, MyLineChart } from "app/components"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
 import { TransactionType } from "app/enums/transactions.enum"
@@ -28,6 +36,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   )
 
   const [refreshing, setRefresing] = useState<boolean>(false)
+  // const [fullScreenRefreshing, setFullScreenRefreshing] = useState<boolean>(false)
   const [availableBalance, setAvailableBalance] = useState<Number>(0)
   const [totalIncome, setTotalIncome] = useState<Number>(0)
   const [totalExpense, setTotalExpense] = useState<Number>(0)
@@ -91,6 +100,14 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     await setTransactionsByMonth(filteredTransactions)
   }
 
+  // const handleFullScreenRefresh = async () => {
+  //   setFullScreenRefreshing(true)
+  //   await dispatch(getAllWallets())
+  //   await dispatch(getAllRecentTransactions())
+  //   await dispatch(getSpendFrequencyService({ orderBy: "YEAR" }))
+  //   setFullScreenRefreshing(false)
+  // }
+
   useEffect(() => {
     getTotalAvailableBalance()
   }, [])
@@ -100,8 +117,11 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   }, [])
 
   useEffect(() => {
-    dispatch(getAllRecentTransactions())
-  }, [])
+    const unsubscribe = navigation.addListener("focus", () => {
+      dispatch(getAllRecentTransactions())
+    })
+    return unsubscribe
+  }, [navigation])
 
   useEffect(() => {
     dispatch(getSpendFrequencyService({ orderBy: "YEAR" }))
@@ -118,11 +138,16 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   }, [transactionsByMonth])
 
   return (
-    <Screen
-      style={$root}
-      preset="auto"
-      ScrollViewProps={{ showsVerticalScrollIndicator: false }}
-      StatusBarProps={{ backgroundColor: colors.palette.neutral100 }}
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={{ backgroundColor: colors.palette.neutral100 }}
+      // refreshControl={
+      //   <RefreshControl
+      //     colors={[colors.palette.accent500]}
+      //     refreshing={fullScreenRefreshing}
+      //     onRefresh={handleFullScreenRefresh}
+      //   />
+      // }
     >
       <View style={styles.mainHeader}>
         <AutoImage
@@ -138,11 +163,6 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* {spendFrequencyLoading ? (
-        <View style={{ marginTop: 20 }}>
-          <ActivityIndicator color="red" />
-        </View>
-      ) : ( */}
       <View>
         {/* Balance */}
 
@@ -226,8 +246,9 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
             ) : (
               <FlatList
                 data={
-                  transactionsByMonth
-                  // .length > 4 ? transactionsByMonth.splice(0, 4) : []
+                  transactionsByMonth.length > 4
+                    ? transactionsByMonth.slice(0, 4)
+                    : transactionsByMonth
                 }
                 keyExtractor={(item) => String(item._id)}
                 renderItem={({ item }) => (
@@ -252,8 +273,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
           </View>
         </View>
       </View>
-      {/* )} */}
-    </Screen>
+    </ScrollView>
   )
 }
 

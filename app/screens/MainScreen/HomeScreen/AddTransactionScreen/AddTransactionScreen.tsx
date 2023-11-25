@@ -42,7 +42,6 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
     if (attachmentUpload) {
       await uploadImageToCloudinary(selectedAttachment)
       const file = await uploadImageToCloudinary(selectedAttachment)
-
       await dispatch(
         createTransaction({
           type: type,
@@ -76,22 +75,21 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
   }, [])
 
   return (
-    <Screen>
+    <View>
+      <Header
+        titleTx={type === TransactionType.INCOME ? "common.income" : "common.expense"}
+        leftIcon="back"
+        onLeftPress={() => navigation.goBack()}
+      />
       <View
         style={{
+          // flex: 1,
           height: hp(100),
           backgroundColor: type.match(TransactionType.INCOME)
             ? colors.palette.income
             : colors.palette.expense,
         }}
       >
-        {/* type === TransactionType.INCOME ? "Add Income" : "Add Expense" */}
-        <Header
-          titleTx={type === TransactionType.INCOME ? "common.income" : "common.expense"}
-          leftIcon="back"
-          onLeftPress={() => navigation.goBack()}
-        />
-
         <View style={styles.underHeaderBlock}>
           <View style={styles.amountBlock}>
             <Text style={styles.subTitleText}>How much?</Text>
@@ -150,22 +148,22 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
                 </>
               )}
             </TouchableOpacity>
-
-            <Button
-              text={type === TransactionType.INCOME ? "Add Income" : "Add Expense"}
-              onPress={onAddTransactionPress}
-              preset={type === TransactionType.INCOME ? "income" : "expense"}
-              style={styles.spacingTop}
-            />
           </View>
         </View>
+      </View>
+
+      <View style={styles.spacingTop}>
+        <Button
+          text={type === TransactionType.INCOME ? "Add Income" : "Add Expense"}
+          onPress={onAddTransactionPress}
+          preset={type === TransactionType.INCOME ? "income" : "expense"}
+        />
       </View>
 
       <CategoryModal
         isVisible={showCategoryModal}
         selectedItem={selectedCategory}
         title="Choose Category"
-        subTitle="Select the category of your transaction"
         onPressClose={() => setShowCategoryModal(false)}
         onPressDone={(data) => {
           setSelectedCategory(data[0])
@@ -176,14 +174,12 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
       <WalletModal
         isVisible={showWalletModal}
         title="Choose Wallet"
-        subTitle="Select the wallet for your transaction"
         onPressClose={() => setShowWalletModal(false)}
         onPressDone={(data) => {
           setSelectedWallet(data[0])
           setShowWalletModal(false)
         }}
-        ownerWallets={walletData}
       />
-    </Screen>
+    </View>
   )
 }

@@ -49,8 +49,8 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
 
     if (Object.values(validationErrors).every((error) => !error)) {
       if (imageUpload) {
-        await uploadImageToCloudinary(selectedImage)
-        updateUser.displayPicture = profileImage.uri
+        const profilePic = await uploadImageToCloudinary(selectedImage)
+        updateUser.displayPicture = profilePic.secureURL
       }
       await dispatch(updateUserService(updateUser))
     }

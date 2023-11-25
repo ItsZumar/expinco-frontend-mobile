@@ -119,7 +119,7 @@ export interface UpdateTransactionPayloadI {
   category: string
   description: string
   wallet: string
-  attachments?: string | string[]
+  attachments?: string | string[] | any
 }
 
 export interface DeleteTransactionPayloadI {

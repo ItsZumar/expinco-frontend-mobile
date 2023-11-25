@@ -32,9 +32,12 @@ export * from "./HOC/StickyBottomModal/StickyBottomModal"
 // Modals
 export * from "./Modals/CategoryModal/CategoryModal"
 export * from "./Modals/WalletModal/WalletModal"
+export * from "./Modals/WalletTypeModal/WalletTypeModal"
 export * from "./Modals/AlertBox/AlertBox"
 export * from "./Modals/AlertBottomModal/AlertBottomModal"
 export * from "./Modals/FilterModal/FilterModal"
 
 //Month Selector
 export * from "./MonthSelector/MonthSelector"
+
+export * from "./TransactionList/TransactionList"

@@ -1,13 +1,21 @@
-import React, { FC, useState } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
 import { hp } from "app/utils/responsive"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionCategoryI } from "app/interfaces"
 import { TextInput, TouchableOpacity, View } from "react-native"
-import { AlertBox, Button, Header, Screen, Text, WalletModal } from "app/components"
+import {
+  AlertBox,
+  Button,
+  Header,
+  Screen,
+  Text,
+  WalletModal,
+  WalletTypeModal,
+} from "app/components"
 import { useAppDispatch } from "app/store/store"
-import { createWallet } from "app/store/slices/wallet/walletService"
+import { createWallet, getAllWallets } from "app/store/slices/wallet/walletService"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
@@ -108,11 +116,10 @@ export const CreateWallet: FC<AppStackScreenProps<ScreensEnum.CREATE_WALLET>> = 
         title={""}
       /> */}
 
-      <WalletModal
+      <WalletTypeModal
         isVisible={showCategoryModal}
         selectedItem={selectedCategory}
         title="Choose Wallet Type"
-        subTitle="Select the Wallet"
         onPressClose={() => setShowCategoryModal(false)}
         onPressDone={(data) => {
           setSelectedCategory(data[0])

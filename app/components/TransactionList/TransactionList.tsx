@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { View, SectionList, StyleSheet } from "react-native"
 import { Text } from "../Text/Text"
 import { hp, wp } from "app/utils/responsive"
@@ -6,6 +6,7 @@ import { TransactionCard } from "../Cards/TransactionCard/TransactionCard"
 import { TransactionI } from "app/store/slices/transaction/types"
 import { ScreensEnum } from "app/enums"
 import { colors } from "app/theme"
+import { RefreshControl } from "react-native"
 
 const groupTransactionsByDay = (transactions: TransactionI[]) => {
   const groupedData: { [day: string]: { date: string; data: TransactionI[] }[] } = {}
@@ -31,7 +32,7 @@ const groupTransactionsByDay = (transactions: TransactionI[]) => {
   return groupedData
 }
 
-const MySectionList: React.FC<{
+const TransactionList: React.FC<{
   transactions: TransactionI[]
   refreshing: boolean
   navigation: any
@@ -98,4 +99,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default MySectionList
+export { TransactionList }

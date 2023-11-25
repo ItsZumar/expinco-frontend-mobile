@@ -37,6 +37,18 @@ export const walletType = [
       updatedAt: "2023-10-28T14:48:22.554Z",
     },
   },
+  {
+    _id: "5",
+    name: "Investment",
+    icon: {
+      format: "jpg",
+      secureURL:
+        "https://res.cloudinary.com/dnpfq0qed/image/upload/v1700907333/wrcwac07vzya2vytfwxf.jpg",
+      _id: "6561c945241e76b0229b8fba",
+      createdAt: "2023-11-25T10:15:33.990Z",
+      updatedAt: "2023-11-25T10:15:33.990Z",
+    },
+  },
 ]
 
 export const myWalletsData: WalletI[] = [

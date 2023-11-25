@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { View, FlatList, ActivityIndicator } from "react-native"
-import { colors } from "app/theme"
+import { FlatList } from "react-native"
 import { TxKeyPath } from "app/i18n"
+import { getAllWallets } from "app/store/slices/wallet/walletService"
 import { TransactionCategoryI } from "app/interfaces"
 import { Text, Button, ListItemCard, ModalHoc } from "app/components"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
-import { getCategoryList } from "app/store/slices/categoy/categoryService"
-import { walletType } from "app/constants"
 import styles from "./styles"
 
 interface Props {
@@ -14,9 +12,6 @@ interface Props {
   isVisible: boolean
   title: string
   titleTx?: TxKeyPath
-  subTitle: string
-  subTitleTx?: TxKeyPath
-  ownerWallets?: any
   onPressClose?: () => void
   onPressDone?: (data: any) => void
 }
@@ -26,12 +21,12 @@ export const WalletModal = ({
   isVisible = false,
   title,
   titleTx,
-  subTitle,
-  subTitleTx,
-  ownerWallets,
   onPressClose,
   onPressDone,
 }: Props) => {
+  const dispatch = useAppDispatch()
+  const { wallets, loading: walletsLoading } = useAppSelector((state: RootState) => state.wallet)
+
   const [showDoneBtn, setShowDoneBtn] = useState<boolean>(false)
   const [state, setState] = useState({
     list: [],
@@ -71,48 +66,30 @@ export const WalletModal = ({
   }
 
   const getWalletsFromServer = async () => {
-    if (ownerWallets && ownerWallets.length != 0) {
-      let nList = ownerWallets?.map((el: any) => {
-        if (el._id === selectedItem?._id) {
-          return {
-            ...el,
-            selected: true,
-          }
-        } else {
-          return {
-            ...el,
-            selected: false,
-          }
+    let nList = wallets?.data?.map((el: any) => {
+      if (el._id === selectedItem?._id) {
+        return {
+          ...el,
+          selected: true,
         }
-      })
-      setState((prev) => ({
-        ...prev,
-        list: nList,
-        page: 1 + state.page,
-        hasNext: false,
-      }))
-    } else {
-      let nList = walletType?.map((el: any) => {
-        if (el._id === selectedItem?._id) {
-          return {
-            ...el,
-            selected: true,
-          }
-        } else {
-          return {
-            ...el,
-            selected: false,
-          }
+      } else {
+        return {
+          ...el,
+          selected: false,
         }
-      })
-      setState((prev) => ({
-        ...prev,
-        list: nList,
-        page: 1 + state.page,
-        hasNext: false,
-      }))
-    }
+      }
+    })
+    setState((prev) => ({
+      ...prev,
+      list: nList,
+      page: 1 + state.page,
+      hasNext: false,
+    }))
   }
+
+  useEffect(() => {
+    dispatch(getAllWallets())
+  }, [])
 
   useEffect(() => {
     if (isVisible) {
@@ -151,8 +128,6 @@ export const WalletModal = ({
 
   return (
     <ModalHoc title={title} titleTx={titleTx} isVisible={isVisible} onPressClose={onPressClose}>
-      <Text text={subTitle} tx={subTitleTx} style={styles.subTitleText} />
-
       <FlatList
         data={state.list}
         showsVerticalScrollIndicator={false}
@@ -163,7 +138,7 @@ export const WalletModal = ({
         style={styles.flatlistStyles}
         contentContainerStyle={styles.containerStyle}
         ListFooterComponent={FooterComponent}
-        ListEmptyComponent={() => <Text text="No wallets found!" />}
+        ListEmptyComponent={() => <Text text="Create Wallet First!" preset="subheading" />}
       />
 
       {showDoneBtn && (

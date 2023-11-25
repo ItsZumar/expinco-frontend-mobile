@@ -2,14 +2,19 @@ import React, { FC, useEffect, useState } from "react"
 import { ActivityIndicator, FlatList, View } from "react-native"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
-import { Header, AutoImage, Button, Text, WalletListCard, Screen } from "app/components"
+import { Header, AutoImage, Button, Text, WalletListCard } from "app/components"
 import { AppStackScreenProps } from "app/navigators"
-import { RootState, useAppSelector } from "app/store/store"
+import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
+import { getAllWallets } from "app/store/slices/wallet/walletService"
+import { RefreshControl } from "react-native"
 import styles from "./styles"
 
 export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = ({ navigation }) => {
+  const dispatch = useAppDispatch()
+
   const { wallets, loading } = useAppSelector((state: RootState) => state.wallet)
   const [availableBalance, setAvailableBalance] = useState<Number>(0)
+  const [refreshing, setRefreshing] = useState<boolean>(false)
 
   const getTotalAvailableBalance = () => {
     const totalAmount = wallets.data.reduce((accumulator, currentValue) => {
@@ -22,6 +27,13 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
     getTotalAvailableBalance()
   }, [wallets])
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      dispatch(getAllWallets())
+    })
+    return unsubscribe
+  }, [navigation])
+
   return (
     <>
       <Header title="My Wallets" leftIcon="back" onLeftPress={() => navigation.goBack()} />
@@ -31,12 +43,7 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
           <ActivityIndicator color="red" />
         </View>
       ) : (
-        <Screen
-          preset="scroll"
-          safeAreaEdges={["bottom"]}
-          ScrollViewProps={{ showsVerticalScrollIndicator: false }}
-          style={styles.root}
-        >
+        <View style={styles.root}>
           <View style={styles.totalBalanceContainer}>
             <AutoImage
               source={require("../../../../assets/images/wallets-bg.png")}
@@ -55,8 +62,19 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
                 onPress={() => navigation.navigate("WalletDetail", { item })}
               />
             )}
+            refreshControl={
+              <RefreshControl
+                colors={[colors.palette.accent500]}
+                refreshing={refreshing}
+                onRefresh={() => {
+                  setRefreshing(true)
+                  dispatch(getAllWallets())
+                  setRefreshing(false)
+                }}
+              />
+            }
           />
-        </Screen>
+        </View>
       )}
       <View style={styles.btnContainer}>
         <Button

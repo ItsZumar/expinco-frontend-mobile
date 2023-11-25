@@ -68,13 +68,11 @@ export const getTransactionsByMonth: any = createAsyncThunk(
   async (payload: any, { rejectWithValue }) => {
     try {
       let apiConfig = await api.getApiConfig(true)
-
       const response: AxiosResponse<GetTransactionListI> = await axiosInstance.get(
         `/transaction/list?month=${payload.month}`,
         apiConfig,
       )
 
-      console.log("res by month === ", response.data.result.data)
       return response.data
     } catch (response: any) {
       return rejectWithValue(response.data.error || "Something went wrong!")
@@ -144,6 +142,8 @@ export const updateTransaction: any = createAsyncThunk(
         type: "danger",
         message: `Error: ${response.data.error}`,
       })
+
+      console.log(`Error: ${response.data.error}`)
       return rejectWithValue(response.data.error || "Something went wrong!")
     }
   },
