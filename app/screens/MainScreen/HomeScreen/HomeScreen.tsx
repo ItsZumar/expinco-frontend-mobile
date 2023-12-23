@@ -114,12 +114,9 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   }, [])
 
   useEffect(() => {
-    dispatch(getAllWallets())
-  }, [])
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", () => {
+    const unsubscribe = navigation.addListener("focus", async () => {
       dispatch(getAllRecentTransactions())
+      dispatch(getAllWallets())
     })
     return unsubscribe
   }, [navigation])

@@ -77,6 +77,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(5),
     flexDirection: "row",
   },
+  closeBtn: {
+    position: "absolute",
+    backgroundColor: "red",
+    right: hp(0.7),
+    top: hp(0.7),
+    borderRadius: wp(50),
+  },
 })
 
 export default styles

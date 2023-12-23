@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     paddingHorizontal: wp(5),
     backgroundColor: colors.palette.neutral100,
-    marginBottom: hp(6.5),
+    marginBottom: hp(4),
     flexDirection: "row",
   },
 })

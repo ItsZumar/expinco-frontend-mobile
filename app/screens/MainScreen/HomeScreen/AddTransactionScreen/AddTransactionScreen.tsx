@@ -14,6 +14,7 @@ import { createTransaction } from "app/store/slices/transaction/transactionServi
 import { launchImageLibrary } from "react-native-image-picker"
 import { uploadImageToCloudinary } from "app/utils/uploadImage"
 import { showMessage } from "react-native-flash-message"
+import Icon from "react-native-vector-icons/Entypo"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
@@ -23,9 +24,6 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
 }) => {
   const dispatch = useAppDispatch()
   const { type } = route.params
-  const {
-    wallets: { data: walletData },
-  } = useAppSelector((state: RootState) => state.wallet)
 
   const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false)
   const [showWalletModal, setShowWalletModal] = useState<boolean>(false)
@@ -75,6 +73,12 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
       setAttachmentUpload(true)
       setAttachments({ ...attachments, uri: selectedImageUri })
     }
+  }
+
+  const handleRemoveAttachment = () => {
+    setAttachmentUpload(false)
+    setSelectedAttachment(null)
+    setAttachments(null)
   }
 
   useEffect(() => {
@@ -143,6 +147,9 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
             <TouchableOpacity style={styles.attachmentBtn} onPress={uploadAttachment}>
               {attachments ? (
                 <>
+                  <TouchableOpacity onPress={handleRemoveAttachment} style={styles.closeBtn}>
+                    <Icon name="cross" size={20} color="white" />
+                  </TouchableOpacity>
                   <Image
                     source={attachments}
                     style={{ width: wp(13), height: hp(6), borderRadius: hp(1) }}

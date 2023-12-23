@@ -43,46 +43,48 @@ export const MyWalletScreen: FC<AppStackScreenProps<ScreensEnum.MY_WALLETS>> = (
           <ActivityIndicator color="red" />
         </View>
       ) : (
-        <View style={styles.root}>
-          <View style={styles.totalBalanceContainer}>
-            <AutoImage
-              source={require("../../../../assets/images/wallets-bg.png")}
-              style={styles.totalBalanceImage}
-            />
-            <Text text="Available Balance" style={{ color: colors.textDim }} />
+        <>
+          <View style={styles.root}>
+            <View style={styles.totalBalanceContainer}>
+              <AutoImage
+                source={require("../../../../assets/images/wallets-bg.png")}
+                style={styles.totalBalanceImage}
+              />
+              <Text text="Available Balance" style={{ color: colors.textDim }} />
 
-            <Text text={`$${availableBalance.toLocaleString()}`} preset="heading" />
+              <Text text={`$${availableBalance.toLocaleString()}`} preset="heading" />
+            </View>
+            <FlatList
+              data={wallets.data}
+              keyExtractor={(item) => item._id}
+              renderItem={({ item }: any) => (
+                <WalletListCard
+                  walletData={item}
+                  onPress={() => navigation.navigate("WalletDetail", { item })}
+                />
+              )}
+              refreshControl={
+                <RefreshControl
+                  colors={[colors.palette.accent500]}
+                  refreshing={refreshing}
+                  onRefresh={() => {
+                    setRefreshing(true)
+                    dispatch(getAllWallets())
+                    setRefreshing(false)
+                  }}
+                />
+              }
+            />
           </View>
-          <FlatList
-            data={wallets.data}
-            keyExtractor={(item) => item._id}
-            renderItem={({ item }: any) => (
-              <WalletListCard
-                walletData={item}
-                onPress={() => navigation.navigate("WalletDetail", { item })}
-              />
-            )}
-            refreshControl={
-              <RefreshControl
-                colors={[colors.palette.accent500]}
-                refreshing={refreshing}
-                onRefresh={() => {
-                  setRefreshing(true)
-                  dispatch(getAllWallets())
-                  setRefreshing(false)
-                }}
-              />
-            }
-          />
-        </View>
+          <View style={styles.btnContainer}>
+            <Button
+              text="Add Wallet"
+              preset="filled"
+              onPress={() => navigation.navigate(ScreensEnum.CREATE_WALLET as any)}
+            />
+          </View>
+        </>
       )}
-      <View style={styles.btnContainer}>
-        <Button
-          text="Add Wallet"
-          preset="filled"
-          onPress={() => navigation.navigate(ScreensEnum.CREATE_WALLET as any)}
-        />
-      </View>
     </>
   )
 }

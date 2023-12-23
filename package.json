@@ -5,6 +5,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "react-native start",
+    "build": "npx react-native run-android --variant=release",
     "ios": "react-native run-ios",
     "android": "react-native run-android --active-arch-only",
     "compile": "tsc --noEmit -p . --pretty",

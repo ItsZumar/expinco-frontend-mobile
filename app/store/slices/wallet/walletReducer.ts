@@ -44,6 +44,7 @@ export const walletSlice = createSlice({
         state.loading = true
       })
       .addCase(getAllWallets.fulfilled, (state, action) => {
+        // console.log("balance === ", action.payload.result)
         state.loading = false
         state.wallets = action.payload.result
       })

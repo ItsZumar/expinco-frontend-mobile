@@ -18,7 +18,7 @@ export const LineGraphReportScreen = ({ navigation }: LineGraphReportScreenI) =>
   const { spendFrequency } = useAppSelector((state: RootState) => state.spendFrequency)
   const [transactionType, setTransactionType] = useState<"expense" | "income" | string>("expense")
 
-  const getFilteredTransactions = (type: "expense" | "income" | string) => {
+  const getFilteredTransactionsByType = (type: "expense" | "income" | string) => {
     return monthlyTransactions.data.filter(
       (transaction: { type: string }) =>
         (type === "expense" && transaction.type.toLowerCase() === "expense") ||
@@ -27,7 +27,7 @@ export const LineGraphReportScreen = ({ navigation }: LineGraphReportScreenI) =>
   }
 
   const getTotalAmount = (type: "expense" | "income" | string) => {
-    const filteredTransactions = getFilteredTransactions(type)
+    const filteredTransactions = getFilteredTransactionsByType(type)
     const totalAmount = filteredTransactions.reduce(
       (total, transaction) => total + transaction.amount,
       0,
@@ -44,8 +44,7 @@ export const LineGraphReportScreen = ({ navigation }: LineGraphReportScreenI) =>
   }, [])
 
   useEffect(() => {
-    console.log("month tran === ", monthlyTransactions)
-    console.log("spend freq === ", spendFrequency)
+    setTransactionType("expense")
   }, [])
 
   return (
@@ -83,7 +82,7 @@ export const LineGraphReportScreen = ({ navigation }: LineGraphReportScreenI) =>
       </View>
 
       <FlatList
-        data={getFilteredTransactions(transactionType)}
+        data={getFilteredTransactionsByType(transactionType)}
         keyExtractor={(item) => String(item._id)}
         renderItem={({ item }) => (
           <TransactionCard
