@@ -234,13 +234,7 @@ export const OtpVerificationScreen: FC<OtpVerificationScreenProps> = ({ navigati
           <Text text={"00 : " + timer} style={styles.timerText} />
         </View>
 
-        <Button
-          tx="common.verify"
-          preset="filled"
-          onPress={_verifyOTP}
-          style={otpDisableBtn ? styles.disableVerifyBtn : styles.verifyBtn}
-          disabled={otpDisableBtn}
-        />
+        <Button tx="common.verify" preset="filled" onPress={_verifyOTP} style={styles.verifyBtn} />
         <Button
           tx="common.resend"
           preset="filled"

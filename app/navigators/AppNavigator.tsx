@@ -70,7 +70,7 @@ const AppStack = () => {
           navigationBarColor: colors.background,
           animation: "slide_from_right",
         }}
-        initialRouteName={ScreensEnum.MAIN}
+        initialRouteName={ScreensEnum.SIGNIN}
       >
         <Stack.Screen
           name={ScreensEnum.OTP_VERIFICATION}
@@ -92,13 +92,13 @@ const AppStack = () => {
         }}
         initialRouteName={ScreensEnum.MAIN}
       >
+        <Stack.Screen name={ScreensEnum.MAIN} component={Screens.MainScreen} />
         <Stack.Screen
           name={ScreensEnum.OTP_VERIFICATION}
           component={Screens.OtpVerificationScreen}
         />
         <Stack.Screen name={ScreensEnum.SIGNIN} component={Screens.SignInScreen} />
         <Stack.Screen name={ScreensEnum.SIGNUP} component={Screens.SignUpScreen} />
-        <Stack.Screen name={ScreensEnum.MAIN} component={Screens.MainScreen} />
         <Stack.Screen name={ScreensEnum.FORGOT_PASSWORD} component={Screens.ForgotPasswordScreen} />
         <Stack.Screen name={ScreensEnum.RESET_PASSWORD} component={Screens.ResetPasswordScreen} />
         <Stack.Screen name={ScreensEnum.ADD_TRANSACTION} component={Screens.AddTransactionScreen} />

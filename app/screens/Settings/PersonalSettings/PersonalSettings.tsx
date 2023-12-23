@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
 import { ScrollView, TouchableOpacity, View } from "react-native"
-import { wp } from "app/utils/responsive"
+import { hp, wp } from "app/utils/responsive"
 import { UserI } from "app/store/slices/auth/types"
 import { colors } from "app/theme"
 import { ScreensEnum } from "app/enums"
@@ -52,6 +52,7 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
         const profilePic = await uploadImageToCloudinary(selectedImage)
         updateUser.displayPicture = profilePic.secureURL
       }
+
       await dispatch(updateUserService(updateUser))
     }
     setAlertModalVisible((prev) => !prev)
@@ -76,10 +77,9 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
   }
 
   return (
-    <View style={styles.root}>
+    <>
       <Header title="Edit Profile" leftIcon="back" onLeftPress={() => navigation.goBack()} />
-
-      <ScrollView style={{ paddingHorizontal: wp(5), paddingTop: 20 }}>
+      <ScrollView style={{ flex: 1, paddingHorizontal: wp(5), paddingTop: 20 }}>
         <View style={styles.profilePicContainer}>
           <View style={styles.profilePicBlock}>
             <AutoImage
@@ -129,24 +129,25 @@ export const PersonalSettingScreen: FC<AppStackScreenProps<ScreensEnum.PERSONAL_
           status={validationErrors?.email ? "error" : undefined}
         />
       </ScrollView>
-
-      <View style={{ paddingHorizontal: wp(5) }}>
-        <Button
-          text="Save"
-          preset="filled"
-          style={{ position: "absolute", bottom: 20 }}
-          onPress={updateProfile}
-        />
+      <View
+        style={{
+          position: "absolute",
+          bottom: hp(7),
+          paddingHorizontal: wp(5),
+          flexDirection: "row",
+        }}
+      >
+        <Button text="Save" preset="filled" onPress={updateProfile} />
       </View>
 
       <AlertBox
         checkIcon={true}
         open={alertModalVisible}
         type="success"
-        description="User has been successfully updated"
+        description="User has been updated successfully!"
         onClose={onCloseAlertBoxPress}
         title={""}
       />
-    </View>
+    </>
   )
 }

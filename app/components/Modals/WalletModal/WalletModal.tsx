@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react"
-import { FlatList } from "react-native"
+import { FlatList, View } from "react-native"
 import { TxKeyPath } from "app/i18n"
 import { getAllWallets } from "app/store/slices/wallet/walletService"
 import { TransactionCategoryI } from "app/interfaces"
 import { Text, Button, ListItemCard, ModalHoc } from "app/components"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import styles from "./styles"
+import { ScreensEnum } from "app/enums"
+import { hp } from "app/utils/responsive"
 
 interface Props {
   selectedItem?: TransactionCategoryI
@@ -14,6 +16,7 @@ interface Props {
   titleTx?: TxKeyPath
   onPressClose?: () => void
   onPressDone?: (data: any) => void
+  navigation?: any
 }
 
 export const WalletModal = ({
@@ -23,6 +26,7 @@ export const WalletModal = ({
   titleTx,
   onPressClose,
   onPressDone,
+  navigation,
 }: Props) => {
   const dispatch = useAppDispatch()
   const { wallets, loading: walletsLoading } = useAppSelector((state: RootState) => state.wallet)
@@ -138,7 +142,19 @@ export const WalletModal = ({
         style={styles.flatlistStyles}
         contentContainerStyle={styles.containerStyle}
         ListFooterComponent={FooterComponent}
-        ListEmptyComponent={() => <Text text="Create Wallet First!" preset="subheading" />}
+        ListEmptyComponent={() => (
+          <View>
+            <Text text="You have Empty Wallets!" preset="subheading" />
+            <Button
+              style={{ marginTop: hp(2) }}
+              text={"Create Wallet"}
+              onPress={() => {
+                navigation.navigate(ScreensEnum.CREATE_WALLET)
+              }}
+              preset="filled"
+            />
+          </View>
+        )}
       />
 
       {showDoneBtn && (

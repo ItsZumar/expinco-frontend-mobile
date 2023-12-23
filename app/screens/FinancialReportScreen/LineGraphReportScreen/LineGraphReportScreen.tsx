@@ -43,6 +43,11 @@ export const LineGraphReportScreen = ({ navigation }: LineGraphReportScreenI) =>
     dispatch(getSpendFrequencyService({ orderBy: "MONTH" }))
   }, [])
 
+  useEffect(() => {
+    console.log("month tran === ", monthlyTransactions)
+    console.log("spend freq === ", spendFrequency)
+  }, [])
+
   return (
     <View style={styles.mainContainer}>
       <Text text={`$${getTotalAmount(transactionType)}`} preset="heading" style={styles.amount} />

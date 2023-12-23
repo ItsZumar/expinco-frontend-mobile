@@ -6,13 +6,14 @@ import { ScreensEnum } from "app/enums"
 import { TransactionType } from "app/enums/transactions.enum"
 import { AppStackScreenProps } from "app/navigators"
 import { TransactionCategoryI } from "app/interfaces"
-import { Button, Header, Screen, Text, CategoryModal, WalletModal } from "app/components"
+import { Button, Header, Text, CategoryModal, WalletModal } from "app/components"
 import { RootState, useAppDispatch, useAppSelector } from "app/store/store"
 import { getAllWallets } from "app/store/slices/wallet/walletService"
 import { WalletI } from "app/store/slices/wallet/types"
 import { createTransaction } from "app/store/slices/transaction/transactionService"
 import { launchImageLibrary } from "react-native-image-picker"
 import { uploadImageToCloudinary } from "app/utils/uploadImage"
+import { showMessage } from "react-native-flash-message"
 import Ionicons from "react-native-vector-icons/Ionicons"
 import styles from "./styles"
 
@@ -42,6 +43,7 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
     if (attachmentUpload) {
       await uploadImageToCloudinary(selectedAttachment)
       const file = await uploadImageToCloudinary(selectedAttachment)
+
       await dispatch(
         createTransaction({
           type: type,
@@ -52,9 +54,14 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
           attachments: [file._id],
         }),
       )
-    }
 
-    navigation.goBack()
+      navigation.goBack()
+    } else {
+      showMessage({
+        type: "danger",
+        message: "Error: Something is missing!",
+      })
+    }
   }
 
   const uploadAttachment = async () => {
@@ -179,6 +186,7 @@ export const AddTransactionScreen: FC<AppStackScreenProps<ScreensEnum.ADD_TRANSA
           setSelectedWallet(data[0])
           setShowWalletModal(false)
         }}
+        navigation={navigation}
       />
     </View>
   )

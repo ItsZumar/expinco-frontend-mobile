@@ -78,6 +78,8 @@ export const SignInScreen: FC<SignInScreenProps> = ({ navigation }) => {
       .unwrap()
       .then((response: SigninResponseI) => navigation.navigate(ScreensEnum.MAIN as any))
       .catch((err: Error) => console.log("error", err))
+
+    // setState({ email: "", password: "" })
   }
 
   return (

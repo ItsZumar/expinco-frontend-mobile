@@ -4,8 +4,11 @@ import { getSpendFrequencyService } from "./analyticsService"
 
 const initialState: SpendFrequencyServiceI = {
   loading: false,
-  spendFrequency: null,
-  error: null,
+  spendFrequency: {
+    data: [0, 0, 0, 0, 0],
+    label: ["", "", "", "", ""],
+  },
+  error: "",
 }
 
 export const analyticsSlice = createSlice({

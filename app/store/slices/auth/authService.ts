@@ -20,6 +20,7 @@ export const signupService: any = createAsyncThunk(
   "auth/signup",
   async (payload: SignupPayloadI, { rejectWithValue }) => {
     try {
+      console.log("ok")
       const response: AxiosResponse<SignupResponseI> = await axiosInstance.post(
         `/user/auth/email-signup`,
         {
@@ -30,6 +31,7 @@ export const signupService: any = createAsyncThunk(
         },
       )
 
+      console.log("response === ", response.data.result)
       if (response?.data?.result?.token) {
         saveString(STORAGE_KEYS.USER_TOKEN, response.data.result.token)
       }
@@ -42,8 +44,8 @@ export const signupService: any = createAsyncThunk(
       return response.data
     } catch (response: any) {
       showMessage({
-        type: "success",
-        message: "error occured in signup!",
+        type: "danger",
+        message: `Error ccured during Signup! ${response.data.error}`,
       })
       return rejectWithValue(response.data.error || "Something went wrong!")
     }
@@ -72,9 +74,10 @@ export const signinService: any = createAsyncThunk(
 
       return response.data
     } catch (response: any) {
+      console.log(response.data.error)
       showMessage({
         type: "danger",
-        message: "error occured in logging in!",
+        message: `Error: ${response.data.error}`,
         style: { marginBottom: 20 },
       })
 
@@ -101,7 +104,7 @@ export const verifyEmailService: any = createAsyncThunk(
     } catch (response: any) {
       showMessage({
         type: "danger",
-        message: "error occur in Verification",
+        message: "Error occur during Verification!",
       })
       return rejectWithValue(response.data.error || "Something went wrong!")
     }
@@ -128,7 +131,7 @@ export const resendOtpCode: any = createAsyncThunk(
     } catch (response: any) {
       showMessage({
         type: "danger",
-        message: "error occur in sending OTP",
+        message: "Error occur in sending OTP",
       })
       return rejectWithValue(response.data.error || "Something went wrong!")
     }

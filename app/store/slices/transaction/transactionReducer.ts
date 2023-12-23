@@ -131,7 +131,7 @@ const initialState: TransactionListI = {
   },
   totalIncome: 0,
   totalExpense: 0,
-  error: null,
+  error: "",
 }
 
 export const transactionSlice = createSlice({

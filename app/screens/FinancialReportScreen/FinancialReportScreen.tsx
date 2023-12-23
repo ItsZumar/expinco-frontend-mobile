@@ -21,8 +21,8 @@ const FinancialReportScreen: FC<AppStackScreenProps<ScreensEnum.FINANCIAL_REPORT
     setActiveToggle(toggle)
   }
 
-  const [monthSelectorVisible, setMonthSelectorVisible] = useState(false)
-  const [selectedMonth, setSelectedMonth] = useState(null)
+  const [monthSelectorVisible, setMonthSelectorVisible] = useState<boolean>(false)
+  const [selectedMonth, setSelectedMonth] = useState<string>("")
 
   const handleMonthPress = () => {
     setMonthSelectorVisible(true)
