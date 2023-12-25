@@ -101,7 +101,7 @@ export const DetailTransactionScreen: FC<AppStackScreenProps<ScreensEnum.DETAIL_
 
           <View style={styles.attachmentsContainer}>
             {item.attachments.map((transactionAttach: any) => (
-              <View key={transactionAttach.id}>
+              <View key={transactionAttach._id}>
                 <AutoImage
                   source={{ uri: transactionAttach.secureURL }}
                   style={{

@@ -5,6 +5,8 @@ import { wp } from "app/utils/responsive"
 const styles = StyleSheet.create({
   screenStyle: {
     paddingHorizontal: wp(5),
+    backgroundColor: colors.palette.neutral100,
+    // flex: 1,
   },
   topContainer: {
     flexDirection: "row",

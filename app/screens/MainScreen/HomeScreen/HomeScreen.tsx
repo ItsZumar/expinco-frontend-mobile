@@ -42,9 +42,11 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const [totalIncome, setTotalIncome] = useState<Number>(0)
   const [totalExpense, setTotalExpense] = useState<Number>(0)
   const [transactionsByMonth, setTransactionsByMonth] = useState<any[]>([])
+  const [selectedTimePeriod, setSelectedTimePeriod] = useState("Today")
 
   const handleButtonClick = async (buttonTitle: string) => {
     await dispatch(getSpendFrequencyService({ orderBy: buttonTitle.toUpperCase() }))
+    setSelectedTimePeriod(buttonTitle)
   }
 
   const getTotalIncome = () => {
@@ -122,7 +124,7 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
   }, [navigation])
 
   useEffect(() => {
-    dispatch(getSpendFrequencyService({ orderBy: "YEAR" }))
+    dispatch(getSpendFrequencyService({ orderBy: "TODAY" }))
   }, [])
 
   useEffect(() => {
@@ -219,12 +221,18 @@ export const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
               <MyLineChart data={spendFrequency.data} labels={spendFrequency.label} />
             )}
 
-            {/* <MyLineChart data={spendFrequency.data} labels={spendFrequency.label} /> */}
-
             <View style={styles.graphSortBlock}>
               {["Today", "Week", "Month", "Year"].map((el) => (
                 <TouchableOpacity
-                  style={styles.timeStampBtn}
+                  style={[
+                    styles.timeStampBtn,
+                    {
+                      backgroundColor: el === selectedTimePeriod ? "#fcf3e1" : "#FCEED4",
+                      borderWidth: el === selectedTimePeriod ? wp(0.3) : wp(0),
+                      borderColor: el === selectedTimePeriod ? "orange" : "transparent",
+                    },
+                  ]}
+                  // style={styles.timeStampBtn}
                   key={el}
                   onPress={() => handleButtonClick(el)}
                 >
